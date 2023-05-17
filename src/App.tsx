@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import { CurrencyComponent } from "./components/CurrencyComponent/CurrencyComponent";
 
+import { BsCalculator, BsDownload } from "react-icons/bs";
+import { SiGithub, SiLinkedin, SiTwitter } from "react-icons/si";
+
 function App() {
   const [data, setData] = useState<any>(null);
 
@@ -33,7 +36,30 @@ function App() {
       <div className="extension-divider"></div>
       <CurrencyComponent type="Euro" />
       <div className="extension-divider"></div>
-
+      <div className="btns-container">
+        <button>
+          <BsCalculator />
+          <span>Calculadora</span>
+        </button>
+        <button>
+          <BsDownload />
+          <span>Descargar</span>
+        </button>
+      </div>
+      <footer className="extension-footer">
+        <span>Desarrollado por Luca Cuello</span>
+        <div className="contact-links">
+          <a href="https://github.com/LucaCuello" target="_blank">
+            <SiGithub />
+          </a>
+          <a href="https://www.linkedin.com/in/luca-cuello41/" target="_blank">
+            <SiLinkedin />
+          </a>
+          <a href="https://twitter.com/LucaCuello_" target="_blank">
+            <SiTwitter />
+          </a>
+        </div>
+      </footer>
       {/* <p>Valor venta: ${data?.oficial.value_sell} ARS</p>
       <p>Valor compra: ${data?.oficial.value_buy} ARS</p> */}
     </div>

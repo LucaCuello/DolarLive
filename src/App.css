@@ -19,13 +19,12 @@ body {
   flex-direction: column;
   background-color: #f6edd9;
   width: 300px;
-  height: 600px;
   padding: 0 15px;
 }
 
 .extension-header {
   display: flex;
-  justify-content: center;
+  padding-left: 15px;
   align-items: center;
   width: 300px;
   height: 50px;
@@ -37,12 +36,19 @@ body {
   height: auto;
 }
 
+.extension-header span {
+  font-size: 20px;
+  font-weight: 500;
+  color: #f6edd9;
+  font-family: "Montserrat", sans-serif;
+}
+
 .extension-title {
   display: flex;
   flex-direction: column;
   gap: 2px;
   width: 100%;
-  margin-top: 8px;
+  margin-top: 16px;
 }
 
 .extension-title h1 {
@@ -64,7 +70,7 @@ body {
   width: 100%;
   background-color: #a0afa1;
   border-radius: 40px;
-  margin: 8px 0;
+  margin: 16px 0;
 }
 
 .currency-container {
@@ -104,5 +110,70 @@ body {
   font-size: 16px;
   font-family: "Montserrat", sans-serif;
   font-weight: 700;
+  color: #3d4a3e;
+}
+
+.btns-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.btns-container button {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #739b77;
+  gap: 5px;
+  border: none;
+  padding: 8px;
+  border-radius: 10px;
+  font-family: "League Spartan", sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  color: #f6edd9;
+  transition: all 200ms ease-in-out;
+}
+
+.btns-container button:hover {
+  background-color: #3d4a3e;
+  transition: all 200ms ease-in-out;
+}
+
+.extension-footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 4px;
+  background-color: #739b77;
+  height: 50px;
+  width: 300px;
+  margin-top: 16px;
+}
+
+.extension-footer span {
+  font-size: 12px;
+  color: #f6edd9;
+  font-family: "Montserrat", sans-serif;
+}
+
+.contact-links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+}
+
+.contact-links a {
+  color: #f6edd9;
+  transition: all 150ms ease-in-out;
+}
+
+.contact-links a:hover {
+  transform: scale(1.1);
+  transition: all 150ms ease-in-out;
   color: #3d4a3e;
 }
