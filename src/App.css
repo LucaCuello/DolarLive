@@ -1,42 +1,78 @@
-#root {
-  max-width: 1280px;
+/* #root {
+  width: 300px;
+  height: 600px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+} */
+
+@import url("https://fonts.googleapis.com/css2?family=League+Spartan:wght@100;200;300;400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+/* font-family: 'Montserrat', sans-serif; */
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+body {
+  background-color: rgb(32, 27, 37);
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.extension-container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  background-color: #f6edd9;
+  width: 300px;
+  height: 600px;
+  padding: 0 15px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.extension-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 300px;
+  height: 72px;
+  background-color: #739b77;
 }
 
-.card {
-  padding: 2em;
+.extension-header img {
+  width: 50px;
+  height: auto;
 }
 
-.read-the-docs {
-  color: #888;
+.extension-title {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  width: 100%;
+  margin-top: 8px;
+}
+
+.extension-title h1 {
+  font-size: 28px;
+  font-family: "League Spartan", sans-serif;
+  font-weight: 700;
+  color: #505e88;
+}
+
+.extension-title span {
+  font-size: 12px;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  color: #3d4a3e;
+}
+
+.extension-divider {
+  height: 2px;
+  width: 100%;
+  background-color: #a0afa1;
+  border-radius: 40px;
+  margin-top: 8px;
 }

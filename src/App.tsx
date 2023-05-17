@@ -19,10 +19,18 @@ function App() {
   }, []);
 
   return (
-    <>
-      <p>Valor venta: ${data?.oficial.value_sell} ARS</p>
-      <p>Valor compra: ${data?.oficial.value_buy} ARS</p>
-    </>
+    <div className="extension-container">
+      <header className="extension-header">
+        <img src="/src/assets/logo.png" draggable={false} alt="logo"></img>
+      </header>
+      <div className="extension-title">
+        <h1>Cotización actual</h1>
+        <span>Última actualización: 01/01/2023</span>
+      </div>
+      <div className="extension-divider"></div>
+      {/* <p>Valor venta: ${data?.oficial.value_sell} ARS</p>
+      <p>Valor compra: ${data?.oficial.value_buy} ARS</p> */}
+    </div>
   );
 }
 
