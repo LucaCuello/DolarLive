@@ -29,12 +29,24 @@ function App() {
       </header>
       <div className="extension-title">
         <h1>Cotización actual</h1>
-        <span>Última actualización: 01/01/2023</span>
+        <span>Última actualización: {data?.last_update.slice(0, 10)}</span>
       </div>
       <div className="extension-divider"></div>
-      <CurrencyComponent type="Dólar" />
+      <CurrencyComponent
+        type="Dólar"
+        officialSellValue={data?.oficial.value_sell}
+        OfficialBuyValue={data?.oficial.value_buy}
+        BlueBuyValue={data?.blue.value_buy}
+        BlueSellValue={data?.blue.value_sell}
+      />
       <div className="extension-divider"></div>
-      <CurrencyComponent type="Euro" />
+      <CurrencyComponent
+        type="Euro"
+        officialSellValue={data?.oficial_euro.value_sell}
+        OfficialBuyValue={data?.oficial_euro.value_buy}
+        BlueBuyValue={data?.blue_euro.value_buy}
+        BlueSellValue={data?.blue_euro.value_sell}
+      />
       <div className="extension-divider"></div>
       <div className="btns-container">
         <button>
@@ -60,8 +72,6 @@ function App() {
           </a>
         </div>
       </footer>
-      {/* <p>Valor venta: ${data?.oficial.value_sell} ARS</p>
-      <p>Valor compra: ${data?.oficial.value_buy} ARS</p> */}
     </div>
   );
 }
