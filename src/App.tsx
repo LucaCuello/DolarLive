@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import "./App.css";
+import { CurrencyComponent } from "./components/CurrencyComponent/CurrencyComponent";
 
 function App() {
   const [data, setData] = useState<any>(null);
@@ -28,6 +29,11 @@ function App() {
         <span>Última actualización: 01/01/2023</span>
       </div>
       <div className="extension-divider"></div>
+      <CurrencyComponent type="Dólar" />
+      <div className="extension-divider"></div>
+      <CurrencyComponent type="Euro" />
+      <div className="extension-divider"></div>
+
       {/* <p>Valor venta: ${data?.oficial.value_sell} ARS</p>
       <p>Valor compra: ${data?.oficial.value_buy} ARS</p> */}
     </div>
