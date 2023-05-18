@@ -57,9 +57,13 @@ function App() {
       >
         <h1>{!calculator ? "Cotización actual" : "Calculadora blue"}</h1>
         <span>Última actualización de cambio:</span>
-        <span>
+        <motion.span
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1.8 }}
+        >
           {day}/{month}/{year} a las {hours}:{minutes}hs
-        </span>
+        </motion.span>
       </motion.div>
       <div className="extension-divider"></div>
       {!calculator ? (
