@@ -48,7 +48,7 @@ body {
   flex-direction: column;
   gap: 2px;
   width: 100%;
-  margin-top: 16px;
+  margin-top: 12px;
 }
 
 .extension-title h1 {
@@ -74,7 +74,7 @@ body {
   width: 100%;
   background-color: #a0afa1;
   border-radius: 40px;
-  margin: 16px 0;
+  margin: 14px 0;
 }
 
 .currency-container {
@@ -154,7 +154,7 @@ body {
   background-color: #739b77;
   height: 50px;
   width: 300px;
-  margin-top: 16px;
+  margin-top: 14px;
 }
 
 .extension-footer span {
