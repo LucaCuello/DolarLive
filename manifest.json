@@ -1,6 +1,6 @@
 {
     "manifest_version": 3,
-    "name": "DolarLive: Cotización actualizada del dólar y euro blue para Argentina",
+    "name": "DolarLive: Cotización de dólar y euro blue",
     "version": "1.0.0",
     "action": { "default_popup": "index.html" }
   }
