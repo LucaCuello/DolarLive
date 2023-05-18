@@ -159,6 +159,11 @@ body {
   font-family: "Montserrat", sans-serif;
 }
 
+#name-highlight {
+  color: #3d4a3e;
+  font-weight: 700;
+}
+
 .contact-links {
   display: flex;
   justify-content: center;
