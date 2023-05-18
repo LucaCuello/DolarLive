@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "LiveDolar: Cotización actualizada del dólar",
+  "name": "DolarLive: Cotización actualizada del dólar y euro blue para Argentina",
   "description": "Extensión Argentina que muestra la cotización y una calculadora al día del dólar, euro oficial y blue.",
   "version": "1.0.0",
   "icons": {
