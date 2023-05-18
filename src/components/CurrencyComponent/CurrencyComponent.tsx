@@ -1,3 +1,5 @@
+import { motion } from "framer-motion";
+
 type CurrencyComponentProps = {
   type: string;
   officialSellValue: string;
@@ -14,7 +16,12 @@ export const CurrencyComponent = ({
   BlueBuyValue,
 }: CurrencyComponentProps) => {
   return (
-    <div className="currency-container">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.8, ease: "easeInOut" }}
+      className="currency-container"
+    >
       <div className="type-container">
         <h2>{type} oficial</h2>
         <div className="price-container">
@@ -37,6 +44,6 @@ export const CurrencyComponent = ({
           <span className="price-value">${BlueBuyValue} ARS</span>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };

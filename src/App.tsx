@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import { CurrencyComponent } from "./components/CurrencyComponent/CurrencyComponent";
 
+import { motion } from "framer-motion";
+
 import { BsCalculator } from "react-icons/bs";
 import { SiGithub, SiLinkedin, SiTwitter } from "react-icons/si";
 import { TiArrowBackOutline } from "react-icons/ti";
@@ -29,12 +31,24 @@ function App() {
   return (
     <div className="extension-container">
       <header className="extension-header">
-        <img src="/src/assets/logo.png" draggable={false} alt="logo"></img>
+        <motion.img
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 0.2, ease: "easeIn" }}
+          src="/src/assets/logo.png"
+          draggable={false}
+          alt="logo"
+        ></motion.img>
       </header>
-      <div className="extension-title">
+      <motion.div
+        className="extension-title"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.6, ease: "easeIn" }}
+      >
         <h1>{!calculator ? "Cotización actual" : "Calculadora blue"}</h1>
         <span>Última actualización de cambio: {data?.last_update.slice(0, 10)}</span>
-      </div>
+      </motion.div>
       <div className="extension-divider"></div>
       {!calculator ? (
         <>
@@ -64,7 +78,10 @@ function App() {
       ) : null}
       <div className="extension-divider"></div>
       <div className="btns-container">
-        <button
+        <motion.button
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 0.2, ease: "easeIn" }}
           onClick={() => {
             setCalculator(!calculator);
           }}
@@ -72,7 +89,7 @@ function App() {
           {!calculator ? <BsCalculator /> : <TiArrowBackOutline />}
 
           <span>{!calculator ? "Calculadora blue" : "Atrás"}</span>
-        </button>
+        </motion.button>
       </div>
       <footer className="extension-footer">
         <span>

@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import { useState } from "react";
 
 import { HiCurrencyDollar } from "react-icons/hi";
@@ -15,7 +16,12 @@ export const Calculator = ({ dollarValue, euroValue }: CalculatorProps) => {
   const [euroToArs, setEuroToArs] = useState(0);
 
   return (
-    <div className="calculator-container">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.8, ease: "easeInOut" }}
+      className="calculator-container"
+    >
       <div className="calculator-title">
         <h2>Dólar blue</h2>
         <span>1 dólar = ${dollarValue} ARS</span>
@@ -117,6 +123,6 @@ export const Calculator = ({ dollarValue, euroValue }: CalculatorProps) => {
           <span>EUR</span>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
