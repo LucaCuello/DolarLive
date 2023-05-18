@@ -1,0 +1,14 @@
+{
+  "manifest_version": 3,
+  "name": "LiveDolar: Cotización actualizada del dólar",
+  "description": "Extensión Argentina que muestra la cotización y una calculadora al día del dólar, euro oficial y blue.",
+  "version": "1.0.0",
+  "icons": {
+    "128": "./assets/logo128.png",
+    "48": "./assets/logo48.png",
+    "16": "./assets/logo16.png"
+},
+  "action": {
+    "default_popup": "index.html"
+  }
+}
