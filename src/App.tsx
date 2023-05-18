@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import { CurrencyComponent } from "./components/CurrencyComponent/CurrencyComponent";
 
-import { BsCalculator, BsDownload } from "react-icons/bs";
+import { BsCalculator } from "react-icons/bs";
 import { SiGithub, SiLinkedin, SiTwitter } from "react-icons/si";
 import { TiArrowBackOutline } from "react-icons/ti";
 
@@ -71,14 +71,8 @@ function App() {
         >
           {!calculator ? <BsCalculator /> : <TiArrowBackOutline />}
 
-          <span>{!calculator ? "Calculadora" : "Atrás"}</span>
+          <span>{!calculator ? "Calculadora blue" : "Atrás"}</span>
         </button>
-        {!calculator ? (
-          <button>
-            <BsDownload />
-            <span>Descargar</span>
-          </button>
-        ) : null}
       </div>
       <footer className="extension-footer">
         <span>
