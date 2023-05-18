@@ -67,6 +67,7 @@ body {
 
 .extension-title span:nth-of-type(2) {
   font-weight: 600;
+  height: 12px;
 }
 
 .extension-divider {

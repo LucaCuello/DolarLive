@@ -35,8 +35,6 @@ function App() {
     hours = lastUpdate.getHours(),
     minutes = lastUpdate.getMinutes();
 
-  // console.log();
-
   return (
     <div className="extension-container">
       <header className="extension-header">
@@ -62,7 +60,7 @@ function App() {
           animate={{ opacity: 1 }}
           transition={{ duration: 1.8 }}
         >
-          {day}/{month}/{year} a las {hours}:{minutes}hs
+          {isNaN(day) ? "" : `${day}/${month}/${year} a las ${hours}:${minutes}hs`}
         </motion.span>
       </motion.div>
       <div className="extension-divider"></div>
