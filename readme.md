@@ -7,8 +7,8 @@ La misma fue creada con React y TypeScript mediante el uso de [CRXJS](https://gi
 
 ## Features
 
-<img src="https://iili.io/HgFTI6B.png" border="0">
-<img src="https://iili.io/HgFTDKB.png" border="0">
+<img src="https://iili.io/HgCRWIS.png" border="0">
+<img src="https://iili.io/HgCRGkl.png" border="0">
 
 ## Installation
 
