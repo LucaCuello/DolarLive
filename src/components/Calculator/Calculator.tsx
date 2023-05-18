@@ -8,8 +8,11 @@ type CalculatorProps = {
 };
 
 export const Calculator = ({ dollarValue, euroValue }: CalculatorProps) => {
-  const [usdValue, setUsdValue] = useState(0);
-  const [arsValue, setArsValue] = useState(0);
+  const [usdConversionValue, setUsdConversionValue] = useState(0);
+  const [usdToArs, setUsdToArs] = useState(0);
+
+  const [euroConversionValue, setEuroConversionValue] = useState(0);
+  const [euroToArs, setEuroToArs] = useState(0);
 
   return (
     <div className="calculator-container">
@@ -25,7 +28,7 @@ export const Calculator = ({ dollarValue, euroValue }: CalculatorProps) => {
           <input
             className="input"
             type="number"
-            onChange={(e) => setUsdValue(e.target.valueAsNumber)}
+            onChange={(e) => setUsdConversionValue(e.target.valueAsNumber)}
             placeholder="USD"
             min={0}
           />
@@ -35,7 +38,7 @@ export const Calculator = ({ dollarValue, euroValue }: CalculatorProps) => {
           <input
             className="input-result"
             type="number"
-            value={dollarValue * usdValue}
+            value={dollarValue * usdConversionValue}
           ></input>
           <span>ARS</span>
         </div>
@@ -48,7 +51,7 @@ export const Calculator = ({ dollarValue, euroValue }: CalculatorProps) => {
           <input
             className="input"
             type="number"
-            onChange={(e) => setArsValue(e.target.valueAsNumber)}
+            onChange={(e) => setUsdToArs(e.target.valueAsNumber)}
             placeholder="ARS"
             min={0}
           />
@@ -58,9 +61,60 @@ export const Calculator = ({ dollarValue, euroValue }: CalculatorProps) => {
           <input
             className="input-result"
             type="number"
-            value={(arsValue / dollarValue).toFixed(2)}
+            value={(usdToArs / dollarValue).toFixed(2)}
           ></input>
           <span>USD</span>
+        </div>
+      </div>
+      <div className="extension-divider"></div>
+      <div className="calculator-title">
+        <h2>Euro blue</h2>
+        <span>1 euro = ${euroValue} ARS</span>
+      </div>
+      <div className="conversor-container">
+        <div className="input-container">
+          <div className="coin-container">
+            <HiCurrencyDollar />
+          </div>
+          <input
+            className="input"
+            type="number"
+            onChange={(e) => setEuroConversionValue(e.target.valueAsNumber)}
+            placeholder="EUR"
+            min={0}
+          />
+        </div>
+        <div className="result-container">
+          <span>$</span>
+          <input
+            className="input-result"
+            type="number"
+            value={euroValue * euroConversionValue}
+          ></input>
+          <span>ARS</span>
+        </div>
+      </div>
+      <div className="conversor-container">
+        <div className="input-container">
+          <div className="coin-container">
+            <HiCurrencyDollar />
+          </div>
+          <input
+            className="input"
+            type="number"
+            onChange={(e) => setEuroToArs(e.target.valueAsNumber)}
+            placeholder="ARS"
+            min={0}
+          />
+        </div>
+        <div className="result-container">
+          <span>$</span>
+          <input
+            className="input-result"
+            type="number"
+            value={(euroToArs / euroValue).toFixed(2)}
+          ></input>
+          <span>EUR</span>
         </div>
       </div>
     </div>
