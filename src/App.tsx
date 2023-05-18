@@ -28,6 +28,15 @@ function App() {
     getData();
   }, []);
 
+  const lastUpdate = new Date(data?.last_update),
+    day = lastUpdate.getDate(),
+    month = lastUpdate.getMonth() + 1,
+    year = lastUpdate.getFullYear().toString().slice(2),
+    hours = lastUpdate.getHours(),
+    minutes = lastUpdate.getMinutes();
+
+  // console.log();
+
   return (
     <div className="extension-container">
       <header className="extension-header">
@@ -47,7 +56,10 @@ function App() {
         transition={{ duration: 0.6, ease: "easeIn" }}
       >
         <h1>{!calculator ? "Cotización actual" : "Calculadora blue"}</h1>
-        <span>Última actualización de cambio: {data?.last_update.slice(0, 10)}</span>
+        <span>Última actualización de cambio:</span>
+        <span>
+          {day}/{month}/{year} a las {hours}:{minutes}hs
+        </span>
       </motion.div>
       <div className="extension-divider"></div>
       {!calculator ? (
