@@ -182,3 +182,85 @@ body {
   transition: all 150ms ease-in-out;
   color: #3d4a3e;
 }
+
+.calculator-container {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+}
+
+.calculator-title {
+  margin-bottom: 8px;
+}
+
+.calculator-title h2 {
+  font-size: 24px;
+  font-family: "League Spartan", sans-serif;
+  font-weight: 700;
+  color: #505e88;
+}
+
+.calculator-title span {
+  font-size: 16px;
+  font-family: "League Spartan", sans-serif;
+  font-weight: 600;
+  color: #8390bd;
+}
+
+.input-container {
+  display: flex;
+}
+
+.coin-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  background-color: #f7f7f7;
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+}
+
+.coin-container svg {
+  font-size: 25px;
+  color: #739b77;
+}
+
+.input,
+.input-result {
+  border: none;
+  padding: 10px;
+  width: 70px;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+  background-color: #f7f7f7;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+}
+
+.input-result {
+  width: 90px;
+  border-radius: 8px;
+  background-color: #739b77;
+  margin: 0 4px;
+}
+
+.input:focus,
+.input-result:focus {
+  outline: none;
+}
+
+.conversor-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.conversor-container span {
+  font-size: 12px;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+  color: #3d4a3e;
+  width: 120px;
+}
