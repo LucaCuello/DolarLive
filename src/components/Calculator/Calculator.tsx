@@ -19,7 +19,7 @@ export const Calculator = ({ dollarValue, euroValue }: CalculatorProps) => {
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      transition={{ duration: 0.8, ease: "easeInOut" }}
+      transition={{ duration: 0.5, ease: "easeInOut" }}
       className="calculator-container"
     >
       <div className="calculator-title">

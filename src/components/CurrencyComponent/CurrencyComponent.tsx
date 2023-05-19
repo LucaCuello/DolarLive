@@ -19,7 +19,7 @@ export const CurrencyComponent = ({
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      transition={{ duration: 0.8, ease: "easeInOut" }}
+      transition={{ duration: 0.5, ease: "easeInOut" }}
       className="currency-container"
     >
       <div className="type-container">
@@ -27,9 +27,9 @@ export const CurrencyComponent = ({
         <div className="price-container">
           <span className="price-title">Venta:</span>
           <motion.span
-            initial={{ opacity: 0 }}
-            animate={{ opacity: officialSellValue ? 1 : 0 }}
-            transition={{ duration: 1.2 }}
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: officialSellValue ? 1 : 0, x: 0 }}
+            transition={{ duration: 0.5, ease: "easeInOut" }}
             className="price-value"
           >
             ${officialSellValue} ARS
@@ -38,9 +38,9 @@ export const CurrencyComponent = ({
         <div className="price-container">
           <span className="price-title">Compra:</span>
           <motion.span
-            initial={{ opacity: 0 }}
-            animate={{ opacity: officialSellValue ? 1 : 0 }}
-            transition={{ duration: 1.2 }}
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: officialSellValue ? 1 : 0, x: 0 }}
+            transition={{ duration: 0.5, ease: "easeInOut" }}
             className="price-value"
           >
             ${OfficialBuyValue} ARS
@@ -52,9 +52,9 @@ export const CurrencyComponent = ({
         <div className="price-container">
           <span className="price-title">Venta:</span>
           <motion.span
-            initial={{ opacity: 0 }}
-            animate={{ opacity: officialSellValue ? 1 : 0 }}
-            transition={{ duration: 1.2 }}
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: officialSellValue ? 1 : 0, x: 0 }}
+            transition={{ duration: 0.5, ease: "easeInOut" }}
             className="price-value"
           >
             ${BlueSellValue} ARS
@@ -63,9 +63,9 @@ export const CurrencyComponent = ({
         <div className="price-container">
           <span className="price-title">Compra:</span>
           <motion.span
-            initial={{ opacity: 0 }}
-            animate={{ opacity: officialSellValue ? 1 : 0 }}
-            transition={{ duration: 1.2 }}
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: officialSellValue ? 1 : 0, x: 0 }}
+            transition={{ duration: 0.5, ease: "easeInOut" }}
             className="price-value"
           >
             ${BlueBuyValue} ARS
