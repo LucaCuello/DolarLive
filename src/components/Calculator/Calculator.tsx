@@ -1,7 +1,8 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 
-import { HiCurrencyDollar } from "react-icons/hi";
+import { AiOutlineDollarCircle, AiOutlineEuro } from "react-icons/ai";
+import { FaRegMoneyBillAlt } from "react-icons/fa";
 
 type CalculatorProps = {
   dollarValue: number;
@@ -29,7 +30,7 @@ export const Calculator = ({ dollarValue, euroValue }: CalculatorProps) => {
       <div className="conversor-container">
         <div className="input-container">
           <div className="coin-container">
-            <HiCurrencyDollar />
+            <AiOutlineDollarCircle />
           </div>
           <input
             className="input"
@@ -57,7 +58,7 @@ export const Calculator = ({ dollarValue, euroValue }: CalculatorProps) => {
       <div className="conversor-container">
         <div className="input-container">
           <div className="coin-container">
-            <HiCurrencyDollar />
+            <FaRegMoneyBillAlt />
           </div>
           <input
             className="input"
@@ -88,7 +89,7 @@ export const Calculator = ({ dollarValue, euroValue }: CalculatorProps) => {
       <div className="conversor-container">
         <div className="input-container">
           <div className="coin-container">
-            <HiCurrencyDollar />
+            <AiOutlineEuro />
           </div>
           <input
             className="input"
@@ -116,7 +117,7 @@ export const Calculator = ({ dollarValue, euroValue }: CalculatorProps) => {
       <div className="conversor-container">
         <div className="input-container">
           <div className="coin-container">
-            <HiCurrencyDollar />
+            <FaRegMoneyBillAlt />
           </div>
           <input
             className="input"
