@@ -57,8 +57,8 @@ function App() {
         <span>Última actualización de cambio:</span>
         <motion.span
           initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1.8 }}
+          animate={{ opacity: data ? 1 : 0 }}
+          transition={{ duration: 1.2 }}
         >
           {isNaN(day) ? "" : `${day}/${month}/${year} a las ${hours}:${minutes}hs`}
         </motion.span>

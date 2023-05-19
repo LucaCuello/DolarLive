@@ -28,8 +28,8 @@ export const CurrencyComponent = ({
           <span className="price-title">Venta:</span>
           <motion.span
             initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1.8 }}
+            animate={{ opacity: officialSellValue ? 1 : 0 }}
+            transition={{ duration: 1.2 }}
             className="price-value"
           >
             ${officialSellValue} ARS
@@ -39,8 +39,8 @@ export const CurrencyComponent = ({
           <span className="price-title">Compra:</span>
           <motion.span
             initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1.8 }}
+            animate={{ opacity: officialSellValue ? 1 : 0 }}
+            transition={{ duration: 1.2 }}
             className="price-value"
           >
             ${OfficialBuyValue} ARS
@@ -53,8 +53,8 @@ export const CurrencyComponent = ({
           <span className="price-title">Venta:</span>
           <motion.span
             initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1.8 }}
+            animate={{ opacity: officialSellValue ? 1 : 0 }}
+            transition={{ duration: 1.2 }}
             className="price-value"
           >
             ${BlueSellValue} ARS
@@ -64,8 +64,8 @@ export const CurrencyComponent = ({
           <span className="price-title">Compra:</span>
           <motion.span
             initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1.8 }}
+            animate={{ opacity: officialSellValue ? 1 : 0 }}
+            transition={{ duration: 1.2 }}
             className="price-value"
           >
             ${BlueBuyValue} ARS
