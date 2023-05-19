@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "DolarLive: Cotización de dólar y euro blue",
   "description": "Extensión Argentina que muestra la cotización y una calculadora al día del dólar, euro oficial y blue.",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "icons": {
     "128": "./assets/logo128.png",
     "48": "./assets/logo48.png",
