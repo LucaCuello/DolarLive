@@ -12,6 +12,8 @@ La misma fue creada con React y TypeScript mediante el uso de [CRXJS](https://gi
 
 ## Installation
 
+### Instalación manual
+
 Para instalar la extensión, descargar de este mismo repositorio la carpeta llamada "dolarLiveExtension".
 Luego, en Chrome:
 
@@ -19,4 +21,6 @@ Luego, en Chrome:
 
 Una vez abierto el recruadro de búsqueda de archivos, seleccionar la carpeta "dolarLiveExtension" previamente descargada.
 
-Actualmente la extensión está en etapa de revisión en la store oficial de Chrome, cuando sea aprobada, voy a compartir el link de descarga oficial de la misma.
+### Instalación mediante la store oficial
+
+Para instalar la extensión directo desde la store oficial de Chrome, [clickear aquí](https://t.co/k3usF9snUz).
