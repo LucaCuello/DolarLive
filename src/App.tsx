@@ -11,24 +11,48 @@ import { TiArrowBackOutline } from "react-icons/ti";
 import { Calculator } from "./components/Calculator/Calculator";
 
 function App() {
-  const [data, setData] = useState<any>(null);
+  const [euro, setEuro] = useState<any>(null);
+  const [dolar, setDolar] = useState<any>(null);
   const [calculator, setCalculator] = useState(false);
 
-  const URL = "https://api.bluelytics.com.ar/v2/latest";
+  const URLEuro = "https://api.bluelytics.com.ar/v2/latest";
+  const URLDolar = "https://dolar-api-argentina.vercel.app/v1/dolares/";
 
   useEffect(() => {
-    const getData = async () => {
-      const fetchData = await fetch(URL),
-        json = await fetchData.json(),
-        response = await json;
-
-      setData(response);
+    const getEuro = async () => {
+      try {
+        const fetchData = await fetch(URLEuro),
+          json = await fetchData.json(),
+          response = await json;
+        setEuro(response);
+      } catch (err) {
+        console.log(err);
+      }
     };
 
-    getData();
+    const getDolar = async () => {
+      try {
+        const fetchData = await fetch(URLDolar),
+          json = await fetchData.json(),
+          response = await json;
+
+        const dolarOficial = response[0];
+        const dolarBlue = response[1];
+        const responseObject = {
+          dolarOficial,
+          dolarBlue,
+        };
+        setDolar(responseObject);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    getEuro();
+    getDolar();
   }, []);
 
-  const lastUpdate = new Date(data?.last_update),
+  const lastUpdate = new Date(euro?.last_update),
     day = lastUpdate.getDate(),
     month = lastUpdate.getMonth() + 1,
     year = lastUpdate.getFullYear().toString().slice(2),
@@ -57,7 +81,7 @@ function App() {
         <span>Última actualización de cambio:</span>
         <motion.span
           initial={{ opacity: 0 }}
-          animate={{ opacity: data ? 1 : 0 }}
+          animate={{ opacity: euro ? 1 : 0 }}
           transition={{ duration: 0.5, ease: "easeInOut" }}
         >
           {isNaN(day) ? "" : `${day}/${month}/${year} a las ${hours}:${minutes}hs`}
@@ -69,25 +93,25 @@ function App() {
           {" "}
           <CurrencyComponent
             type="Dólar"
-            officialSellValue={data?.oficial.value_sell}
-            OfficialBuyValue={data?.oficial.value_buy}
-            BlueBuyValue={data?.blue.value_buy}
-            BlueSellValue={data?.blue.value_sell}
+            officialSellValue={dolar?.dolarOficial.venta}
+            OfficialBuyValue={dolar?.dolarOficial.compra}
+            BlueSellValue={dolar?.dolarBlue.venta}
+            BlueBuyValue={dolar?.dolarBlue.compra}
           />
           <div className="extension-divider"></div>
           <CurrencyComponent
             type="Euro"
-            officialSellValue={data?.oficial_euro.value_sell}
-            OfficialBuyValue={data?.oficial_euro.value_buy}
-            BlueBuyValue={data?.blue_euro.value_buy}
-            BlueSellValue={data?.blue_euro.value_sell}
+            officialSellValue={euro?.oficial_euro.value_sell}
+            OfficialBuyValue={euro?.oficial_euro.value_buy}
+            BlueSellValue={euro?.blue_euro.value_sell}
+            BlueBuyValue={euro?.blue_euro.value_buy}
           />{" "}
         </>
       ) : null}
       {calculator ? (
         <Calculator
-          dollarValue={+data?.blue.value_sell}
-          euroValue={+data?.blue_euro.value_sell}
+          dollarValue={+dolar?.dolarBlue.venta}
+          euroValue={+euro?.blue_euro.value_sell}
         />
       ) : null}
       <div className="extension-divider"></div>

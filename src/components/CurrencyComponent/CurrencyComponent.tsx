@@ -2,10 +2,10 @@ import { motion } from "framer-motion";
 
 type CurrencyComponentProps = {
   type: string;
-  officialSellValue: string;
-  OfficialBuyValue: string;
-  BlueSellValue: string;
-  BlueBuyValue: string;
+  officialSellValue: number;
+  OfficialBuyValue: number;
+  BlueSellValue: number;
+  BlueBuyValue: number;
 };
 
 export const CurrencyComponent = ({
@@ -32,7 +32,7 @@ export const CurrencyComponent = ({
             transition={{ duration: 0.5, ease: "easeInOut" }}
             className="price-value"
           >
-            ${officialSellValue} ARS
+            ${Math.round(officialSellValue)} ARS
           </motion.span>
         </div>
         <div className="price-container">
@@ -43,7 +43,7 @@ export const CurrencyComponent = ({
             transition={{ duration: 0.5, ease: "easeInOut" }}
             className="price-value"
           >
-            ${OfficialBuyValue} ARS
+            ${Math.round(OfficialBuyValue)} ARS
           </motion.span>
         </div>
       </div>
