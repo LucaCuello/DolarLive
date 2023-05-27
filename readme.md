@@ -27,3 +27,7 @@ Luego, en Chrome:
 `Más herramientas > Extensiones > Activar modo desarrollador > Cargar descomprimida.`
 
 Una vez abierto el recruadro de búsqueda de archivos, seleccionar la carpeta "dolarLiveExtension" previamente descargada.
+
+## Other
+
+Mención y agradecimiento a [Enzo Notario](https://github.com/enzonotario) y [Pablo Seibelt](https://github.com/Bluelytics) por ser los creadores de las APIS que utilicé para hacer posible este proyecto 😁
