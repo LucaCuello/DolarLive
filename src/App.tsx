@@ -4,7 +4,9 @@ import { CurrencyComponent } from "./components/CurrencyComponent/CurrencyCompon
 
 import { motion } from "framer-motion";
 
+import { AiOutlinePushpin } from "react-icons/ai";
 import { BsCalculator } from "react-icons/bs";
+import { LuPinOff } from "react-icons/lu";
 import { SiGithub, SiLinkedin, SiTwitter } from "react-icons/si";
 import { TiArrowBackOutline } from "react-icons/ti";
 
@@ -17,6 +19,26 @@ function App() {
 
   const URLEuro = "https://api.bluelytics.com.ar/v2/latest";
   const URLDolar = "https://dolar-api-argentina.vercel.app/v1/dolares/";
+
+  const storageView = (state: boolean) => {
+    localStorage.setItem("IsCalculatorSticky", state.toString());
+  };
+
+  const getStorageView = () => {
+    const storage = localStorage.getItem("IsCalculatorSticky");
+    if (!storage) return;
+    if (storage === "true") {
+      setCalculator(true);
+    } else {
+      setCalculator(false);
+    }
+  };
+
+  const getStorageViewValue = () => {
+    const storage = localStorage.getItem("IsCalculatorSticky");
+    if (!storage) return;
+    return storage === "true";
+  };
 
   useEffect(() => {
     const getEuro = async () => {
@@ -48,6 +70,7 @@ function App() {
       }
     };
 
+    getStorageView();
     getEuro();
     getDolar();
   }, []);
@@ -108,12 +131,7 @@ function App() {
           />{" "}
         </>
       ) : null}
-      {calculator ? (
-        <Calculator
-          dollarValue={+dolar?.dolarBlue.venta}
-          euroValue={+euro?.blue_euro.value_sell}
-        />
-      ) : null}
+      {calculator ? <Calculator dollarValue={+dolar?.dolarBlue.venta} euroValue={+euro?.blue_euro.value_sell} /> : null}
       <div className="extension-divider"></div>
       <div className="btns-container">
         <motion.button
@@ -128,7 +146,49 @@ function App() {
 
           <span>{!calculator ? "Calculadora blue" : "Atrás"}</span>
         </motion.button>
+        {/* {calculator ? (
+          <motion.button
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            transition={{ duration: 0.2, ease: "easeIn" }}
+            onClick={() => {
+              storageView(true);
+            }}
+          >
+            <AiOutlinePushpin />
+            Fijar calculadora
+          </motion.button>
+        ) : null} */}
+
+        {calculator ? (
+          getStorageViewValue() ? (
+            <motion.button
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ duration: 0.2, ease: "easeIn" }}
+              onClick={() => {
+                storageView(false);
+              }}
+            >
+              <LuPinOff />
+              Desfijar
+            </motion.button>
+          ) : (
+            <motion.button
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ duration: 0.2, ease: "easeIn" }}
+              onClick={() => {
+                storageView(true);
+              }}
+            >
+              <AiOutlinePushpin />
+              Fijar calculadora
+            </motion.button>
+          )
+        ) : null}
       </div>
+      {/* {getStorageViewValue() ? <button>Desfijar</button> : <button>Fijar</button>} */}
       <footer className="extension-footer">
         <span>
           Developed by <span id="name-highlight">Luca Cuello</span>

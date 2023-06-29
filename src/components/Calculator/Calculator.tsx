@@ -45,11 +45,7 @@ export const Calculator = ({ dollarValue, euroValue }: CalculatorProps) => {
           <input
             className="input-result"
             type="number"
-            value={
-              isNaN(dollarValue * usdConversionValue)
-                ? 0
-                : dollarValue * usdConversionValue
-            }
+            value={isNaN(dollarValue * usdConversionValue) ? 0 : dollarValue * usdConversionValue}
             readOnly={true}
           ></input>
           <span>ARS</span>
@@ -73,9 +69,7 @@ export const Calculator = ({ dollarValue, euroValue }: CalculatorProps) => {
           <input
             className="input-result"
             type="number"
-            value={
-              isNaN(usdToArs / dollarValue) ? 0 : (usdToArs / dollarValue).toFixed(2)
-            }
+            value={isNaN(usdToArs / dollarValue) ? 0 : (usdToArs / dollarValue).toFixed(2)}
             readOnly={true}
           ></input>
           <span>USD</span>
@@ -104,11 +98,7 @@ export const Calculator = ({ dollarValue, euroValue }: CalculatorProps) => {
           <input
             className="input-result"
             type="number"
-            value={
-              isNaN(euroValue * euroConversionValue)
-                ? 0
-                : euroValue * euroConversionValue
-            }
+            value={isNaN(euroValue * euroConversionValue) ? 0 : euroValue * euroConversionValue}
             readOnly={true}
           ></input>
           <span>ARS</span>
@@ -132,9 +122,7 @@ export const Calculator = ({ dollarValue, euroValue }: CalculatorProps) => {
           <input
             className="input-result"
             type="number"
-            value={
-              isNaN(euroToArs / euroValue) ? 0 : (euroToArs / euroValue).toFixed(2)
-            }
+            value={isNaN(euroToArs / euroValue) ? 0 : (euroToArs / euroValue).toFixed(2)}
             readOnly={true}
           ></input>
           <span>EUR</span>
