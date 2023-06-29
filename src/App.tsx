@@ -1,16 +1,19 @@
+import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import "./App.css";
-import { CurrencyComponent } from "./components/CurrencyComponent/CurrencyComponent";
 
-import { motion } from "framer-motion";
-
+// Icons
 import { AiOutlinePushpin } from "react-icons/ai";
 import { BsCalculator } from "react-icons/bs";
 import { LuPinOff } from "react-icons/lu";
-import { SiGithub, SiLinkedin, SiTwitter } from "react-icons/si";
 import { TiArrowBackOutline } from "react-icons/ti";
 
+// Components
 import { Calculator } from "./components/Calculator/Calculator";
+import { CurrencyComponent } from "./components/CurrencyComponent/CurrencyComponent";
+import { Footer } from "./components/Footer/Footer";
+import { Header } from "./components/Header/Header";
+import { Title } from "./components/Title/Title";
 
 function App() {
   const [euro, setEuro] = useState<any>(null);
@@ -82,38 +85,22 @@ function App() {
     hours = lastUpdate.getHours(),
     minutes = lastUpdate.getMinutes();
 
+  const variants = {
+    hidden: { scale: 0 },
+    visible: () => ({
+      scale: 1,
+      transition: { duration: 0.2, ease: "easeIn" },
+    }),
+  };
+
   return (
     <div className="extension-container">
-      <header className="extension-header">
-        <motion.img
-          initial={{ scale: 0 }}
-          animate={{ scale: 1 }}
-          transition={{ duration: 0.2, ease: "easeIn" }}
-          src="/src/assets/logo.png"
-          draggable={false}
-          alt="logo"
-        ></motion.img>
-      </header>
-      <motion.div
-        className="extension-title"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5, ease: "easeInOut" }}
-      >
-        <h1>{!calculator ? "Cotización actual" : "Calculadora blue"}</h1>
-        <span>Última actualización de cambio:</span>
-        <motion.span
-          initial={{ opacity: 0 }}
-          animate={{ opacity: euro ? 1 : 0 }}
-          transition={{ duration: 0.5, ease: "easeInOut" }}
-        >
-          {isNaN(day) ? "" : `${day}/${month}/${year} a las ${hours}:${minutes}hs`}
-        </motion.span>
-      </motion.div>
+      <Header />
+      <Title day={day} month={month} year={year} hours={hours} minutes={minutes} calculator={calculator} euro={euro} />
+
       <div className="extension-divider"></div>
       {!calculator ? (
         <>
-          {" "}
           <CurrencyComponent
             type="Dólar"
             officialSellValue={dolar?.dolarOficial.venta}
@@ -128,16 +115,16 @@ function App() {
             OfficialBuyValue={euro?.oficial_euro.value_buy}
             BlueSellValue={euro?.blue_euro.value_sell}
             BlueBuyValue={euro?.blue_euro.value_buy}
-          />{" "}
+          />
         </>
       ) : null}
       {calculator ? <Calculator dollarValue={+dolar?.dolarBlue.venta} euroValue={+euro?.blue_euro.value_sell} /> : null}
       <div className="extension-divider"></div>
       <div className="btns-container">
         <motion.button
-          initial={{ scale: 0 }}
-          animate={{ scale: 1 }}
-          transition={{ duration: 0.2, ease: "easeIn" }}
+          initial="hidden"
+          animate="visible"
+          variants={variants}
           onClick={() => {
             setCalculator(!calculator);
           }}
@@ -146,26 +133,13 @@ function App() {
 
           <span>{!calculator ? "Calculadora blue" : "Atrás"}</span>
         </motion.button>
-        {/* {calculator ? (
-          <motion.button
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ duration: 0.2, ease: "easeIn" }}
-            onClick={() => {
-              storageView(true);
-            }}
-          >
-            <AiOutlinePushpin />
-            Fijar calculadora
-          </motion.button>
-        ) : null} */}
 
         {calculator ? (
           getStorageViewValue() ? (
             <motion.button
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              transition={{ duration: 0.2, ease: "easeIn" }}
+              initial="hidden"
+              animate="visible"
+              variants={variants}
               onClick={() => {
                 storageView(false);
               }}
@@ -175,9 +149,9 @@ function App() {
             </motion.button>
           ) : (
             <motion.button
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              transition={{ duration: 0.2, ease: "easeIn" }}
+              initial="hidden"
+              animate="visible"
+              variants={variants}
               onClick={() => {
                 storageView(true);
               }}
@@ -188,23 +162,7 @@ function App() {
           )
         ) : null}
       </div>
-      {/* {getStorageViewValue() ? <button>Desfijar</button> : <button>Fijar</button>} */}
-      <footer className="extension-footer">
-        <span>
-          Developed by <span id="name-highlight">Luca Cuello</span>
-        </span>
-        <div className="contact-links">
-          <a href="https://github.com/LucaCuello" target="_blank">
-            <SiGithub />
-          </a>
-          <a href="https://www.linkedin.com/in/luca-cuello41/" target="_blank">
-            <SiLinkedin />
-          </a>
-          <a href="https://twitter.com/LucaCuello_" target="_blank">
-            <SiTwitter />
-          </a>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }
