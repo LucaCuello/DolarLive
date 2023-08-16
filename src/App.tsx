@@ -21,7 +21,7 @@ function App() {
   const [calculator, setCalculator] = useState(false);
 
   const URLEuro = "https://api.bluelytics.com.ar/v2/latest";
-  const URLDolar = "https://dolar-api-argentina.vercel.app/v1/dolares/";
+  const URLDolar = "https://dolarapi.com/v1/dolares/";
 
   const storageView = (state: boolean) => {
     localStorage.setItem("IsCalculatorSticky", state.toString());
