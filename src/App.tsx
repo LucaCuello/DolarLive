@@ -19,6 +19,7 @@ function App() {
   const [euro, setEuro] = useState<any>(null);
   const [dolar, setDolar] = useState<any>(null);
   const [calculator, setCalculator] = useState(false);
+  const [test, setTest] = useState(false);
 
   const URLEuro = "https://api.bluelytics.com.ar/v2/latest";
   const URLDolar = "https://dolarapi.com/v1/dolares/";
@@ -91,6 +92,10 @@ function App() {
       scale: 1,
       transition: { duration: 0.2, ease: "easeIn" },
     }),
+    test: () => ({
+      opacity: 0,
+      transition: { duration: 0.2, ease: "easeIn" },
+    }),
   };
 
   return (
@@ -142,6 +147,8 @@ function App() {
               variants={variants}
               onClick={() => {
                 storageView(false);
+                getStorageView();
+                setTest(false);
               }}
             >
               <LuPinOff />
@@ -150,10 +157,12 @@ function App() {
           ) : (
             <motion.button
               initial="hidden"
-              animate="visible"
+              animate={test ? "test" : "visible"}
               variants={variants}
               onClick={() => {
                 storageView(true);
+                getStorageView();
+                setTest(true);
               }}
             >
               <AiOutlinePushpin />
