@@ -30,15 +30,16 @@ body {
 
 .extension-header {
   display: flex;
-  padding-left: 15px;
   align-items: center;
+  justify-content: center;
   width: 320px;
   height: 50px;
+  border-radius: 0 0 100px 100px;
   background-color: #739b77;
 }
 
 .extension-header img {
-  width: 35px;
+  width: 40px;
   height: auto;
 }
 
@@ -58,10 +59,12 @@ body {
 }
 
 .extension-title h1 {
-  font-size: 28px;
-  font-family: "League Spartan", sans-serif;
-  font-weight: 700;
-  color: #505e88;
+  font-size: 24px;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: #536e56;
+  letter-spacing: -1px;
 }
 
 .extension-title span {
@@ -101,7 +104,7 @@ body {
   font-size: 24px;
   font-family: "League Spartan", sans-serif;
   font-weight: 700;
-  color: #505e88;
+  color: #739b77;
 }
 
 .price-container {
@@ -114,7 +117,7 @@ body {
   font-size: 20px;
   font-family: "League Spartan", sans-serif;
   font-weight: 600;
-  color: #8390bd;
+  color: #707070;
 }
 
 .price-container .price-value {
@@ -148,7 +151,7 @@ body {
 }
 
 .btns-container button:hover {
-  background-color: #3d4a3e;
+  background-color: #6e7c6f;
   transition: all 200ms ease-in-out;
 }
 
@@ -159,6 +162,7 @@ body {
   flex-direction: column;
   gap: 4px;
   background-color: #739b77;
+  border-radius: 100px 100px 0 0;
   height: 50px;
   width: 320px;
   margin-top: 14px;
@@ -171,8 +175,7 @@ body {
 }
 
 #name-highlight {
-  color: #3d4a3e;
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .contact-links {
@@ -191,7 +194,7 @@ body {
 .contact-links a:hover {
   transform: scale(1.1);
   transition: all 150ms ease-in-out;
-  color: #3d4a3e;
+  color: #4e534f;
 }
 
 .calculator-container {
@@ -209,14 +212,14 @@ body {
   font-size: 24px;
   font-family: "League Spartan", sans-serif;
   font-weight: 700;
-  color: #505e88;
+  color: #739b77;
 }
 
 .calculator-title span {
   font-size: 16px;
   font-family: "League Spartan", sans-serif;
   font-weight: 600;
-  color: #8390bd;
+  color: #707070;
 }
 
 .input-container {

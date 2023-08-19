@@ -37,6 +37,7 @@ export const Calculator = ({ dollarValue, euroValue }: CalculatorProps) => {
             type="number"
             onChange={(e) => setUsdConversionValue(e.target.valueAsNumber)}
             placeholder="USD"
+            autoFocus={true}
             min={0}
           />
         </div>

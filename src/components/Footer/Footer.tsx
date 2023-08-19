@@ -4,7 +4,7 @@ export const Footer = () => {
   return (
     <footer className="extension-footer">
       <span>
-        Developed by <span id="name-highlight">Luca Cuello</span>
+        Developed by <span id="name-highlight">Luca</span>
       </span>
       <div className="contact-links">
         <a href="https://github.com/LucaCuello" target="_blank">
