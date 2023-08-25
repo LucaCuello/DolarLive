@@ -1,7 +1,8 @@
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 
 import { AiOutlineDollarCircle, AiOutlineEuro } from "react-icons/ai";
+import { BsTrash } from "react-icons/bs";
 import { FaRegMoneyBillAlt } from "react-icons/fa";
 
 type CalculatorProps = {
@@ -10,11 +11,11 @@ type CalculatorProps = {
 };
 
 export const Calculator = ({ dollarValue, euroValue }: CalculatorProps) => {
-  const [usdConversionValue, setUsdConversionValue] = useState(0);
-  const [usdToArs, setUsdToArs] = useState(0);
+  const [usdConversionValue, setUsdConversionValue] = useState<string | number>("");
+  const [usdToArs, setUsdToArs] = useState<string | number>("");
 
-  const [euroConversionValue, setEuroConversionValue] = useState(0);
-  const [euroToArs, setEuroToArs] = useState(0);
+  const [euroConversionValue, setEuroConversionValue] = useState<string | number>("");
+  const [euroToArs, setEuroToArs] = useState<string | number>("");
 
   return (
     <motion.div
@@ -39,14 +40,36 @@ export const Calculator = ({ dollarValue, euroValue }: CalculatorProps) => {
             placeholder="USD"
             autoFocus={true}
             min={0}
+            value={usdConversionValue}
           />
+          <div className="delete-container">
+            <AnimatePresence>
+              {usdConversionValue ? (
+                <motion.span
+                  initial={{ opacity: 0, scale: 0, y: -25 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0, y: 25 }}
+                  transition={{ duration: 0.3, ease: "easeInOut" }}
+                >
+                  <BsTrash
+                    onClick={() => {
+                      setUsdConversionValue("");
+                    }}
+                  />
+                </motion.span>
+              ) : null}
+            </AnimatePresence>
+          </div>
         </div>
         <div className="result-container">
           <span>$</span>
           <input
             className="input-result"
-            type="number"
-            value={isNaN(dollarValue * usdConversionValue) ? 0 : dollarValue * usdConversionValue}
+            type="text"
+            value={
+              isNaN(dollarValue * +usdConversionValue) ? 0 : (dollarValue * +usdConversionValue).toLocaleString("es-ES")
+            }
+            disabled={true}
             readOnly={true}
           ></input>
           <span>ARS</span>
@@ -63,14 +86,34 @@ export const Calculator = ({ dollarValue, euroValue }: CalculatorProps) => {
             onChange={(e) => setUsdToArs(e.target.valueAsNumber)}
             placeholder="ARS"
             min={0}
+            value={usdToArs}
           />
+          <div className="delete-container">
+            <AnimatePresence>
+              {usdToArs ? (
+                <motion.span
+                  initial={{ opacity: 0, scale: 0, y: -25 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0, y: 25 }}
+                  transition={{ duration: 0.3, ease: "easeInOut" }}
+                >
+                  <BsTrash
+                    onClick={() => {
+                      setUsdToArs("");
+                    }}
+                  />
+                </motion.span>
+              ) : null}
+            </AnimatePresence>
+          </div>
         </div>
         <div className="result-container">
           <span>$</span>
           <input
             className="input-result"
-            type="number"
-            value={isNaN(usdToArs / dollarValue) ? 0 : (usdToArs / dollarValue).toFixed(2)}
+            type="text"
+            value={isNaN(+usdToArs / dollarValue) ? 0 : (+usdToArs / dollarValue).toFixed(2)}
+            disabled={true}
             readOnly={true}
           ></input>
           <span>USD</span>
@@ -92,14 +135,36 @@ export const Calculator = ({ dollarValue, euroValue }: CalculatorProps) => {
             onChange={(e) => setEuroConversionValue(e.target.valueAsNumber)}
             placeholder="EUR"
             min={0}
+            value={euroConversionValue}
           />
+          <div className="delete-container">
+            <AnimatePresence>
+              {euroConversionValue ? (
+                <motion.span
+                  initial={{ opacity: 0, scale: 0, y: -25 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0, y: 25 }}
+                  transition={{ duration: 0.3, ease: "easeInOut" }}
+                >
+                  <BsTrash
+                    onClick={() => {
+                      setEuroConversionValue("");
+                    }}
+                  />
+                </motion.span>
+              ) : null}
+            </AnimatePresence>
+          </div>
         </div>
         <div className="result-container">
           <span>$</span>
           <input
             className="input-result"
-            type="number"
-            value={isNaN(euroValue * euroConversionValue) ? 0 : euroValue * euroConversionValue}
+            type="text"
+            value={
+              isNaN(euroValue * +euroConversionValue) ? 0 : (euroValue * +euroConversionValue).toLocaleString("es-ES")
+            }
+            disabled={true}
             readOnly={true}
           ></input>
           <span>ARS</span>
@@ -116,14 +181,34 @@ export const Calculator = ({ dollarValue, euroValue }: CalculatorProps) => {
             onChange={(e) => setEuroToArs(e.target.valueAsNumber)}
             placeholder="ARS"
             min={0}
+            value={euroToArs}
           />
+          <div className="delete-container">
+            <AnimatePresence>
+              {euroToArs ? (
+                <motion.span
+                  initial={{ opacity: 0, scale: 0, y: -25 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0, y: 25 }}
+                  transition={{ duration: 0.3, ease: "easeInOut" }}
+                >
+                  <BsTrash
+                    onClick={() => {
+                      setEuroToArs("");
+                    }}
+                  />
+                </motion.span>
+              ) : null}
+            </AnimatePresence>
+          </div>
         </div>
         <div className="result-container">
           <span>$</span>
           <input
             className="input-result"
-            type="number"
-            value={isNaN(euroToArs / euroValue) ? 0 : (euroToArs / euroValue).toFixed(2)}
+            type="text"
+            value={isNaN(+euroToArs / euroValue) ? 0 : (+euroToArs / euroValue).toFixed(2)}
+            disabled={true}
             readOnly={true}
           ></input>
           <span>EUR</span>
