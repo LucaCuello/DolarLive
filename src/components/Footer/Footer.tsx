@@ -1,22 +1,58 @@
+import { BiSolidCoffeeAlt } from "react-icons/bi";
 import { SiGithub, SiLinkedin, SiTwitter } from "react-icons/si";
+import { Tooltip } from "react-tooltip";
+
+const toolTipStyles = {
+  backgroundColor: "#f6edd9",
+  fontFamily: "'Montserrat', sans-serif",
+  color: "#222",
+  fontSize: "12px",
+  opacity: 1,
+};
 
 export const Footer = () => {
   return (
     <footer className="extension-footer">
-      <span>
-        Developed by <span id="name-highlight">Luca</span>
-      </span>
+      <div className="contact-colab-links">
+        <span>
+          Developed by <span id="name-highlight">Luca</span>
+        </span>
+      </div>
       <div className="contact-links">
-        <a href="https://github.com/LucaCuello" target="_blank">
+        <a
+          data-tooltip-id="tooltip"
+          data-tooltip-content="Dejale una estrellita al repo ;)"
+          href="https://github.com/LucaCuello/DolarLive"
+          target="_blank"
+        >
           <SiGithub />
         </a>
-        <a href="https://www.linkedin.com/in/luca-cuello41/" target="_blank">
+        <a
+          data-tooltip-id="tooltip"
+          data-tooltip-content="Conectemos en LinkedIn :)"
+          href="https://www.linkedin.com/in/luca-cuello41/"
+          target="_blank"
+        >
           <SiLinkedin />
         </a>
-        <a href="https://twitter.com/LucaCuello_" target="_blank">
+        <a
+          data-tooltip-id="tooltip"
+          data-tooltip-content="Seguime en Twitter!"
+          href="https://twitter.com/LucaCuello_"
+          target="_blank"
+        >
           <SiTwitter />
         </a>
+        <a
+          data-tooltip-id="tooltip"
+          data-tooltip-content="Invitame un cafecito :D"
+          href="https://cafecito.app/lucacuello"
+          target="_blank"
+        >
+          <BiSolidCoffeeAlt />
+        </a>
       </div>
+      <Tooltip id="tooltip" classNameArrow="tooltip-arrow" style={toolTipStyles} />
     </footer>
   );
 };

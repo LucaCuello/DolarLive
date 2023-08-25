@@ -101,7 +101,7 @@ body {
 }
 
 .type-container h2 {
-  font-size: 24px;
+  font-size: 22px;
   font-family: "League Spartan", sans-serif;
   font-weight: 700;
   color: #739b77;
@@ -129,7 +129,7 @@ body {
 
 .btns-container {
   display: flex;
-  gap: 15px;
+  gap: 10px;
   width: 100%;
 }
 
@@ -144,7 +144,7 @@ body {
   padding: 8px;
   border-radius: 10px;
   font-family: "League Spartan", sans-serif;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 400;
   color: #f6edd9;
   transition: all 200ms ease-in-out;
@@ -168,10 +168,17 @@ body {
   margin-top: 14px;
 }
 
-.extension-footer span {
+.contact-colab-links span {
   font-size: 12px;
   color: #f6edd9;
   font-family: "Montserrat", sans-serif;
+}
+
+.contact-colab-links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 #name-highlight {
@@ -209,7 +216,7 @@ body {
 }
 
 .calculator-title h2 {
-  font-size: 24px;
+  font-size: 22px;
   font-family: "League Spartan", sans-serif;
   font-weight: 700;
   color: #739b77;
