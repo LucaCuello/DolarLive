@@ -7,7 +7,6 @@ const toolTipStyles = {
   fontFamily: "'Montserrat', sans-serif",
   color: "#222",
   fontSize: "12px",
-  opacity: 1,
 };
 
 export const Footer = () => {
@@ -52,7 +51,13 @@ export const Footer = () => {
           <BiSolidCoffeeAlt />
         </a>
       </div>
-      <Tooltip id="tooltip" classNameArrow="tooltip-arrow" style={toolTipStyles} />
+      <Tooltip
+        id="tooltip"
+        opacity={1}
+        border={"1px solid #536e5665"}
+        classNameArrow="tooltip-arrow"
+        style={toolTipStyles}
+      />
     </footer>
   );
 };
