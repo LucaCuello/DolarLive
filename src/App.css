@@ -24,7 +24,7 @@ body {
   align-items: center;
   flex-direction: column;
   background-color: #f6edd9;
-  width: 320px;
+  width: 350px;
   padding: 0 15px;
 }
 
@@ -32,14 +32,14 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 320px;
+  width: 350px;
   height: 50px;
   border-radius: 0 0 100px 100px;
   background-color: #739b77;
 }
 
 .extension-header img {
-  width: 40px;
+  width: 35px;
   height: auto;
 }
 
@@ -164,7 +164,7 @@ body {
   background-color: #739b77;
   border-radius: 100px 100px 0 0;
   height: 50px;
-  width: 320px;
+  width: 350px;
   margin-top: 14px;
 }
 
@@ -269,28 +269,27 @@ body {
 }
 
 .coin-container svg {
-  font-size: 25px;
+  font-size: 23px;
   color: #739b77;
 }
 
 .input,
 .input-result {
   border: none;
-  padding: 10px;
-  /* border-top-right-radius: 8px; */
-  /* border-bottom-right-radius: 8px; */
+  padding: 10px 0;
   background-color: #f7f7f7;
   font-family: "Montserrat", sans-serif;
   font-weight: 600;
 }
 
 .input {
-  width: 80px;
+  width: 120px;
 }
 
 .input-result {
   cursor: default;
-  width: 95px;
+  padding: 10px 5px;
+  width: 130px;
   border-radius: 8px;
   background-color: #739b77;
   color: white;
