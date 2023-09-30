@@ -11,10 +11,14 @@ type CalculatorProps = {
 };
 
 export const Calculator = ({ dollarValue, euroValue }: CalculatorProps) => {
-  const [usdConversionValue, setUsdConversionValue] = useState<string | number>("");
+  const [usdConversionValue, setUsdConversionValue] = useState<string | number>(
+    ""
+  );
   const [usdToArs, setUsdToArs] = useState<string | number>("");
 
-  const [euroConversionValue, setEuroConversionValue] = useState<string | number>("");
+  const [euroConversionValue, setEuroConversionValue] = useState<
+    string | number
+  >("");
   const [euroToArs, setEuroToArs] = useState<string | number>("");
 
   return (
@@ -84,7 +88,11 @@ export const Calculator = ({ dollarValue, euroValue }: CalculatorProps) => {
             disabled={true}
             readOnly={true}
             decimalsLimit={2}
-            value={isNaN(dollarValue * +usdConversionValue) ? 0 : dollarValue * +usdConversionValue}
+            value={
+              isNaN(dollarValue * +usdConversionValue)
+                ? 0
+                : dollarValue * +usdConversionValue
+            }
           ></CurrencyInput>
         </div>
       </div>
@@ -142,8 +150,9 @@ export const Calculator = ({ dollarValue, euroValue }: CalculatorProps) => {
             intlConfig={{ locale: "en-US", currency: "USD" }}
             disabled={true}
             readOnly={true}
-            decimalsLimit={1}
-            value={isNaN(+usdToArs / dollarValue) ? 0 : (+usdToArs / dollarValue).toFixed(2)}
+            decimalsLimit={2}
+            decimalScale={2}
+            value={isNaN(+usdToArs / dollarValue) ? 0 : +usdToArs / dollarValue}
           ></CurrencyInput>
         </div>
       </div>
@@ -207,7 +216,11 @@ export const Calculator = ({ dollarValue, euroValue }: CalculatorProps) => {
             disabled={true}
             readOnly={true}
             decimalsLimit={2}
-            value={isNaN(euroValue * +euroConversionValue) ? 0 : euroValue * +euroConversionValue}
+            value={
+              isNaN(euroValue * +euroConversionValue)
+                ? 0
+                : euroValue * +euroConversionValue
+            }
           ></CurrencyInput>
         </div>
       </div>
@@ -266,7 +279,8 @@ export const Calculator = ({ dollarValue, euroValue }: CalculatorProps) => {
             disabled={true}
             readOnly={true}
             decimalsLimit={2}
-            value={isNaN(+euroToArs / euroValue) ? 0 : (+euroToArs / euroValue).toFixed(2)}
+            decimalScale={2}
+            value={isNaN(+euroToArs / euroValue) ? 0 : +euroToArs / euroValue}
           ></CurrencyInput>
         </div>
       </div>
