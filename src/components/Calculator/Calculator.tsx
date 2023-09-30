@@ -84,7 +84,7 @@ export const Calculator = ({ dollarValue, euroValue }: CalculatorProps) => {
             name="input-name"
             groupSeparator="."
             decimalSeparator=","
-            intlConfig={{ locale: "es-ES", currency: "ARS" }}
+            intlConfig={{ locale: "en-US", currency: "USD" }}
             disabled={true}
             readOnly={true}
             decimalsLimit={2}
@@ -109,7 +109,7 @@ export const Calculator = ({ dollarValue, euroValue }: CalculatorProps) => {
             placeholder="ARS"
             groupSeparator="."
             decimalSeparator=","
-            intlConfig={{ locale: "es-ES", currency: "ARS" }}
+            intlConfig={{ locale: "en-US", currency: "USD" }}
             decimalsLimit={2}
             value={usdToArs}
             onValueChange={(value) => {
@@ -174,7 +174,7 @@ export const Calculator = ({ dollarValue, euroValue }: CalculatorProps) => {
             placeholder="EUR"
             groupSeparator="."
             decimalSeparator=","
-            intlConfig={{ locale: "es-ES", currency: "EUR" }}
+            intlConfig={{ locale: "en-US", currency: "USD" }}
             decimalsLimit={2}
             value={euroConversionValue}
             onValueChange={(value) => {
@@ -212,7 +212,7 @@ export const Calculator = ({ dollarValue, euroValue }: CalculatorProps) => {
             name="input-name"
             groupSeparator="."
             decimalSeparator=","
-            intlConfig={{ locale: "es-ES", currency: "ARS" }}
+            intlConfig={{ locale: "en-US", currency: "USD" }}
             disabled={true}
             readOnly={true}
             decimalsLimit={2}
@@ -237,7 +237,7 @@ export const Calculator = ({ dollarValue, euroValue }: CalculatorProps) => {
             placeholder="ARS"
             groupSeparator="."
             decimalSeparator=","
-            intlConfig={{ locale: "es-ES", currency: "ARS" }}
+            intlConfig={{ locale: "en-US", currency: "USD" }}
             decimalsLimit={2}
             value={euroToArs}
             onValueChange={(value) => {
@@ -275,7 +275,7 @@ export const Calculator = ({ dollarValue, euroValue }: CalculatorProps) => {
             name="input-name"
             groupSeparator="."
             decimalSeparator=","
-            intlConfig={{ locale: "es-ES", currency: "EUR" }}
+            intlConfig={{ locale: "en-US", currency: "USD" }}
             disabled={true}
             readOnly={true}
             decimalsLimit={2}
