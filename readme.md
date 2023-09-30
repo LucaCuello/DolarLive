@@ -1,6 +1,6 @@
 # DolarLive
 
-## About
+## Sobre el proyecto
 
 Extensión de Chrome y Opera pensada para uso regional en Argentina que mediante llamado a dos APIS, utilicé esta [API](https://bluelytics.com.ar/#!/api) para la consulta del valor del Euro, y esta [API](https://dolar-api-argentina.vercel.app/) para la consulta del valor del dólar.
 
@@ -8,12 +8,12 @@ La extensión devuelve el valor diario del dólar oficial, dólar blue, euro ofi
 
 La misma fue creada con React y TypeScript mediante el uso de [CRXJS](https://github.com/crxjs/chrome-extension-tools), usando librerías externas como react-icons para los iconos y framer-motion para las animaciones.
 
-## Features
+## Características
 
 <img src="./src/assets/PosterFront.png" border="0">
 <img src="./src/assets/PosterBack.png" border="0">
 
-## Installation
+## Instalación
 
 ### Instalación mediante la store oficial
 
@@ -28,6 +28,6 @@ Luego, en Chrome:
 
 Una vez abierto el recruadro de búsqueda de archivos, seleccionar la carpeta "dolarLiveExtension" previamente descargada.
 
-## Other
+## Agradecimientos
 
 Mención y agradecimiento a [Enzo Notario](https://github.com/enzonotario) y [Pablo Seibelt](https://github.com/Bluelytics) por ser los creadores de las APIS que utilicé para hacer posible este proyecto 😁
