@@ -30,7 +30,11 @@ export const Calculator = ({ dollarValue, euroValue }: CalculatorProps) => {
     >
       <div className="calculator-title">
         <h2>Dólar blue</h2>
-        <span>1 dólar equivale a ${dollarValue} ARS</span>
+        {dollarValue ? (
+          <span>1 dólar equivale a ${dollarValue} ARS</span>
+        ) : (
+          <span>Cargando...</span>
+        )}
       </div>
       <div className="conversor-container">
         <div className="input-container">
@@ -77,23 +81,25 @@ export const Calculator = ({ dollarValue, euroValue }: CalculatorProps) => {
           </div>
         </div>
         <div className="result-container">
-          <CurrencyInput
-            suffix=" ARS"
-            prefix="$"
-            className="input-result"
-            name="input-name"
-            groupSeparator="."
-            decimalSeparator=","
-            intlConfig={{ locale: "en-US", currency: "USD" }}
-            disabled={true}
-            readOnly={true}
-            decimalsLimit={2}
-            value={
-              isNaN(dollarValue * +usdConversionValue)
-                ? 0
-                : dollarValue * +usdConversionValue
-            }
-          ></CurrencyInput>
+          {dollarValue ? (
+            <CurrencyInput
+              suffix=" ARS"
+              prefix="$"
+              className="input-result"
+              name="input-name"
+              groupSeparator="."
+              decimalSeparator=","
+              intlConfig={{ locale: "en-US", currency: "USD" }}
+              disabled={true}
+              readOnly={true}
+              decimalsLimit={2}
+              value={
+                isNaN(dollarValue * +usdConversionValue)
+                  ? 0
+                  : dollarValue * +usdConversionValue
+              }
+            ></CurrencyInput>
+          ) : null}
         </div>
       </div>
       <div className="conversor-container">
@@ -140,26 +146,34 @@ export const Calculator = ({ dollarValue, euroValue }: CalculatorProps) => {
           </div>
         </div>
         <div className="result-container">
-          <CurrencyInput
-            suffix=" USD"
-            prefix="$"
-            className="input-result"
-            name="input-name"
-            groupSeparator="."
-            decimalSeparator=","
-            intlConfig={{ locale: "en-US", currency: "USD" }}
-            disabled={true}
-            readOnly={true}
-            decimalsLimit={2}
-            decimalScale={2}
-            value={isNaN(+usdToArs / dollarValue) ? 0 : +usdToArs / dollarValue}
-          ></CurrencyInput>
+          {dollarValue ? (
+            <CurrencyInput
+              suffix=" USD"
+              prefix="$"
+              className="input-result"
+              name="input-name"
+              groupSeparator="."
+              decimalSeparator=","
+              intlConfig={{ locale: "en-US", currency: "USD" }}
+              disabled={true}
+              readOnly={true}
+              decimalsLimit={2}
+              decimalScale={2}
+              value={
+                isNaN(+usdToArs / dollarValue) ? 0 : +usdToArs / dollarValue
+              }
+            ></CurrencyInput>
+          ) : null}
         </div>
       </div>
       <div className="extension-divider"></div>
       <div className="calculator-title">
         <h2>Euro blue</h2>
-        <span>1 euro equivale a ${euroValue} ARS</span>
+        {euroValue ? (
+          <span>1 euro equivale a ${euroValue} ARS</span>
+        ) : (
+          <span>Cargando...</span>
+        )}
       </div>
       <div className="conversor-container">
         <div className="input-container">
@@ -205,23 +219,25 @@ export const Calculator = ({ dollarValue, euroValue }: CalculatorProps) => {
           </div>
         </div>
         <div className="result-container">
-          <CurrencyInput
-            suffix=" ARS"
-            prefix="$"
-            className="input-result"
-            name="input-name"
-            groupSeparator="."
-            decimalSeparator=","
-            intlConfig={{ locale: "en-US", currency: "USD" }}
-            disabled={true}
-            readOnly={true}
-            decimalsLimit={2}
-            value={
-              isNaN(euroValue * +euroConversionValue)
-                ? 0
-                : euroValue * +euroConversionValue
-            }
-          ></CurrencyInput>
+          {euroValue ? (
+            <CurrencyInput
+              suffix=" ARS"
+              prefix="$"
+              className="input-result"
+              name="input-name"
+              groupSeparator="."
+              decimalSeparator=","
+              intlConfig={{ locale: "en-US", currency: "USD" }}
+              disabled={true}
+              readOnly={true}
+              decimalsLimit={2}
+              value={
+                isNaN(euroValue * +euroConversionValue)
+                  ? 0
+                  : euroValue * +euroConversionValue
+              }
+            ></CurrencyInput>
+          ) : null}
         </div>
       </div>
       <div className="conversor-container">
@@ -268,20 +284,22 @@ export const Calculator = ({ dollarValue, euroValue }: CalculatorProps) => {
           </div>
         </div>
         <div className="result-container">
-          <CurrencyInput
-            suffix=" EUR"
-            prefix="$"
-            className="input-result"
-            name="input-name"
-            groupSeparator="."
-            decimalSeparator=","
-            intlConfig={{ locale: "en-US", currency: "USD" }}
-            disabled={true}
-            readOnly={true}
-            decimalsLimit={2}
-            decimalScale={2}
-            value={isNaN(+euroToArs / euroValue) ? 0 : +euroToArs / euroValue}
-          ></CurrencyInput>
+          {euroValue ? (
+            <CurrencyInput
+              suffix=" EUR"
+              prefix="$"
+              className="input-result"
+              name="input-name"
+              groupSeparator="."
+              decimalSeparator=","
+              intlConfig={{ locale: "en-US", currency: "USD" }}
+              disabled={true}
+              readOnly={true}
+              decimalsLimit={2}
+              decimalScale={2}
+              value={isNaN(+euroToArs / euroValue) ? 0 : +euroToArs / euroValue}
+            ></CurrencyInput>
+          ) : null}
         </div>
       </div>
     </motion.div>

@@ -1,3 +1,4 @@
+import axios from "axios";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import "./App.css";
@@ -30,11 +31,8 @@ function App() {
 
   const getStorageView = () => {
     const storage = localStorage.getItem("IsCalculatorSticky");
-    if (!storage) return;
-    if (storage === "true") {
-      setCalculator(true);
-    } else {
-      setCalculator(false);
+    if (storage) {
+      setCalculator(storage === "true");
     }
   };
 
@@ -47,30 +45,21 @@ function App() {
   useEffect(() => {
     const getEuro = async () => {
       try {
-        const fetchData = await fetch(URLEuro),
-          json = await fetchData.json(),
-          response = await json;
-        setEuro(response);
+        const { data } = await axios.get(URLEuro);
+        setEuro(data);
       } catch (err) {
-        console.log(err);
+        console.log("Hubo un error al obtener el valor del euro", err);
       }
     };
 
     const getDolar = async () => {
       try {
-        const fetchData = await fetch(URLDolar),
-          json = await fetchData.json(),
-          response = await json;
-
-        const dolarOficial = response[0];
-        const dolarBlue = response[1];
-        const responseObject = {
-          dolarOficial,
-          dolarBlue,
-        };
+        const { data } = await axios.get(URLDolar);
+        const [dolarOficial, dolarBlue] = data;
+        const responseObject = { dolarOficial, dolarBlue };
         setDolar(responseObject);
       } catch (err) {
-        console.log(err);
+        console.log("Hubo un error al obtener el valor del dolar", err);
       }
     };
 
@@ -101,7 +90,15 @@ function App() {
   return (
     <div className="extension-container">
       <Header />
-      <Title day={day} month={month} year={year} hours={hours} minutes={minutes} calculator={calculator} euro={euro} />
+      <Title
+        day={day}
+        month={month}
+        year={year}
+        hours={hours}
+        minutes={minutes}
+        calculator={calculator}
+        euro={euro}
+      />
 
       <div className="extension-divider"></div>
       {!calculator ? (
@@ -123,7 +120,12 @@ function App() {
           />
         </>
       ) : null}
-      {calculator ? <Calculator dollarValue={+dolar?.dolarBlue.venta} euroValue={+euro?.blue_euro.value_sell} /> : null}
+      {calculator ? (
+        <Calculator
+          dollarValue={+dolar?.dolarBlue.venta}
+          euroValue={+euro?.blue_euro.value_sell}
+        />
+      ) : null}
       <div className="extension-divider"></div>
       <div className="btns-container">
         <motion.button

@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "axios": "^1.5.1",
     "framer-motion": "^10.12.12",
     "react": "^18.2.0",
     "react-currency-input-field": "^3.6.11",
