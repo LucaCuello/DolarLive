@@ -1,30 +1,27 @@
 import axios from "axios";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import { AiOutlinePushpin } from "react-icons/ai";
-import { BsCalculator } from "react-icons/bs";
-import { LuPinOff } from "react-icons/lu";
-import { TiArrowBackOutline } from "react-icons/ti";
+import { IoCalculatorOutline } from "react-icons/io5";
+import {
+  PiBackspaceLight,
+  PiPushPinSimpleLight,
+  PiPushPinSimpleSlashLight,
+} from "react-icons/pi";
 import "./App.css";
 import { Calculator } from "./components/Calculator/Calculator";
 import { CurrencyComponent } from "./components/CurrencyComponent/CurrencyComponent";
 import { Footer } from "./components/Footer/Footer";
 import { Header } from "./components/Header/Header";
-// import { Title } from "./components/Title/Title";
+import { LastUpdated } from "./components/Title/LastUpdated";
 import { CurrencyData } from "./interfaces/interfaces";
 import { getStorageViewValue, storageView } from "./utils/utils";
 
 function App() {
-  const [dolar, setDolar] = useState([]);
+  const [dolar, setDolar] = useState<CurrencyData[]>([]);
   const [euro, setEuro] = useState<CurrencyData | null>(null);
   const [card, setCard] = useState<CurrencyData | null>(null);
   const [calculator, setCalculator] = useState(false);
   const [test, setTest] = useState(false);
-  const URLS = {
-    dollars: "https://dolarapi.com/v1/dolares",
-    euro: "https://dolarapi.com/v1/cotizaciones/eur",
-    card: "https://dolarapi.com/v1/dolares/tarjeta",
-  };
 
   const getStorageView = () => {
     const storage = localStorage.getItem("IsCalculatorSticky");
@@ -34,6 +31,12 @@ function App() {
   };
 
   useEffect(() => {
+    const URLS = {
+      dollars: "https://dolarapi.com/v1/dolares",
+      euro: "https://dolarapi.com/v1/cotizaciones/eur",
+      card: "https://dolarapi.com/v1/dolares/tarjeta",
+    };
+
     const getDolars = async () => {
       try {
         const { data } = await axios.get(URLS.dollars);
@@ -49,7 +52,6 @@ function App() {
         const card = (await axios.get(URLS.card)).data;
         setEuro(euro);
         setCard(card);
-        console.log(euro, card);
       } catch (err) {
         console.log("Hubo un error al obtener el valor del euro", err);
       }
@@ -60,12 +62,12 @@ function App() {
     getOtherCurrencies();
   }, []);
 
-  // const lastUpdate = new Date(euro?.last_update),
-  //   day = lastUpdate.getDate(),
-  //   month = lastUpdate.getMonth() + 1,
-  //   year = lastUpdate.getFullYear().toString().slice(2),
-  //   hours = lastUpdate.getHours(),
-  //   minutes = lastUpdate.getMinutes();
+  const date = new Date(dolar[0]?.fechaActualizacion),
+    day = date.getDate(),
+    month = date.getMonth() + 1,
+    year = date.getFullYear().toString().slice(2),
+    hours = date.getHours();
+  const formattedDate = `${day}/${month}/${year} a las ${hours}hs`;
 
   const variants = {
     hidden: { scale: 0 },
@@ -111,7 +113,9 @@ function App() {
           )}
         </div>
       ) : null}
-      {calculator ? <Calculator dollarValue={400} euroValue={300} /> : null}
+      {calculator ? (
+        <Calculator dollarValue={dolar[1].venta} />
+      ) : null}
       <div className="extension-divider"></div>
       <div className="btns-container">
         <motion.button
@@ -122,7 +126,7 @@ function App() {
             setCalculator(!calculator);
           }}
         >
-          {!calculator ? <BsCalculator /> : <TiArrowBackOutline />}
+          {!calculator ? <IoCalculatorOutline /> : <PiBackspaceLight />}
           <span>{!calculator ? "Calculadora blue" : "Atrás"}</span>
         </motion.button>
         {calculator ? (
@@ -137,7 +141,7 @@ function App() {
                 setTest(false);
               }}
             >
-              <LuPinOff />
+              <PiPushPinSimpleSlashLight />
               Desfijar
             </motion.button>
           ) : (
@@ -151,12 +155,13 @@ function App() {
                 setTest(true);
               }}
             >
-              <AiOutlinePushpin />
+              <PiPushPinSimpleLight />
               Fijar calculadora
             </motion.button>
           )
         ) : null}
       </div>
+      <LastUpdated fullDate={formattedDate} />
       <Footer />
     </div>
   );

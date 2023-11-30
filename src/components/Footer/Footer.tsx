@@ -3,9 +3,10 @@ import { SiGithub, SiLinkedin, SiTwitter } from "react-icons/si";
 import { Tooltip } from "react-tooltip";
 
 const toolTipStyles = {
-  backgroundColor: "#f6edd9",
+  backgroundColor: "#e5e5d5",
   fontFamily: "'Montserrat', sans-serif",
-  color: "#222",
+  color: "#35393C",
+  fontWeight: 600,
   fontSize: "12px",
 };
 
@@ -54,7 +55,7 @@ export const Footer = () => {
       <Tooltip
         id="tooltip"
         opacity={1}
-        border={"1px solid #536e5665"}
+        border={"1px solid #1f2027"}
         classNameArrow="tooltip-arrow"
         style={toolTipStyles}
       />

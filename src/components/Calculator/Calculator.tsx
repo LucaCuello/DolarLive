@@ -1,25 +1,16 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 import CurrencyInput from "react-currency-input-field";
-import { AiOutlineDollarCircle, AiOutlineEuro } from "react-icons/ai";
+import { AiOutlineDollarCircle } from "react-icons/ai";
 import { BsTrash } from "react-icons/bs";
 import { FaRegMoneyBillAlt } from "react-icons/fa";
+import { CalculatorProps } from "../../interfaces/interfaces";
 
-type CalculatorProps = {
-  dollarValue: number;
-  euroValue: number;
-};
-
-export const Calculator = ({ dollarValue, euroValue }: CalculatorProps) => {
+export const Calculator = ({ dollarValue }: CalculatorProps) => {
   const [usdConversionValue, setUsdConversionValue] = useState<string | number>(
     ""
   );
   const [usdToArs, setUsdToArs] = useState<string | number>("");
-
-  const [euroConversionValue, setEuroConversionValue] = useState<
-    string | number
-  >("");
-  const [euroToArs, setEuroToArs] = useState<string | number>("");
 
   return (
     <motion.div
@@ -162,142 +153,6 @@ export const Calculator = ({ dollarValue, euroValue }: CalculatorProps) => {
               value={
                 isNaN(+usdToArs / dollarValue) ? 0 : +usdToArs / dollarValue
               }
-            ></CurrencyInput>
-          ) : null}
-        </div>
-      </div>
-      <div className="extension-divider"></div>
-      <div className="calculator-title">
-        <h2>Euro blue</h2>
-        {euroValue ? (
-          <span>1 euro equivale a ${euroValue} ARS</span>
-        ) : (
-          <span>Cargando...</span>
-        )}
-      </div>
-      <div className="conversor-container">
-        <div className="input-container">
-          <div className="coin-container">
-            <AiOutlineEuro />
-          </div>
-          <CurrencyInput
-            suffix=" EUR"
-            prefix="$"
-            className="input"
-            name="input-name"
-            placeholder="EUR"
-            groupSeparator="."
-            decimalSeparator=","
-            intlConfig={{ locale: "en-US", currency: "USD" }}
-            decimalsLimit={2}
-            value={euroConversionValue}
-            onValueChange={(value) => {
-              if (value !== undefined) {
-                setEuroConversionValue(value);
-              } else {
-                setEuroConversionValue("");
-              }
-            }}
-          ></CurrencyInput>
-          <div className="delete-container">
-            <AnimatePresence>
-              {euroConversionValue ? (
-                <motion.span
-                  initial={{ opacity: 0, scale: 0, y: -25 }}
-                  animate={{ opacity: 1, scale: 1, y: 0 }}
-                  exit={{ opacity: 0, scale: 0, y: 25 }}
-                  transition={{ duration: 0.3, ease: "easeInOut" }}
-                >
-                  <BsTrash
-                    onClick={() => {
-                      setEuroConversionValue("");
-                    }}
-                  />
-                </motion.span>
-              ) : null}
-            </AnimatePresence>
-          </div>
-        </div>
-        <div className="result-container">
-          {euroValue ? (
-            <CurrencyInput
-              suffix=" ARS"
-              prefix="$"
-              className="input-result"
-              name="input-name"
-              groupSeparator="."
-              decimalSeparator=","
-              intlConfig={{ locale: "en-US", currency: "USD" }}
-              disabled={true}
-              readOnly={true}
-              decimalsLimit={2}
-              value={
-                isNaN(euroValue * +euroConversionValue)
-                  ? 0
-                  : euroValue * +euroConversionValue
-              }
-            ></CurrencyInput>
-          ) : null}
-        </div>
-      </div>
-      <div className="conversor-container">
-        <div className="input-container">
-          <div className="coin-container">
-            <FaRegMoneyBillAlt />
-          </div>
-          <CurrencyInput
-            suffix=" ARS"
-            prefix="$"
-            className="input"
-            name="input-name"
-            placeholder="ARS"
-            groupSeparator="."
-            decimalSeparator=","
-            intlConfig={{ locale: "en-US", currency: "USD" }}
-            decimalsLimit={2}
-            value={euroToArs}
-            onValueChange={(value) => {
-              if (value !== undefined) {
-                setEuroToArs(value);
-              } else {
-                setEuroToArs("");
-              }
-            }}
-          ></CurrencyInput>
-          <div className="delete-container">
-            <AnimatePresence>
-              {euroToArs ? (
-                <motion.span
-                  initial={{ opacity: 0, scale: 0, y: -25 }}
-                  animate={{ opacity: 1, scale: 1, y: 0 }}
-                  exit={{ opacity: 0, scale: 0, y: 25 }}
-                  transition={{ duration: 0.3, ease: "easeInOut" }}
-                >
-                  <BsTrash
-                    onClick={() => {
-                      setEuroToArs("");
-                    }}
-                  />
-                </motion.span>
-              ) : null}
-            </AnimatePresence>
-          </div>
-        </div>
-        <div className="result-container">
-          {euroValue ? (
-            <CurrencyInput
-              suffix=" EUR"
-              prefix="$"
-              className="input-result"
-              name="input-name"
-              groupSeparator="."
-              decimalSeparator=","
-              intlConfig={{ locale: "en-US", currency: "USD" }}
-              disabled={true}
-              readOnly={true}
-              decimalsLimit={2}
-              decimalScale={2}
-              value={isNaN(+euroToArs / euroValue) ? 0 : +euroToArs / euroValue}
             ></CurrencyInput>
           ) : null}
         </div>
