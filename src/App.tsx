@@ -1,5 +1,5 @@
 import axios from "axios";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { IoCalculatorOutline } from "react-icons/io5";
 import {
@@ -89,34 +89,43 @@ function App() {
     <div className="extension-container">
       <Header />
       <div className="extension-divider"></div>
-      {!calculator ? (
-        <div className="currencies-container">
-          {dolar.map((dolar: any) => (
-            <CurrencyComponent
-              key={dolar.nombre}
-              type={
-                dolar.nombre == "Contado con liquidación" ? "CCL" : dolar.nombre
-              }
-              buyValue={dolar.compra}
-              sellValue={dolar.venta}
-            />
-          ))}
-          {card && (
-            <CurrencyComponent
-              type={card.nombre}
-              buyValue={card.compra}
-              sellValue={card.venta}
-            />
-          )}
-          {euro && (
-            <CurrencyComponent
-              type={`${euro.nombre} ${euro.casa}`}
-              buyValue={euro.compra}
-              sellValue={euro.venta}
-            />
-          )}
-        </div>
-      ) : null}
+      <AnimatePresence>
+        {!calculator ? (
+          <motion.div
+            initial={{ opacity: 0, scale: 0 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+            className="currencies-container"
+          >
+            {dolar.map((dolar: any) => (
+              <CurrencyComponent
+                key={dolar.nombre}
+                type={
+                  dolar.nombre == "Contado con liquidación"
+                    ? "CCL"
+                    : dolar.nombre
+                }
+                buyValue={dolar.compra}
+                sellValue={dolar.venta}
+              />
+            ))}
+            {card && (
+              <CurrencyComponent
+                type={card.nombre}
+                buyValue={card.compra}
+                sellValue={card.venta}
+              />
+            )}
+            {euro && (
+              <CurrencyComponent
+                type={`${euro.nombre} ${euro.casa}`}
+                buyValue={euro.compra}
+                sellValue={euro.venta}
+              />
+            )}
+          </motion.div>
+        ) : null}
+      </AnimatePresence>
       {calculator ? <Calculator currencies={dolar} /> : null}
       <div className="extension-divider"></div>
       <div className="btns-container">

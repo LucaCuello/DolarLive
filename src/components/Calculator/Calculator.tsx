@@ -1,11 +1,6 @@
-import {
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-} from "@mui/material";
+import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import { AnimatePresence, motion } from "framer-motion";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CurrencyInput from "react-currency-input-field";
 import { AiOutlineDollarCircle } from "react-icons/ai";
 import { BsTrash } from "react-icons/bs";
@@ -13,9 +8,18 @@ import { FaRegMoneyBillAlt } from "react-icons/fa";
 import { CalculatorProps, CurrencyData } from "../../interfaces/interfaces";
 
 export const Calculator = ({ currencies }: CalculatorProps) => {
-  const [selectedCurrency, setSelectedCurrency] = useState<CurrencyData>(
-    currencies[0]
+  const [selectedCurrency, setSelectedCurrency] = useState<CurrencyData | null>(
+    null
   );
+
+  useEffect(() => {
+    if (currencies.length > 0) {
+      const initialCurrency =
+        currencies.find((c) => c.nombre === "Blue") || currencies[0];
+      setSelectedCurrency(initialCurrency);
+    }
+  }, [currencies]);
+
   const [usdConversionValue, setUsdConversionValue] = useState<string | number>(
     ""
   );
@@ -28,12 +32,12 @@ export const Calculator = ({ currencies }: CalculatorProps) => {
       transition={{ duration: 0.5, ease: "easeInOut" }}
       className="calculator-container"
     >
-      <FormControl fullWidth sx={{my: 2}} color="success">
+      <FormControl fullWidth sx={{ my: 2 }} color="success">
         <InputLabel id="currency-select-label">Tipo de USD</InputLabel>
         <Select
           labelId="currency-select-label"
           id="currency-select"
-          value={selectedCurrency.nombre}
+          value={selectedCurrency ? selectedCurrency.nombre : ""}
           label="Tipo de USD"
           onChange={(e) => {
             const selected = currencies.find(
@@ -52,14 +56,16 @@ export const Calculator = ({ currencies }: CalculatorProps) => {
         </Select>
       </FormControl>
       <div className="calculator-title">
-        <h2>
-          {selectedCurrency.moneda} {selectedCurrency.nombre}
-        </h2>
         {selectedCurrency ? (
-          <span>
-            1 {selectedCurrency.moneda} equivale a $
-            {Math.round(selectedCurrency.venta)} ARS
-          </span>
+          <>
+            <h2>
+              {selectedCurrency.moneda} {selectedCurrency.nombre}
+            </h2>
+            <span>
+              1 {selectedCurrency.moneda} equivale a $
+              {Math.round(selectedCurrency.venta)} ARS
+            </span>
+          </>
         ) : (
           <span>Cargando...</span>
         )}
