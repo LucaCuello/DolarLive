@@ -1,5 +1,10 @@
-import { BiSolidCoffeeAlt } from "react-icons/bi";
-import { SiGithub, SiLinkedin, SiTwitter } from "react-icons/si";
+import {
+  SiCoffeescript,
+  SiGithub,
+  SiGmail,
+  SiLinkedin,
+  SiTwitter,
+} from "react-icons/si";
 import { Tooltip } from "react-tooltip";
 
 const toolTipStyles = {
@@ -49,7 +54,15 @@ export const Footer = () => {
           href="https://cafecito.app/lucacuello"
           target="_blank"
         >
-          <BiSolidCoffeeAlt />
+          <SiCoffeescript />
+        </a>
+        <a
+          data-tooltip-id="tooltip"
+          data-tooltip-content="Si tenés alguna sugerencia, este es mi mail :)"
+          href="mailto:lucagcuello@gmail.com"
+          target="_blank"
+        >
+          <SiGmail />
         </a>
       </div>
       <Tooltip
