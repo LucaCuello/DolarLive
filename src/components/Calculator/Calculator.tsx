@@ -1,3 +1,10 @@
+import {
+  FormControl,
+  FormHelperText,
+  InputLabel,
+  MenuItem,
+  Select,
+} from "@mui/material";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 import CurrencyInput from "react-currency-input-field";
@@ -22,23 +29,29 @@ export const Calculator = ({ currencies }: CalculatorProps) => {
       transition={{ duration: 0.5, ease: "easeInOut" }}
       className="calculator-container"
     >
-      <select
-        value={selectedCurrency.nombre}
-        onChange={(e) => {
-          const selected = currencies.find(
-            (currency) => currency.nombre === e.target.value
-          );
-          if (selected) {
-            setSelectedCurrency(selected);
-          }
-        }}
-      >
-        {currencies.map((currency) => (
-          <option key={currency.nombre} value={currency.nombre}>
-            {currency.nombre}
-          </option>
-        ))}
-      </select>
+      <FormControl fullWidth sx={{my: 2}} color="success">
+        <InputLabel id="currency-select-label">Tipo de USD</InputLabel>
+        <Select
+          labelId="currency-select-label"
+          id="currency-select"
+          value={selectedCurrency.nombre}
+          label="Tipo de USD"
+          onChange={(e) => {
+            const selected = currencies.find(
+              (currency) => currency.nombre === e.target.value
+            );
+            if (selected) {
+              setSelectedCurrency(selected);
+            }
+          }}
+        >
+          {currencies.map((currency) => (
+            <MenuItem key={currency.nombre} value={currency.nombre}>
+              {currency.nombre}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
       <div className="calculator-title">
         <h2>
           {selectedCurrency.moneda} {selectedCurrency.nombre}

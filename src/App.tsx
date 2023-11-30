@@ -40,8 +40,12 @@ function App() {
     const getDolars = async () => {
       try {
         const { data } = await axios.get(URLS.dollars);
-        console.log(data);
-        setDolar(data);
+        const sortedData = data.sort((a: CurrencyData, b: CurrencyData) => {
+          if (a.nombre === "Blue") return -1;
+          if (b.nombre === "Blue") return 1;
+          return 0;
+        });
+        setDolar(sortedData);
       } catch (err) {
         console.log("Hubo un error al obtener el valor del dolar", err);
       }
@@ -113,9 +117,7 @@ function App() {
           )}
         </div>
       ) : null}
-      {calculator ? (
-        <Calculator currencies={dolar} />
-      ) : null}
+      {calculator ? <Calculator currencies={dolar} /> : null}
       <div className="extension-divider"></div>
       <div className="btns-container">
         <motion.button
@@ -127,7 +129,7 @@ function App() {
           }}
         >
           {!calculator ? <IoCalculatorOutline /> : <PiBackspaceLight />}
-          <span>{!calculator ? "Calculadora blue" : "Atrás"}</span>
+          <span>{!calculator ? "Calculadora" : "Atrás"}</span>
         </motion.button>
         {calculator ? (
           getStorageViewValue() ? (
