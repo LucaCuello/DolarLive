@@ -12,5 +12,5 @@ export interface LastUpdatedProps {
 }
 
 export interface CalculatorProps {
-  dollarValue: number;
+  currencies: CurrencyData[];
 }

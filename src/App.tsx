@@ -114,7 +114,7 @@ function App() {
         </div>
       ) : null}
       {calculator ? (
-        <Calculator dollarValue={dolar[1].venta} />
+        <Calculator currencies={dolar} />
       ) : null}
       <div className="extension-divider"></div>
       <div className="btns-container">

@@ -4,9 +4,12 @@ import CurrencyInput from "react-currency-input-field";
 import { AiOutlineDollarCircle } from "react-icons/ai";
 import { BsTrash } from "react-icons/bs";
 import { FaRegMoneyBillAlt } from "react-icons/fa";
-import { CalculatorProps } from "../../interfaces/interfaces";
+import { CalculatorProps, CurrencyData } from "../../interfaces/interfaces";
 
-export const Calculator = ({ dollarValue }: CalculatorProps) => {
+export const Calculator = ({ currencies }: CalculatorProps) => {
+  const [selectedCurrency, setSelectedCurrency] = useState<CurrencyData>(
+    currencies[0]
+  );
   const [usdConversionValue, setUsdConversionValue] = useState<string | number>(
     ""
   );
@@ -19,10 +22,32 @@ export const Calculator = ({ dollarValue }: CalculatorProps) => {
       transition={{ duration: 0.5, ease: "easeInOut" }}
       className="calculator-container"
     >
+      <select
+        value={selectedCurrency.nombre}
+        onChange={(e) => {
+          const selected = currencies.find(
+            (currency) => currency.nombre === e.target.value
+          );
+          if (selected) {
+            setSelectedCurrency(selected);
+          }
+        }}
+      >
+        {currencies.map((currency) => (
+          <option key={currency.nombre} value={currency.nombre}>
+            {currency.nombre}
+          </option>
+        ))}
+      </select>
       <div className="calculator-title">
-        <h2>Dólar blue</h2>
-        {dollarValue ? (
-          <span>1 dólar equivale a ${dollarValue} ARS</span>
+        <h2>
+          {selectedCurrency.moneda} {selectedCurrency.nombre}
+        </h2>
+        {selectedCurrency ? (
+          <span>
+            1 {selectedCurrency.moneda} equivale a $
+            {Math.round(selectedCurrency.venta)} ARS
+          </span>
         ) : (
           <span>Cargando...</span>
         )}
@@ -36,7 +61,7 @@ export const Calculator = ({ dollarValue }: CalculatorProps) => {
             suffix=" USD"
             prefix="$"
             className="input"
-            name="input-name"
+            name="usd-input"
             placeholder="USD"
             groupSeparator="."
             decimalSeparator=","
@@ -51,7 +76,7 @@ export const Calculator = ({ dollarValue }: CalculatorProps) => {
                 setUsdConversionValue("");
               }
             }}
-          ></CurrencyInput>
+          />
           <div className="delete-container">
             <AnimatePresence>
               {usdConversionValue ? (
@@ -72,24 +97,24 @@ export const Calculator = ({ dollarValue }: CalculatorProps) => {
           </div>
         </div>
         <div className="result-container">
-          {dollarValue ? (
+          {selectedCurrency ? (
             <CurrencyInput
               suffix=" ARS"
               prefix="$"
               className="input-result"
-              name="input-name"
-              groupSeparator="."
-              decimalSeparator=","
-              intlConfig={{ locale: "en-US", currency: "USD" }}
+              name="ars-output"
               disabled={true}
               readOnly={true}
+              groupSeparator="."
+              decimalSeparator=","
+              intlConfig={{ locale: "en-US", currency: "ARS" }}
               decimalsLimit={2}
               value={
-                isNaN(dollarValue * +usdConversionValue)
-                  ? 0
-                  : dollarValue * +usdConversionValue
+                isNaN(selectedCurrency.venta * +usdConversionValue)
+                  ? ""
+                  : (selectedCurrency.venta * +usdConversionValue).toFixed(2)
               }
-            ></CurrencyInput>
+            />
           ) : null}
         </div>
       </div>
@@ -102,11 +127,11 @@ export const Calculator = ({ dollarValue }: CalculatorProps) => {
             suffix=" ARS"
             prefix="$"
             className="input"
-            name="input-name"
+            name="ars-input"
             placeholder="ARS"
             groupSeparator="."
             decimalSeparator=","
-            intlConfig={{ locale: "en-US", currency: "USD" }}
+            intlConfig={{ locale: "en-US", currency: "ARS" }}
             decimalsLimit={2}
             value={usdToArs}
             onValueChange={(value) => {
@@ -116,7 +141,7 @@ export const Calculator = ({ dollarValue }: CalculatorProps) => {
                 setUsdToArs("");
               }
             }}
-          ></CurrencyInput>
+          />
           <div className="delete-container">
             <AnimatePresence>
               {usdToArs ? (
@@ -137,23 +162,24 @@ export const Calculator = ({ dollarValue }: CalculatorProps) => {
           </div>
         </div>
         <div className="result-container">
-          {dollarValue ? (
+          {selectedCurrency ? (
             <CurrencyInput
               suffix=" USD"
               prefix="$"
               className="input-result"
-              name="input-name"
+              name="usd-output"
+              disabled={true}
+              readOnly={true}
               groupSeparator="."
               decimalSeparator=","
               intlConfig={{ locale: "en-US", currency: "USD" }}
-              disabled={true}
-              readOnly={true}
               decimalsLimit={2}
-              decimalScale={2}
               value={
-                isNaN(+usdToArs / dollarValue) ? 0 : +usdToArs / dollarValue
+                selectedCurrency && selectedCurrency.venta && +usdToArs
+                  ? (+usdToArs / selectedCurrency.venta).toFixed(2)
+                  : 0
               }
-            ></CurrencyInput>
+            />
           ) : null}
         </div>
       </div>
