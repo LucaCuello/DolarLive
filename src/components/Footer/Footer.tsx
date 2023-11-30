@@ -1,11 +1,17 @@
-import { BiSolidCoffeeAlt } from "react-icons/bi";
-import { SiGithub, SiLinkedin, SiTwitter } from "react-icons/si";
+import {
+  SiCoffeescript,
+  SiGithub,
+  SiGmail,
+  SiLinkedin,
+  SiTwitter,
+} from "react-icons/si";
 import { Tooltip } from "react-tooltip";
 
 const toolTipStyles = {
-  backgroundColor: "#f6edd9",
+  backgroundColor: "#e5e5d5",
   fontFamily: "'Montserrat', sans-serif",
-  color: "#222",
+  color: "#35393C",
+  fontWeight: 600,
   fontSize: "12px",
 };
 
@@ -48,13 +54,21 @@ export const Footer = () => {
           href="https://cafecito.app/lucacuello"
           target="_blank"
         >
-          <BiSolidCoffeeAlt />
+          <SiCoffeescript />
+        </a>
+        <a
+          data-tooltip-id="tooltip"
+          data-tooltip-content="Si tenés alguna sugerencia, este es mi mail :)"
+          href="mailto:lucagcuello@gmail.com"
+          target="_blank"
+        >
+          <SiGmail />
         </a>
       </div>
       <Tooltip
         id="tooltip"
         opacity={1}
-        border={"1px solid #536e5665"}
+        border={"1px solid #1f2027"}
         classNameArrow="tooltip-arrow"
         style={toolTipStyles}
       />
