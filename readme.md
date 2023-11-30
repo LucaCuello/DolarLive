@@ -2,9 +2,9 @@
 
 ## Sobre el proyecto
 
-Extensión de Chrome y Opera pensada para uso regional en Argentina que mediante llamado a dos APIS, utilicé esta [API](https://bluelytics.com.ar/#!/api) para la consulta del valor del Euro, y esta [API](https://dolar-api-argentina.vercel.app/) para la consulta del valor del dólar.
+Extensión de Chrome y Opera pensada para uso regional en Argentina que mediante consumo de API, utilicé esta [API](https://dolarapi.com/docs/) para la consulta de todas las divisas.
 
-La extensión devuelve el valor diario del dólar oficial, dólar blue, euro oficial y euro blue. Además, incluye una calculadora para poder visualizar la conversión entre un valor custom en pesos y el valor del dólar/euro blue y viceversa.
+La extensión devuelve el valor diario del dólar oficial, dólar blue, dolar tarjeta, entre entros. Además, incluye una calculadora para poder visualizar la conversión entre pesos y dólares en cada uno de estos tipos.
 
 La misma fue creada con React y TypeScript mediante el uso de [CRXJS](https://github.com/crxjs/chrome-extension-tools), usando librerías externas como react-icons para los iconos y framer-motion para las animaciones.
 
@@ -30,4 +30,4 @@ Una vez abierto el recruadro de búsqueda de archivos, seleccionar la carpeta "d
 
 ## Agradecimientos
 
-Mención y agradecimiento a [Enzo Notario](https://github.com/enzonotario) y [Pablo Seibelt](https://github.com/Bluelytics) por ser los creadores de las APIS que utilicé para hacer posible este proyecto 😁
+Mención y agradecimiento a [Enzo Notario](https://github.com/enzonotario) por ser el creador de la API que utilicé para hacer posible este proyecto 😁
