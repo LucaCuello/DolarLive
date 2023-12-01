@@ -34,7 +34,7 @@ body {
   align-items: center;
   justify-content: center;
   width: 430px;
-  height: 20px;
+  height: 12px;
   border-radius: 0 0 100px 100px;
   background-color: #1f2027;
   margin-bottom: 10px;
@@ -43,7 +43,7 @@ body {
 .extension-header img {
   position: absolute;
   top: 2px;
-  width: 35px;
+  width: 25px;
 }
 
 .lastupdated-container {
@@ -51,7 +51,7 @@ body {
   flex-direction: column;
   gap: 2px;
   width: 100%;
-  margin-top: 12px;
+  margin-top: 8px;
 }
 
 .lastupdated,
@@ -69,7 +69,7 @@ body {
 }
 
 .lastupdated-container span {
-  font-size: 12px;
+  font-size: 10px;
   font-family: "Montserrat", sans-serif;
   font-weight: 500;
   color: #3d4a3e;
@@ -85,7 +85,7 @@ body {
   width: 100%;
   background-color: #27523c;
   border-radius: 40px;
-  margin: 12px 0;
+  margin: 8px 0;
 }
 
 .currency-container {
@@ -100,21 +100,21 @@ body {
 .type-container {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 2px;
 }
 
 .currencies-container {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
   align-items: center;
+  justify-content: center;
+  gap: 10px;
   width: 100%;
-  justify-content: space-between;
 }
 
 .type-container h2 {
   font-family: "Cabin", sans-serif;
-  font-size: 18px;
+  font-size: 15px;
   font-weight: 700;
   color: #35393c;
 }
@@ -123,18 +123,17 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 12px;
 }
 
 .price-container .price-title {
-  font-size: 16px;
+  font-size: 14px;
   font-family: "Montserrat", sans-serif;
   font-weight: normal;
   color: #707070;
 }
 
 .price-container .price-value {
-  font-size: 16px;
+  font-size: 14px;
   font-family: "Montserrat", sans-serif;
   font-weight: 600;
   color: #35393c;
@@ -175,13 +174,13 @@ body {
   flex-direction: column;
   gap: 4px;
   background-color: #1f2027;
-  height: 50px;
+  height: 45px;
   width: 430px;
   margin-top: 14px;
 }
 
 .contact-colab-links span {
-  font-size: 12px;
+  font-size: 10px;
   color: #f6edd9;
   font-family: "Montserrat", sans-serif;
 }
@@ -201,8 +200,8 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 6px;
-  font-size: 14px;
+  gap: 5px;
+  font-size: 10px;
 }
 
 .contact-links a {
@@ -229,12 +228,12 @@ body {
 .calculator-title h2 {
   font-family: "Cabin", sans-serif;
   font-weight: 700;
-  font-size: 18px;
+  font-size: 16px;
   color: #35393c;
 }
 
 .calculator-title span {
-  font-size: 16px;
+  font-size: 14px;
   font-family: "Montserrat", sans-serif;
   color: #35393c;
 }
