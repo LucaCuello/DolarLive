@@ -46,40 +46,6 @@ body {
   width: 25px;
 }
 
-.lastupdated-container {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  width: 100%;
-  margin-top: 8px;
-}
-
-.lastupdated,
-.lastupdated-data {
-  display: flex;
-  gap: 8px;
-}
-
-.lastupdated-data a {
-  color: #1f2027;
-}
-
-.lastupdated-data a:hover {
-  color: #27523c;
-}
-
-.lastupdated-container span {
-  font-size: 10px;
-  font-family: "Montserrat", sans-serif;
-  font-weight: 500;
-  color: #3d4a3e;
-}
-
-.lastupdated-container span:nth-of-type(2) {
-  font-weight: 600;
-  height: 12px;
-}
-
 .extension-divider {
   height: 2px;
   width: 100%;
@@ -322,4 +288,40 @@ body {
   font-weight: 700;
   color: #3d4a3e;
   width: 120px;
+}
+
+.lastupdated-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  width: 100%;
+  margin-top: 8px;
+}
+
+.lastupdated,
+.lastupdated-data {
+  display: flex;
+  gap: 4px;
+}
+
+.lastupdated-data a {
+  text-decoration: none;
+  font-weight: bold;
+  color: #27523c;
+}
+
+.lastupdated-data a:hover {
+  color: #27523c8e;
+}
+
+.lastupdated-container span {
+  font-size: 10px;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  color: #3d4a3e;
+}
+
+.lastupdated-container span:nth-of-type(2) {
+  font-weight: 600;
+  height: 12px;
 }

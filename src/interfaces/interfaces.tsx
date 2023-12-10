@@ -14,3 +14,9 @@ export interface LastUpdatedProps {
 export interface CalculatorProps {
   currencies: CurrencyData[];
 }
+
+export interface CurrencyComponentProps {
+  type: string;
+  buyValue: number;
+  sellValue: number;
+}

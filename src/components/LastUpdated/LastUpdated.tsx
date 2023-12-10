@@ -25,6 +25,12 @@ export const LastUpdated = ({ fullDate }: LastUpdatedProps) => {
           <a href="https://dolarhoy.com/" target="_blank">
             https://dolarhoy.com/
           </a>
+          <span style={{ paddingLeft: "4px" }}>
+            a través de{" "}
+            <a href="https://dolarapi.com/" target="_blank">
+              DolarApi
+            </a>
+          </span>
         </span>
       </div>
     </motion.div>

@@ -1,10 +1,5 @@
 import { motion } from "framer-motion";
-
-interface CurrencyComponentProps {
-  type: string;
-  buyValue: number;
-  sellValue: number;
-}
+import { CurrencyComponentProps } from "../../interfaces/interfaces";
 
 export const CurrencyComponent = ({
   type,

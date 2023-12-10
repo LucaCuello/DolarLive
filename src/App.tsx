@@ -19,7 +19,6 @@ import { getStorageViewValue, storageView } from "./utils/utils";
 function App() {
   const [dolar, setDolar] = useState<CurrencyData[]>([]);
   const [euro, setEuro] = useState<CurrencyData | null>(null);
-  const [card, setCard] = useState<CurrencyData | null>(null);
   const [calculator, setCalculator] = useState(false);
   const [test, setTest] = useState(false);
 
@@ -34,7 +33,6 @@ function App() {
     const URLS = {
       dollars: "https://dolarapi.com/v1/dolares",
       euro: "https://dolarapi.com/v1/cotizaciones/eur",
-      card: "https://dolarapi.com/v1/dolares/tarjeta",
     };
 
     const getDolars = async () => {
@@ -53,9 +51,7 @@ function App() {
     const getOtherCurrencies = async () => {
       try {
         const euro = (await axios.get(URLS.euro)).data;
-        const card = (await axios.get(URLS.card)).data;
         setEuro(euro);
-        setCard(card);
       } catch (err) {
         console.log("Hubo un error al obtener el valor del euro", err);
       }
@@ -109,13 +105,6 @@ function App() {
                 sellValue={dolar.venta}
               />
             ))}
-            {card && (
-              <CurrencyComponent
-                type={card.nombre}
-                buyValue={card.compra}
-                sellValue={card.venta}
-              />
-            )}
             {euro && (
               <CurrencyComponent
                 type={`${euro.nombre} ${euro.casa}`}
