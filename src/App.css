@@ -48,13 +48,11 @@ body {
 
 .extension-divider {
   /* height: 2px; */
-  width: 100%;
   /* background-color: #27523c; */
   /* border-radius: 40px; */
-  margin: 10px 0;
+  width: 100%;
+  margin: 12px 0;
 }
-
-
 
 .type-container {
   display: flex;
@@ -122,9 +120,9 @@ body {
   background-color: #27523c;
   gap: 5px;
   border: none;
-  padding: 8px 18px;
+  padding: 6px 16px;
   border-radius: 5px;
-  font-size: 16px;
+  font-size: 15px;
   letter-spacing: 1px;
   color: #e5e5d5;
   transition: all 200ms ease-in-out;
@@ -309,7 +307,7 @@ body {
 .lastupdated-data a {
   text-decoration: none;
   font-weight: bold;
-  color: #27523c;
+  color: #3d4a3ebd;
 }
 
 .lastupdated-data a:hover {
