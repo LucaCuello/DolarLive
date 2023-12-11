@@ -54,15 +54,6 @@ body {
   margin: 8px 0;
 }
 
-.currency-container {
-  display: flex;
-  flex-direction: column;
-  background-color: #faf4e8;
-  padding: 8px 15px;
-  border-radius: 5px;
-  min-width: 190px;
-}
-
 .type-container {
   display: flex;
   flex-direction: column;
@@ -76,6 +67,15 @@ body {
   justify-content: center;
   gap: 10px;
   width: 100%;
+}
+
+.currency-container {
+  display: flex;
+  flex-direction: column;
+  background-color: #faf4e8;
+  padding: 8px 15px;
+  border-radius: 5px;
+  min-width: 190px;
 }
 
 .type-container h2 {

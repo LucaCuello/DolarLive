@@ -20,7 +20,7 @@ function App() {
   const [dolar, setDolar] = useState<CurrencyData[]>([]);
   const [euro, setEuro] = useState<CurrencyData | null>(null);
   const [calculator, setCalculator] = useState(false);
-  const [test, setTest] = useState(false);
+  const [isCalculatorPinned, setIsCalculatorPinned] = useState(false);
 
   const getStorageView = () => {
     const storage = localStorage.getItem("IsCalculatorSticky");
@@ -75,7 +75,7 @@ function App() {
       scale: 1,
       transition: { duration: 0.2, ease: "easeIn" },
     }),
-    test: () => ({
+    fadeOut: () => ({
       opacity: 0,
       transition: { duration: 0.2, ease: "easeIn" },
     }),
@@ -138,7 +138,7 @@ function App() {
               onClick={() => {
                 storageView(false);
                 getStorageView();
-                setTest(false);
+                setIsCalculatorPinned(false);
               }}
             >
               <PiPushPinSimpleSlashLight />
@@ -147,12 +147,12 @@ function App() {
           ) : (
             <motion.button
               initial="hidden"
-              animate={test ? "test" : "visible"}
+              animate={isCalculatorPinned ? "fadeOut" : "visible"}
               variants={variants}
               onClick={() => {
                 storageView(true);
                 getStorageView();
-                setTest(true);
+                setIsCalculatorPinned(true);
               }}
             >
               <PiPushPinSimpleLight />
