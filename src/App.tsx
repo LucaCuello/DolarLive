@@ -1,6 +1,7 @@
 import axios from "axios";
 import { AnimatePresence, motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { gsap } from "gsap";
+import { useEffect, useLayoutEffect, useState } from "react";
 import { IoCalculatorOutline } from "react-icons/io5";
 import {
   PiBackspaceLight,
@@ -10,6 +11,7 @@ import {
 import "./App.css";
 import { Calculator } from "./components/Calculator/Calculator";
 import { CurrencyComponent } from "./components/CurrencyComponent/CurrencyComponent";
+import { Divider } from "./components/Divider/Divider";
 import { Footer } from "./components/Footer/Footer";
 import { Header } from "./components/Header/Header";
 import { LastUpdated } from "./components/LastUpdated/LastUpdated";
@@ -18,9 +20,8 @@ import { getStorageViewValue, storageView } from "./utils/utils";
 
 function App() {
   const [dolar, setDolar] = useState<CurrencyData[]>([]);
-  const [euro, setEuro] = useState<CurrencyData | null>(null);
   const [calculator, setCalculator] = useState(false);
-  const [test, setTest] = useState(false);
+  const [isCalculatorPinned, setIsCalculatorPinned] = useState(false);
 
   const getStorageView = () => {
     const storage = localStorage.getItem("IsCalculatorSticky");
@@ -32,7 +33,6 @@ function App() {
   useEffect(() => {
     const URLS = {
       dollars: "https://dolarapi.com/v1/dolares",
-      euro: "https://dolarapi.com/v1/cotizaciones/eur",
     };
 
     const getDolars = async () => {
@@ -48,18 +48,29 @@ function App() {
         console.log("Hubo un error al obtener el valor del dolar", err);
       }
     };
-    const getOtherCurrencies = async () => {
-      try {
-        const euro = (await axios.get(URLS.euro)).data;
-        setEuro(euro);
-      } catch (err) {
-        console.log("Hubo un error al obtener el valor del euro", err);
-      }
-    };
 
     getStorageView();
     getDolars();
-    getOtherCurrencies();
+  }, []);
+
+  useLayoutEffect(() => {
+    const greenLights = document.querySelectorAll('[id^="green"]');
+    const redLights = document.querySelectorAll('[id^="red"]');
+
+    const tl = gsap.timeline({ repeat: -1, yoyo: true });
+
+    tl.to(greenLights, {
+      duration: 0.5,
+      fill: "#FA352D",
+      ease: "easeIn",
+      stagger: 0.1,
+    }).to(redLights, {
+      duration: 0.5,
+      fill: "#9CBE34",
+      ease: "easeIn",
+      stagger: 0.1,
+      delay: 0.1,
+    });
   }, []);
 
   const date = new Date(dolar[0]?.fechaActualizacion),
@@ -75,7 +86,7 @@ function App() {
       scale: 1,
       transition: { duration: 0.2, ease: "easeIn" },
     }),
-    test: () => ({
+    fadeOut: () => ({
       opacity: 0,
       transition: { duration: 0.2, ease: "easeIn" },
     }),
@@ -84,7 +95,7 @@ function App() {
   return (
     <div className="extension-container">
       <Header />
-      <div className="extension-divider"></div>
+      <Divider />
       <AnimatePresence>
         {!calculator ? (
           <motion.div
@@ -105,18 +116,11 @@ function App() {
                 sellValue={dolar.venta}
               />
             ))}
-            {euro && (
-              <CurrencyComponent
-                type={`${euro.nombre} ${euro.casa}`}
-                buyValue={euro.compra}
-                sellValue={euro.venta}
-              />
-            )}
           </motion.div>
         ) : null}
       </AnimatePresence>
       {calculator ? <Calculator currencies={dolar} /> : null}
-      <div className="extension-divider"></div>
+      <Divider />
       <div className="btns-container">
         <motion.button
           initial="hidden"
@@ -138,7 +142,7 @@ function App() {
               onClick={() => {
                 storageView(false);
                 getStorageView();
-                setTest(false);
+                setIsCalculatorPinned(false);
               }}
             >
               <PiPushPinSimpleSlashLight />
@@ -147,12 +151,12 @@ function App() {
           ) : (
             <motion.button
               initial="hidden"
-              animate={test ? "test" : "visible"}
+              animate={isCalculatorPinned ? "fadeOut" : "visible"}
               variants={variants}
               onClick={() => {
                 storageView(true);
                 getStorageView();
-                setTest(true);
+                setIsCalculatorPinned(true);
               }}
             >
               <PiPushPinSimpleLight />
