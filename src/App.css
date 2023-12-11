@@ -47,12 +47,14 @@ body {
 }
 
 .extension-divider {
-  height: 2px;
+  /* height: 2px; */
   width: 100%;
-  background-color: #27523c;
-  border-radius: 40px;
-  margin: 8px 0;
+  /* background-color: #27523c; */
+  /* border-radius: 40px; */
+  margin: 10px 0;
 }
+
+
 
 .type-container {
   display: flex;

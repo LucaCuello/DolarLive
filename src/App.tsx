@@ -84,7 +84,12 @@ function App() {
   return (
     <div className="extension-container">
       <Header />
-      <div className="extension-divider"></div>
+      <img
+        src="/src/assets/divider.svg"
+        draggable={false}
+        alt="divider"
+        className="extension-divider"
+      />
       <AnimatePresence>
         {!calculator ? (
           <motion.div
@@ -116,7 +121,12 @@ function App() {
         ) : null}
       </AnimatePresence>
       {calculator ? <Calculator currencies={dolar} /> : null}
-      <div className="extension-divider"></div>
+      <img
+        src="/src/assets/divider.svg"
+        draggable={false}
+        alt="divider"
+        className="extension-divider"
+      />
       <div className="btns-container">
         <motion.button
           initial="hidden"
