@@ -6,14 +6,7 @@ import {
   SiTwitter,
 } from "react-icons/si";
 import { Tooltip } from "react-tooltip";
-
-const toolTipStyles = {
-  backgroundColor: "#e5e5d5",
-  fontFamily: "'Montserrat', sans-serif",
-  color: "#35393C",
-  fontWeight: 600,
-  fontSize: "12px",
-};
+import { toolTipStyles } from "../../utils/utils";
 
 export const Footer = () => {
   return (
@@ -68,7 +61,6 @@ export const Footer = () => {
       <Tooltip
         id="tooltip"
         opacity={1}
-        border={"1px solid #1f2027"}
         classNameArrow="tooltip-arrow"
         style={toolTipStyles}
       />

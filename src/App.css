@@ -325,3 +325,23 @@ body {
   font-weight: 600;
   height: 12px;
 }
+
+.error-container {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+  padding: 2px 8px;
+  border-radius: 10px;
+  gap: 2px;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  background-color: #f5c84d;
+  color: #967133;
+}
+
+.error-icon {
+  /* Por el bien de mi sanidad mental, es la única forma que pude centrar este svg lpm */
+  margin-top: 1px;
+}

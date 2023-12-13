@@ -1,33 +1,42 @@
 # DolarLive
 
-## Sobre el proyecto
+## Introducción
 
-Extensión de Chrome y Opera pensada para uso regional en Argentina que mediante consumo de API, utilicé esta [API](https://dolarapi.com/docs/) para la consulta de todas las divisas.
+DolarLive es una extensión para navegadores basados en Chromium, diseñada específicamente para Argentina. Esta extensión proporciona valores actualizados de diferentes tipos de cambio del dólar utilizando la [API de DolarApi](https://dolarapi.com/docs/), permitiendo a los usuarios obtener cotizaciones del dólar oficial, dólar blue, dólar tarjeta, entre otros. Además, integra una calculadora para facilitar la conversión de pesos a dólares.
 
-La extensión devuelve el valor diario del dólar oficial, dólar blue, dolar tarjeta, entre entros. Además, incluye una calculadora para poder visualizar la conversión entre pesos y dólares en cada uno de estos tipos.
+Desarrollada con React y TypeScript, DolarLive emplea [CRXJS](https://github.com/crxjs/chrome-extension-tools) para su estructura y se beneficia de librerías como react-icons y framer-motion para ofrecer una experiencia de usuario enriquecida con iconos y animaciones fluidas.
 
-La misma fue creada con React y TypeScript mediante el uso de [CRXJS](https://github.com/crxjs/chrome-extension-tools), usando librerías externas como react-icons para los iconos y framer-motion para las animaciones.
+## Características Principales
 
-## Características
+- **Cotizaciones en Tiempo Real**: Accede a las últimas cotizaciones del dólar en Argentina.
+- **Amplia Compatibilidad**: Funciona en Chrome, Edge, Opera y otros navegadores basados en Chromium.
+- **Calculadora de Conversión**: Calcula el equivalente en pesos de diferentes tipos de dólares.
+- **Actualizaciones Constantes**: Valores actualizados diariamente para garantizar precisión.
 
-<img src="./src/assets/PosterFront.png" border="0">
-<img src="./src/assets/PosterBack.png" border="0">
+## Vista Previa de la Extensión
+
+![Vista Frontal de DolarLive](./src/assets/PosterFront.png)
+![Vista Posterior de DolarLive](./src/assets/PosterBack.png)
 
 ## Instalación
 
-### Instalación mediante la store oficial
+### Desde la Tienda Oficial
 
-Para instalar la extensión directo desde la store oficial de Chrome, [clickear aquí](https://t.co/k3usF9snUz).
+Para una instalación rápida y segura, visita la [página de la extensión en Chrome Web Store](https://t.co/k3usF9snUz) y añádela a tu navegador con un solo clic.
 
-### Instalación manual
+### Instalación Manual
 
-Para instalar la extensión, descargar de este mismo repositorio la carpeta llamada "dolarLiveExtension".
-Luego, en Chrome:
+Si prefieres una instalación manual, sigue estos pasos:
 
-`Más herramientas > Extensiones > Activar modo desarrollador > Cargar descomprimida.`
+1. Descarga la carpeta `dolarLiveExtension` desde este repositorio.
+2. Abre Chrome y navega a `Más herramientas > Extensiones`.
+3. Activa el `Modo Desarrollador`.
+4. Haz clic en `Cargar descomprimida` y selecciona la carpeta `dolarLiveExtension` que descargaste.
 
-Una vez abierto el recruadro de búsqueda de archivos, seleccionar la carpeta "dolarLiveExtension" previamente descargada.
+## Agradecimientos Especiales
 
-## Agradecimientos
+Un agradecimiento especial a [Enzo Notario](https://github.com/enzonotario), creador de la API de DolarApi que ha sido fundamental para el desarrollo de esta extensión. ¡Gracias, Enzo!
 
-Mención y agradecimiento a [Enzo Notario](https://github.com/enzonotario) por ser el creador de la API que utilicé para hacer posible este proyecto 😁
+---
+
+Con ❤️ por Luca.
