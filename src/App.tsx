@@ -1,3 +1,4 @@
+import Skeleton from "@mui/material/Skeleton";
 import axios from "axios";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
@@ -21,6 +22,7 @@ function App() {
   const [dolar, setDolar] = useState<CurrencyData[]>([]);
   const [calculator, setCalculator] = useState(false);
   const [isCalculatorPinned, setIsCalculatorPinned] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const getStorageView = () => {
     const storage = localStorage.getItem("IsCalculatorSticky");
@@ -35,6 +37,7 @@ function App() {
     };
 
     const getDolars = async () => {
+      setLoading(true);
       try {
         const { data } = await axios.get(URLS.dollars);
         const sortedData = data.sort((a: CurrencyData, b: CurrencyData) => {
@@ -45,6 +48,8 @@ function App() {
         setDolar(sortedData);
       } catch (err) {
         console.log("Hubo un error al obtener el valor del dolar", err);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -83,21 +88,32 @@ function App() {
             transition={{ duration: 0.3, ease: "easeInOut" }}
             className="currencies-container"
           >
-            {dolar.map((dolar: any) => (
-              <CurrencyComponent
-                key={dolar.nombre}
-                type={
-                  dolar.nombre == "Contado con liquidación"
-                    ? "CCL"
-                    : dolar.nombre
-                }
-                buyValue={dolar.compra}
-                sellValue={dolar.venta}
-              />
-            ))}
+            {loading
+              ? Array.from(new Array(7)).map((_, index) => (
+                  <Skeleton
+                    key={index}
+                    variant="rectangular"
+                    width={190}
+                    height={74}
+                    style={{ borderRadius: 5 }}
+                  />
+                ))
+              : dolar.map((dolarItem) => (
+                  <CurrencyComponent
+                    key={dolarItem.nombre}
+                    type={
+                      dolarItem.nombre === "Contado con liquidación"
+                        ? "CCL"
+                        : dolarItem.nombre
+                    }
+                    buyValue={dolarItem.compra}
+                    sellValue={dolarItem.venta}
+                  />
+                ))}
           </motion.div>
         ) : null}
       </AnimatePresence>
+
       {calculator ? <Calculator currencies={dolar} /> : null}
       <Divider />
       <div className="btns-container">
