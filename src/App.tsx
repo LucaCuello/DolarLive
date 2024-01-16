@@ -1,7 +1,6 @@
 import axios from "axios";
 import { AnimatePresence, motion } from "framer-motion";
-import { gsap } from "gsap";
-import { useEffect, useLayoutEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { IoCalculatorOutline } from "react-icons/io5";
 import {
   PiBackspaceLight,
@@ -51,26 +50,6 @@ function App() {
 
     getStorageView();
     getDolars();
-  }, []);
-
-  useLayoutEffect(() => {
-    const greenLights = document.querySelectorAll('[id^="green"]');
-    const redLights = document.querySelectorAll('[id^="red"]');
-
-    const tl = gsap.timeline({ repeat: -1, yoyo: true });
-
-    tl.to(greenLights, {
-      duration: 0.5,
-      fill: "#FA352D",
-      ease: "easeIn",
-      stagger: 0.1,
-    }).to(redLights, {
-      duration: 0.5,
-      fill: "#9CBE34",
-      ease: "easeIn",
-      stagger: 0.1,
-      delay: 0.1,
-    });
   }, []);
 
   const date = new Date(dolar[0]?.fechaActualizacion),

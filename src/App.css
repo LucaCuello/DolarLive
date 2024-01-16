@@ -47,9 +47,9 @@ body {
 }
 
 .extension-divider {
-  /* height: 2px; */
-  /* background-color: #27523c; */
-  /* border-radius: 40px; */
+  height: 2px;
+  background-color: #27523c;
+  border-radius: 40px;
   width: 100%;
   margin: 12px 0;
 }
