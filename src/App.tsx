@@ -1,4 +1,4 @@
-import Skeleton from "@mui/material/Skeleton";
+import { Skeleton } from "@/components/ui/skeleton";
 import axios from "axios";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
@@ -92,10 +92,7 @@ function App() {
               ? Array.from(new Array(7)).map((_, index) => (
                   <Skeleton
                     key={index}
-                    variant="rectangular"
-                    width={190}
-                    height={74}
-                    style={{ borderRadius: 5 }}
+                    className="w-[190px] h-[74px] rounded-[5px]"
                   />
                 ))
               : dolar.map((dolarItem) => (
