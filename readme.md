@@ -18,8 +18,13 @@ Desarrollada con React y TypeScript, DolarLive emplea [CRXJS](https://github.com
 
 ## Vista Previa de la Extensión
 
-![Vista Frontal de DolarLive](./src/assets/PosterFront.png)
-![Vista Posterior de DolarLive](./src/assets/PosterBack.png)
+| Cotizaciones | Calculadora |
+|:---:|:---:|
+| ![Cotizaciones](./src/assets/cotizaciones.png) | ![Calculadora](./src/assets/calculadora.png) |
+
+| Inflación | Históricos |
+|:---:|:---:|
+| ![Inflación](./src/assets/inflacion.png) | ![Históricos](./src/assets/historicos.png) |
 
 ## Instalación
 
