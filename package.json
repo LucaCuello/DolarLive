@@ -24,6 +24,7 @@
     "react-dom": "^18.2.0",
     "react-icons": "^4.8.0",
     "react-tooltip": "^5.21.1",
+    "recharts": "^2.15.4",
     "tailwind-merge": "^3.4.0",
     "tailwindcss-animate": "^1.0.7"
   },

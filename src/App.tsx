@@ -3,6 +3,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useDolarApi } from "./hooks/useDolarApi";
 import { CurrenciesGrid } from "./components/CurrenciesGrid/CurrenciesGrid";
 import { Calculator } from "./components/Calculator/Calculator";
+import { Inflacion } from "./components/Inflacion/Inflacion";
 import { Header } from "./components/Header/Header";
 import { Footer } from "./components/Footer/Footer";
 import { LastUpdated } from "./components/LastUpdated/LastUpdated";
@@ -43,9 +44,10 @@ function App() {
           onValueChange={saveDefaultTab}
           className="w-full"
         >
-          <TabsList className="w-full grid grid-cols-2">
+          <TabsList className="w-full grid grid-cols-3">
             <TabsTrigger value="cotizaciones">Cotizaciones</TabsTrigger>
             <TabsTrigger value="calculadora">Calculadora</TabsTrigger>
+            <TabsTrigger value="inflacion">Inflación</TabsTrigger>
           </TabsList>
 
           <TabsContent value="cotizaciones">
@@ -54,6 +56,10 @@ function App() {
 
           <TabsContent value="calculadora">
             <Calculator currencies={dolar} />
+          </TabsContent>
+
+          <TabsContent value="inflacion">
+            <Inflacion />
           </TabsContent>
         </Tabs>
       </motion.div>
