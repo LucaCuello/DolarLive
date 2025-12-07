@@ -11,45 +11,43 @@ interface CurrencyInputProps {
   className?: string;
 }
 
-const formatter = new Intl.NumberFormat("es-AR", {
-  minimumFractionDigits: 0,
-  maximumFractionDigits: 2,
-});
-
-function formatForDisplay(value: string): string {
+// Formatea número con puntos de miles y coma decimal (formato AR)
+const formatWithThousands = (value: string): string => {
   if (!value) return "";
-  const num = parseFloat(value);
-  if (isNaN(num)) return "";
-  return formatter.format(num);
-}
 
-function parseInput(input: string): string {
-  let cleaned = input.replace(/[^\d,]/g, "");
-  if (!cleaned) return "";
+  const [integerPart, decimalPart] = value.split(".");
 
-  cleaned = cleaned.replace(",", ".");
-  const match = cleaned.match(/^(\d*)\.?(\d{0,2})/);
+  // Agregar puntos de miles a la parte entera
+  const formattedInteger = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 
-  if (match) {
-    let integer = match[1] || "";
-    const decimal = match[2];
-
-    if (integer.length > 1) {
-      integer = integer.replace(/^0+/, "") || "0";
-    }
-
-    if (!integer && decimal) {
-      integer = "0";
-    }
-
-    if (decimal) {
-      return `${integer}.${decimal}`;
-    }
-    return integer;
+  if (decimalPart !== undefined) {
+    return `${formattedInteger},${decimalPart}`;
   }
 
-  return "";
-}
+  return formattedInteger;
+};
+
+// Parsea input del usuario (con puntos de miles y coma decimal) a valor interno
+const parseToInternal = (input: string): string => {
+  // Remover puntos (miles) y convertir coma a punto (decimal)
+  let cleaned = input.replace(/\./g, "").replace(",", ".");
+
+  // Solo permitir dígitos y un punto decimal
+  cleaned = cleaned.replace(/[^\d.]/g, "");
+
+  // Solo permitir un punto decimal
+  const parts = cleaned.split(".");
+  if (parts.length > 2) {
+    cleaned = parts[0] + "." + parts.slice(1).join("");
+  }
+
+  // Limitar decimales a 2
+  if (parts.length === 2 && parts[1].length > 2) {
+    cleaned = parts[0] + "." + parts[1].slice(0, 2);
+  }
+
+  return cleaned;
+};
 
 export function CurrencyInput({
   value,
@@ -62,15 +60,18 @@ export function CurrencyInput({
   const [displayValue, setDisplayValue] = React.useState("");
 
   React.useEffect(() => {
-    setDisplayValue(formatForDisplay(value));
+    setDisplayValue(formatWithThousands(value));
   }, [value]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!onChange) return;
+
     const rawInput = e.target.value;
-    const parsedValue = parseInput(rawInput);
-    setDisplayValue(formatForDisplay(parsedValue));
-    onChange(parsedValue);
+    const internalValue = parseToInternal(rawInput);
+
+    // Formatear para display con puntos de miles
+    setDisplayValue(formatWithThousands(internalValue));
+    onChange(internalValue);
   };
 
   const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
@@ -84,9 +85,9 @@ export function CurrencyInput({
       value={displayValue}
       onChange={handleChange}
       onFocus={handleFocus}
-      placeholder={placeholder || currency}
+      placeholder={placeholder || `0,00 ${currency}`}
       autoFocus={autoFocus}
-      className={cn("font-medium", className)}
+      className={cn("font-medium tabular-nums", className)}
     />
   );
 }

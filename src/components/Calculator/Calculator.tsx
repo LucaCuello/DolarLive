@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowUpDown } from "lucide-react";
+import { ArrowUpDown, X } from "lucide-react";
 import {
   Select,
   SelectContent,
@@ -90,11 +90,28 @@ export const Calculator = ({ currencies }: CalculatorProps) => {
               currency={fromCurrency}
               placeholder="0"
               autoFocus
-              className="h-12 rounded-xl border-border/60 bg-muted/30 px-4 pr-14 text-base font-medium transition-all hover:border-border focus:border-foreground focus:ring-0"
+              className="h-12 rounded-xl border-border/60 bg-muted/30 px-4 pr-20 text-base font-medium transition-all hover:border-border focus:border-foreground focus:ring-0"
             />
-            <span className="absolute right-4 top-1/2 -translate-y-1/2 text-xs font-semibold text-muted-foreground">
-              {fromCurrency}
-            </span>
+            <div className="absolute right-4 top-1/2 -translate-y-1/2 flex items-center gap-2">
+              <AnimatePresence>
+                {amount && (
+                  <motion.button
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.8 }}
+                    transition={{ duration: 0.15 }}
+                    onClick={() => setAmount("")}
+                    className="flex items-center justify-center w-5 h-5 rounded-full bg-muted hover:bg-muted-foreground/20 transition-colors"
+                    type="button"
+                  >
+                    <X className="w-3 h-3 text-muted-foreground" />
+                  </motion.button>
+                )}
+              </AnimatePresence>
+              <span className="text-xs font-semibold text-muted-foreground">
+                {fromCurrency}
+              </span>
+            </div>
           </div>
           <motion.button
             whileHover={{ scale: 1.02 }}

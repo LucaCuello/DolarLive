@@ -37,8 +37,8 @@ const SkeletonCard = ({ index }: { index: number }) => (
 export function CurrenciesGrid({ currencies, loading }: CurrenciesGridProps) {
   if (loading) {
     return (
-      <div className="grid grid-cols-2 gap-3">
-        {Array.from({ length: 6 }).map((_, index) => (
+      <div className="grid grid-cols-4 gap-3">
+        {Array.from({ length: 8 }).map((_, index) => (
           <SkeletonCard key={index} index={index} />
         ))}
       </div>
@@ -46,7 +46,7 @@ export function CurrenciesGrid({ currencies, loading }: CurrenciesGridProps) {
   }
 
   return (
-    <div className="grid grid-cols-2 gap-3">
+    <div className="grid grid-cols-4 gap-3">
       {currencies.map((currency, index) => (
         <CurrencyComponent
           key={currency.nombre}

@@ -17,8 +17,7 @@ input[type="number"] {
 }
 
 .extension-container {
-  width: 380px;
-  min-height: 480px;
+  width: 700px;
 }
 
 ::-webkit-scrollbar {

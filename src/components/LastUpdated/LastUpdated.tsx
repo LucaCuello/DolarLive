@@ -7,7 +7,7 @@ export const LastUpdated = ({ fullDate }: LastUpdatedProps) => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.4, delay: 0.15 }}
-      className="text-center py-3 border-t border-border/40"
+      className="text-center py-2 mt-4 border-t border-border/40"
     >
       <p className="text-[10px] text-muted-foreground leading-relaxed">
         Actualizado: <span className="font-medium">{fullDate || "..."}</span>

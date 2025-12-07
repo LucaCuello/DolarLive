@@ -9,7 +9,7 @@ export const Header = () => {
       initial={{ opacity: 0, y: -8 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
-      className="flex items-center justify-between py-3"
+      className="flex items-center justify-between py-2"
     >
       <div className="flex items-center gap-2">
         <div className="w-8 h-8 bg-foreground rounded-lg flex items-center justify-center">

@@ -28,7 +28,7 @@ function App() {
 
   return (
     <div className="extension-container flex flex-col bg-background">
-      <div className="px-5 pt-4 pb-2">
+      <div className="px-6 pt-3 pb-1">
         <Header />
       </div>
 
@@ -36,7 +36,7 @@ function App() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.3, delay: 0.1 }}
-        className="flex-1 px-5"
+        className="flex-1 px-6"
       >
         <Tabs
           defaultValue={getDefaultTab()}
@@ -58,7 +58,7 @@ function App() {
         </Tabs>
       </motion.div>
 
-      <div className="px-5 mt-auto">
+      <div className="px-6 mt-auto">
         <LastUpdated fullDate={formattedDate} />
         <Footer />
       </div>
