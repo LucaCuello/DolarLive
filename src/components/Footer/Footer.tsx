@@ -1,69 +1,77 @@
+import { motion } from "framer-motion";
+import { Github, Linkedin, Twitter, Coffee, Mail } from "lucide-react";
 import {
-  SiCoffeescript,
-  SiGithub,
-  SiGmail,
-  SiLinkedin,
-  SiTwitter,
-} from "react-icons/si";
-import { Tooltip } from "react-tooltip";
-import { toolTipStyles } from "../../utils/utils";
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+
+const socialLinks = [
+  {
+    icon: Github,
+    href: "https://github.com/LucaCuello/DolarLive",
+    label: "GitHub",
+  },
+  {
+    icon: Linkedin,
+    href: "https://www.linkedin.com/in/luca-cuello41/",
+    label: "LinkedIn",
+  },
+  {
+    icon: Twitter,
+    href: "https://twitter.com/LucaCuello_",
+    label: "Twitter",
+  },
+  {
+    icon: Coffee,
+    href: "https://cafecito.app/lucacuello",
+    label: "Cafecito",
+  },
+  {
+    icon: Mail,
+    href: "mailto:lucagcuello@gmail.com",
+    label: "Email",
+  },
+];
 
 export const Footer = () => {
   return (
-    <footer className="extension-footer">
-      <div className="contact-colab-links">
-        <span>
-          Developed by <span id="name-highlight">Luca</span>
-        </span>
-      </div>
-      <div className="contact-links">
-        <a
-          data-tooltip-id="tooltip"
-          data-tooltip-content="Dejale una estrellita al repo ;)"
-          href="https://github.com/LucaCuello/DolarLive"
-          target="_blank"
-        >
-          <SiGithub />
-        </a>
-        <a
-          data-tooltip-id="tooltip"
-          data-tooltip-content="Conectemos en LinkedIn :)"
-          href="https://www.linkedin.com/in/luca-cuello41/"
-          target="_blank"
-        >
-          <SiLinkedin />
-        </a>
-        <a
-          data-tooltip-id="tooltip"
-          data-tooltip-content="Seguime en Twitter!"
-          href="https://twitter.com/LucaCuello_"
-          target="_blank"
-        >
-          <SiTwitter />
-        </a>
-        <a
-          data-tooltip-id="tooltip"
-          data-tooltip-content="Invitame un cafecito :D"
-          href="https://cafecito.app/lucacuello"
-          target="_blank"
-        >
-          <SiCoffeescript />
-        </a>
-        <a
-          data-tooltip-id="tooltip"
-          data-tooltip-content="Si tenés alguna sugerencia, este es mi mail :)"
-          href="mailto:lucagcuello@gmail.com"
-          target="_blank"
-        >
-          <SiGmail />
-        </a>
-      </div>
-      <Tooltip
-        id="tooltip"
-        opacity={1}
-        classNameArrow="tooltip-arrow"
-        style={toolTipStyles}
-      />
-    </footer>
+    <TooltipProvider delayDuration={200}>
+      <motion.footer
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.4, delay: 0.2 }}
+        className="flex flex-col items-center gap-2 pt-3 pb-2"
+      >
+        <div className="flex items-center gap-2">
+          {socialLinks.map((link, index) => (
+            <Tooltip key={link.label}>
+              <TooltipTrigger asChild>
+                <motion.a
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  initial={{ opacity: 0, y: 4 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3, delay: 0.3 + index * 0.05 }}
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="flex items-center justify-center w-8 h-8 rounded-lg bg-muted/50 text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
+                >
+                  <link.icon className="w-3.5 h-3.5" />
+                </motion.a>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>{link.label}</p>
+              </TooltipContent>
+            </Tooltip>
+          ))}
+        </div>
+        <p className="text-[10px] text-muted-foreground">
+          Hecho por <span className="font-medium text-foreground/70">Luca</span>
+        </p>
+      </motion.footer>
+    </TooltipProvider>
   );
 };

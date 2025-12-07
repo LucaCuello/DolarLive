@@ -4,35 +4,24 @@ import { LastUpdatedProps } from "../../interfaces/interfaces";
 export const LastUpdated = ({ fullDate }: LastUpdatedProps) => {
   return (
     <motion.div
-      className="lastupdated-container"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      transition={{ duration: 0.5, ease: "easeInOut" }}
+      transition={{ duration: 0.4, delay: 0.15 }}
+      className="text-center py-2 mt-4 border-t border-border/40"
     >
-      <div className="lastupdated">
-        <span>Última actualización de cambio:</span>
-        <motion.span
-          initial={{ opacity: 0 }}
-          animate={{ opacity: fullDate ? 1 : 0 }}
-          transition={{ duration: 0.5, ease: "easeInOut" }}
+      <p className="text-[10px] text-muted-foreground leading-relaxed">
+        Actualizado: <span className="font-medium">{fullDate || "..."}</span>
+        <span className="mx-1.5 text-border">|</span>
+        Fuente:{" "}
+        <a
+          href="https://dolarapi.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-medium text-foreground/60 hover:text-foreground transition-colors"
         >
-          {fullDate ? fullDate : "Cargando..."}
-        </motion.span>
-      </div>
-      <div className="lastupdated-data">
-        <span>Datos obtenidos de:</span>
-        <span>
-          <a href="https://dolarhoy.com/" target="_blank">
-            https://dolarhoy.com/
-          </a>
-          <span style={{ paddingLeft: "4px" }}>
-            a través de{" "}
-            <a href="https://dolarapi.com/" target="_blank">
-              DolarApi
-            </a>
-          </span>
-        </span>
-      </div>
+          DolarApi
+        </a>
+      </p>
     </motion.div>
   );
 };

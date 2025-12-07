@@ -1,25 +1,27 @@
-export const storageView = (state: boolean) => {
-  localStorage.setItem("IsCalculatorSticky", state.toString());
+const TAB_STORAGE_KEY = "defaultTab";
+
+export const getDefaultTab = (): string => {
+  return localStorage.getItem(TAB_STORAGE_KEY) || "cotizaciones";
 };
 
-export const getStorageViewValue = () => {
-  const storage = localStorage.getItem("IsCalculatorSticky");
-  if (!storage) return;
-  return storage === "true";
+export const saveDefaultTab = (tab: string): void => {
+  localStorage.setItem(TAB_STORAGE_KEY, tab);
 };
 
 export const toolTipStyles = {
-  backgroundColor: "#e5e5d5",
-  fontFamily: "'Montserrat', sans-serif",
-  color: "#35393C",
-  fontWeight: 600,
+  backgroundColor: "hsl(var(--popover))",
+  color: "hsl(var(--popover-foreground))",
+  borderRadius: "6px",
+  padding: "8px 12px",
   fontSize: "12px",
+  boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
 };
 
 export const errorTooltipStyles = {
-  backgroundColor: "#f8f3d6",
-  fontFamily: "'Montserrat', sans-serif",
-  color: "#967133",
-  fontWeight: 600,
+  backgroundColor: "hsl(var(--destructive))",
+  color: "hsl(var(--destructive-foreground))",
+  borderRadius: "6px",
+  padding: "8px 12px",
   fontSize: "12px",
+  boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
 };

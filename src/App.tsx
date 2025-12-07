@@ -1,167 +1,79 @@
-import Skeleton from "@mui/material/Skeleton";
-import axios from "axios";
-import { AnimatePresence, motion } from "framer-motion";
-import { useEffect, useState } from "react";
-import { IoCalculatorOutline } from "react-icons/io5";
-import {
-  PiBackspaceLight,
-  PiPushPinSimpleLight,
-  PiPushPinSimpleSlashLight,
-} from "react-icons/pi";
-import "./App.css";
+import { motion } from "framer-motion";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useDolarApi } from "./hooks/useDolarApi";
+import { CurrenciesGrid } from "./components/CurrenciesGrid/CurrenciesGrid";
 import { Calculator } from "./components/Calculator/Calculator";
-import { CurrencyComponent } from "./components/CurrencyComponent/CurrencyComponent";
-import { Divider } from "./components/Divider/Divider";
-import { Footer } from "./components/Footer/Footer";
+import { Inflacion } from "./components/Inflacion/Inflacion";
+import { Historicos } from "./components/Historicos/Historicos";
 import { Header } from "./components/Header/Header";
+import { Footer } from "./components/Footer/Footer";
 import { LastUpdated } from "./components/LastUpdated/LastUpdated";
-import { CurrencyData } from "./interfaces/interfaces";
-import { getStorageViewValue, storageView } from "./utils/utils";
+import { getDefaultTab, saveDefaultTab } from "./utils/utils";
+import "./App.css";
+
+function formatDate(dateString: string): string {
+  const date = new Date(dateString);
+  const day = date.getDate();
+  const month = date.getMonth() + 1;
+  const year = date.getFullYear().toString().slice(2);
+  const hours = date.getHours();
+  const minutes = date.getMinutes().toString().padStart(2, "0");
+  return `${day}/${month}/${year} ${hours}:${minutes}`;
+}
 
 function App() {
-  const [dolar, setDolar] = useState<CurrencyData[]>([]);
-  const [calculator, setCalculator] = useState(false);
-  const [isCalculatorPinned, setIsCalculatorPinned] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const { data: dolar, loading } = useDolarApi();
 
-  const getStorageView = () => {
-    const storage = localStorage.getItem("IsCalculatorSticky");
-    if (storage) {
-      setCalculator(storage === "true");
-    }
-  };
-
-  useEffect(() => {
-    const URLS = {
-      dollars: "https://dolarapi.com/v1/dolares",
-    };
-
-    const getDolars = async () => {
-      setLoading(true);
-      try {
-        const { data } = await axios.get(URLS.dollars);
-        const sortedData = data.sort((a: CurrencyData, b: CurrencyData) => {
-          if (a.nombre === "Blue") return -1;
-          if (b.nombre === "Blue") return 1;
-          return 0;
-        });
-        setDolar(sortedData);
-      } catch (err) {
-        console.log("Hubo un error al obtener el valor del dolar", err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    getStorageView();
-    getDolars();
-  }, []);
-
-  const date = new Date(dolar[0]?.fechaActualizacion),
-    day = date.getDate(),
-    month = date.getMonth() + 1,
-    year = date.getFullYear().toString().slice(2),
-    hours = date.getHours();
-  const formattedDate = `${day}/${month}/${year} a las ${hours}hs`;
-
-  const variants = {
-    hidden: { scale: 0 },
-    visible: () => ({
-      scale: 1,
-      transition: { duration: 0.2, ease: "easeIn" },
-    }),
-    fadeOut: () => ({
-      opacity: 0,
-      transition: { duration: 0.2, ease: "easeIn" },
-    }),
-  };
+  const formattedDate = dolar[0]?.fechaActualizacion
+    ? formatDate(dolar[0].fechaActualizacion)
+    : "";
 
   return (
-    <div className="extension-container">
-      <Header />
-      <Divider />
-      <AnimatePresence>
-        {!calculator ? (
-          <motion.div
-            initial={{ opacity: 0, scale: 0 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="currencies-container"
-          >
-            {loading
-              ? Array.from(new Array(7)).map((_, index) => (
-                  <Skeleton
-                    key={index}
-                    variant="rectangular"
-                    width={190}
-                    height={74}
-                    style={{ borderRadius: 5 }}
-                  />
-                ))
-              : dolar.map((dolarItem) => (
-                  <CurrencyComponent
-                    key={dolarItem.nombre}
-                    type={
-                      dolarItem.nombre === "Contado con liquidación"
-                        ? "CCL"
-                        : dolarItem.nombre
-                    }
-                    buyValue={dolarItem.compra}
-                    sellValue={dolarItem.venta}
-                  />
-                ))}
-          </motion.div>
-        ) : null}
-      </AnimatePresence>
-
-      {calculator ? <Calculator currencies={dolar} /> : null}
-      <Divider />
-      <div className="btns-container">
-        <motion.button
-          initial="hidden"
-          animate="visible"
-          variants={variants}
-          onClick={() => {
-            setCalculator(!calculator);
-          }}
-        >
-          {!calculator ? <IoCalculatorOutline /> : <PiBackspaceLight />}
-          <span>{!calculator ? "Calculadora" : "Atrás"}</span>
-        </motion.button>
-        {calculator ? (
-          getStorageViewValue() ? (
-            <motion.button
-              initial="hidden"
-              animate="visible"
-              variants={variants}
-              onClick={() => {
-                storageView(false);
-                getStorageView();
-                setIsCalculatorPinned(false);
-              }}
-            >
-              <PiPushPinSimpleSlashLight />
-              Desfijar
-            </motion.button>
-          ) : (
-            <motion.button
-              initial="hidden"
-              animate={isCalculatorPinned ? "fadeOut" : "visible"}
-              variants={variants}
-              onClick={() => {
-                storageView(true);
-                getStorageView();
-                setIsCalculatorPinned(true);
-              }}
-            >
-              <PiPushPinSimpleLight />
-              Fijar calculadora
-            </motion.button>
-          )
-        ) : null}
+    <div className="extension-container flex flex-col bg-background">
+      <div className="px-6 pt-3 pb-1">
+        <Header />
       </div>
-      <LastUpdated fullDate={formattedDate} />
-      <Footer />
+
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.3, delay: 0.1 }}
+        className="flex-1 px-6"
+      >
+        <Tabs
+          defaultValue={getDefaultTab()}
+          onValueChange={saveDefaultTab}
+          className="w-full"
+        >
+          <TabsList className="w-full grid grid-cols-4">
+            <TabsTrigger value="cotizaciones">Cotizaciones</TabsTrigger>
+            <TabsTrigger value="calculadora">Calculadora</TabsTrigger>
+            <TabsTrigger value="inflacion">Inflación</TabsTrigger>
+            <TabsTrigger value="historicos">Históricos</TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="cotizaciones">
+            <CurrenciesGrid currencies={dolar} loading={loading} />
+          </TabsContent>
+
+          <TabsContent value="calculadora">
+            <Calculator currencies={dolar} />
+          </TabsContent>
+
+          <TabsContent value="inflacion">
+            <Inflacion />
+          </TabsContent>
+
+          <TabsContent value="historicos">
+            <Historicos />
+          </TabsContent>
+        </Tabs>
+      </motion.div>
+
+      <div className="px-6 mt-auto">
+        <LastUpdated fullDate={formattedDate} />
+        <Footer />
+      </div>
     </div>
   );
 }
