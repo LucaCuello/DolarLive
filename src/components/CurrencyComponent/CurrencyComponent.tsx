@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import { MdError } from "react-icons/md";
 import { Tooltip } from "react-tooltip";
 import { CurrencyComponentProps } from "../../interfaces/interfaces";
@@ -10,60 +9,43 @@ export const CurrencyComponent = ({
   sellValue,
 }: CurrencyComponentProps) => {
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.5, ease: "easeInOut" }}
-      className="currency-container"
-    >
-      <div className="type-container">
-        <h2>
-          {type === "Euro oficial" ? null : "Dólar"} {type}
-        </h2>
-        <div className="price-container">
-          <span className="price-title">Venta:</span>
-          {sellValue != null ? (
-            <motion.span
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, ease: "easeInOut" }}
-              className="price-value"
-            >
-              ${Math.round(sellValue)} ARS
-            </motion.span>
-          ) : (
-            <div
-              className="error-container"
-              data-tooltip-id="errorTooltip"
-              data-tooltip-content="Error en el servidor. Intente nuevamente más tarde."
-            >
-              <MdError className="error-icon" />
-              <span>Error</span>
-            </div>
-          )}
-        </div>
-        <div className="price-container">
-          <span className="price-title">Compra:</span>
-          {buyValue != null ? (
-            <motion.span
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, ease: "easeInOut" }}
-              className="price-value"
-            >
-              ${Math.round(buyValue)} ARS
-            </motion.span>
-          ) : (
-            <div
-              className="error-container"
-              data-tooltip-id="errorTooltip"
-              data-tooltip-content="Error en el servidor. Intente nuevamente más tarde."
-            >
-              <MdError className="error-icon" />
-              <span>Error</span>
-            </div>
-          )}
-        </div>
+    <div className="w-[190px] bg-card border border-border rounded-md p-3">
+      <h2 className="text-sm font-semibold text-foreground mb-2">
+        {type === "Euro oficial" ? null : "Dólar"} {type}
+      </h2>
+      <div className="flex justify-between items-center text-sm">
+        <span className="text-muted-foreground">Venta:</span>
+        {sellValue != null ? (
+          <span className="font-medium text-foreground">
+            ${Math.round(sellValue)} ARS
+          </span>
+        ) : (
+          <div
+            className="flex items-center gap-1 text-destructive cursor-help"
+            data-tooltip-id="errorTooltip"
+            data-tooltip-content="Error en el servidor. Intente nuevamente más tarde."
+          >
+            <MdError className="w-4 h-4" />
+            <span>Error</span>
+          </div>
+        )}
+      </div>
+      <div className="flex justify-between items-center text-sm mt-1">
+        <span className="text-muted-foreground">Compra:</span>
+        {buyValue != null ? (
+          <span className="font-medium text-foreground">
+            ${Math.round(buyValue)} ARS
+          </span>
+        ) : (
+          <div
+            className="flex items-center gap-1 text-destructive cursor-help"
+            data-tooltip-id="errorTooltip"
+            data-tooltip-content="Error en el servidor. Intente nuevamente más tarde."
+          >
+            <MdError className="w-4 h-4" />
+            <span>Error</span>
+          </div>
+        )}
       </div>
       <Tooltip
         id="errorTooltip"
@@ -71,6 +53,6 @@ export const CurrencyComponent = ({
         classNameArrow="tooltip-arrow"
         style={errorTooltipStyles}
       />
-    </motion.div>
+    </div>
   );
 };

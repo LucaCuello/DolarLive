@@ -41,11 +41,10 @@ export const Calculator = ({ currencies }: CalculatorProps) => {
       : "";
 
   return (
-    <div className="calculator-container">
-      <div className="w-full my-4">
-        <Label htmlFor="currency-select" className="text-sm font-medium">
-          Tipo de USD
-        </Label>
+    <div className="flex flex-col gap-4 w-full">
+      {/* Selector de moneda */}
+      <div className="space-y-2">
+        <Label htmlFor="currency-select">Tipo de USD</Label>
         <Select
           value={selectedCurrency?.nombre || ""}
           onValueChange={(value) => {
@@ -53,7 +52,7 @@ export const Calculator = ({ currencies }: CalculatorProps) => {
             if (selected) setSelectedCurrency(selected);
           }}
         >
-          <SelectTrigger id="currency-select" className="w-full mt-1">
+          <SelectTrigger id="currency-select" className="w-full">
             <SelectValue placeholder="Seleccionar..." />
           </SelectTrigger>
           <SelectContent>
@@ -66,27 +65,27 @@ export const Calculator = ({ currencies }: CalculatorProps) => {
         </Select>
       </div>
 
-      <div className="calculator-title">
+      {/* Info de la moneda seleccionada */}
+      <div className="text-center py-2">
         {selectedCurrency ? (
           <>
-            <h2>
+            <h2 className="text-lg font-semibold">
               {selectedCurrency.moneda} {selectedCurrency.nombre}
             </h2>
-            <span>
-              1 {selectedCurrency.moneda} equivale a $
-              {Math.round(selectedCurrency.venta)} ARS
-            </span>
+            <p className="text-sm text-muted-foreground">
+              1 {selectedCurrency.moneda} = ${Math.round(selectedCurrency.venta)} ARS
+            </p>
           </>
         ) : (
-          <span>Cargando...</span>
+          <p className="text-muted-foreground">Cargando...</p>
         )}
       </div>
 
       {/* Conversor USD a ARS */}
-      <div className="conversor-container">
-        <div className="input-container">
-          <div className="coin-container">
-            <AiOutlineDollarCircle />
+      <div className="flex items-center gap-2">
+        <div className="flex items-center flex-1 gap-2">
+          <div className="flex items-center justify-center w-10 h-10 rounded-l-md bg-muted">
+            <AiOutlineDollarCircle className="text-xl text-primary" />
           </div>
           <CurrencyInput
             value={usdValue}
@@ -94,62 +93,58 @@ export const Calculator = ({ currencies }: CalculatorProps) => {
             currency="USD"
             placeholder="USD"
             autoFocus
-            className="input"
+            className="flex-1 rounded-none"
           />
-          <div className="delete-container">
+          <div className="flex items-center justify-center w-10 h-10 rounded-r-md bg-muted">
             {usdValue && (
-              <span>
-                <BsTrash
-                  onClick={() => setUsdValue("")}
-                  className="cursor-pointer hover:text-destructive transition-colors"
-                />
-              </span>
+              <BsTrash
+                onClick={() => setUsdValue("")}
+                className="cursor-pointer hover:text-destructive transition-colors"
+              />
             )}
           </div>
         </div>
-        <div className="result-container">
+        <div className="flex-1">
           {selectedCurrency && (
             <CurrencyInput
               value={usdToArsResult}
               currency="ARS"
               readOnly
-              className="input-result"
+              className="bg-primary text-primary-foreground"
             />
           )}
         </div>
       </div>
 
       {/* Conversor ARS a USD */}
-      <div className="conversor-container">
-        <div className="input-container">
-          <div className="coin-container">
-            <FaRegMoneyBillAlt />
+      <div className="flex items-center gap-2">
+        <div className="flex items-center flex-1 gap-2">
+          <div className="flex items-center justify-center w-10 h-10 rounded-l-md bg-muted">
+            <FaRegMoneyBillAlt className="text-xl text-primary" />
           </div>
           <CurrencyInput
             value={arsValue}
             onChange={setArsValue}
             currency="ARS"
             placeholder="ARS"
-            className="input"
+            className="flex-1 rounded-none"
           />
-          <div className="delete-container">
+          <div className="flex items-center justify-center w-10 h-10 rounded-r-md bg-muted">
             {arsValue && (
-              <span>
-                <BsTrash
-                  onClick={() => setArsValue("")}
-                  className="cursor-pointer hover:text-destructive transition-colors"
-                />
-              </span>
+              <BsTrash
+                onClick={() => setArsValue("")}
+                className="cursor-pointer hover:text-destructive transition-colors"
+              />
             )}
           </div>
         </div>
-        <div className="result-container">
+        <div className="flex-1">
           {selectedCurrency && (
             <CurrencyInput
               value={arsToUsdResult}
               currency="USD"
               readOnly
-              className="input-result"
+              className="bg-primary text-primary-foreground"
             />
           )}
         </div>
