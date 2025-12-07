@@ -12,7 +12,28 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
 .extension-container {
-  width: 430px;
-  min-height: 400px;
+  width: 380px;
+  min-height: 480px;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--border));
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--muted-foreground));
 }

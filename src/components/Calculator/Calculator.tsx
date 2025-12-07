@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
-import { AiOutlineDollarCircle } from "react-icons/ai";
-import { BsTrash } from "react-icons/bs";
-import { FaRegMoneyBillAlt } from "react-icons/fa";
+import { motion, AnimatePresence } from "framer-motion";
+import { ArrowUpDown } from "lucide-react";
 import {
   Select,
   SelectContent,
@@ -9,42 +8,51 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Label } from "@/components/ui/label";
 import { CurrencyInput } from "@/components/ui/currency-input";
 import { CalculatorProps, CurrencyData } from "../../interfaces/interfaces";
 
+const formatARS = new Intl.NumberFormat("es-AR", {
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 2,
+});
+
 export const Calculator = ({ currencies }: CalculatorProps) => {
-  const [selectedCurrency, setSelectedCurrency] = useState<CurrencyData | null>(
-    null
-  );
+  const [selectedCurrency, setSelectedCurrency] = useState<CurrencyData | null>(null);
+  const [amount, setAmount] = useState("");
+  const [fromCurrency, setFromCurrency] = useState<"USD" | "ARS">("USD");
 
   useEffect(() => {
     if (currencies.length > 0) {
-      const initialCurrency =
-        currencies.find((c) => c.nombre === "Blue") || currencies[0];
+      const initialCurrency = currencies.find((c) => c.nombre === "Blue") || currencies[0];
       setSelectedCurrency(initialCurrency);
     }
   }, [currencies]);
 
-  const [usdValue, setUsdValue] = useState("");
-  const [arsValue, setArsValue] = useState("");
-
-  // Calcular conversiones
-  const usdToArsResult =
-    selectedCurrency && usdValue
-      ? (selectedCurrency.venta * parseFloat(usdValue)).toFixed(2)
+  const result =
+    selectedCurrency && amount
+      ? fromCurrency === "USD"
+        ? (selectedCurrency.venta * parseFloat(amount)).toFixed(2)
+        : (parseFloat(amount) / selectedCurrency.venta).toFixed(2)
       : "";
 
-  const arsToUsdResult =
-    selectedCurrency && arsValue && selectedCurrency.venta
-      ? (parseFloat(arsValue) / selectedCurrency.venta).toFixed(2)
-      : "";
+  const toCurrency = fromCurrency === "USD" ? "ARS" : "USD";
+
+  const handleSwap = () => {
+    setFromCurrency(toCurrency);
+    if (result) {
+      setAmount(result);
+    }
+  };
 
   return (
-    <div className="flex flex-col gap-4 w-full">
-      {/* Selector de moneda */}
+    <motion.div
+      initial={{ opacity: 0, y: 8 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.35, ease: [0.4, 0, 0.2, 1] }}
+      className="flex flex-col gap-4 w-full"
+    >
       <div className="space-y-2">
-        <Label htmlFor="currency-select">Tipo de USD</Label>
+        <label className="text-xs font-medium text-muted-foreground">Tipo de cambio</label>
         <Select
           value={selectedCurrency?.nombre || ""}
           onValueChange={(value) => {
@@ -52,103 +60,84 @@ export const Calculator = ({ currencies }: CalculatorProps) => {
             if (selected) setSelectedCurrency(selected);
           }}
         >
-          <SelectTrigger id="currency-select" className="w-full">
-            <SelectValue placeholder="Seleccionar..." />
+          <SelectTrigger className="w-full h-12 rounded-xl border-border/60 bg-muted/30 px-4 text-sm font-medium transition-all hover:border-border focus:border-foreground focus:ring-0">
+            <SelectValue placeholder="Seleccionar tipo..." />
           </SelectTrigger>
-          <SelectContent>
+          <SelectContent className="rounded-xl border-border/60 bg-background/95 backdrop-blur-lg">
             {currencies.map((currency) => (
-              <SelectItem key={currency.nombre} value={currency.nombre}>
-                {currency.nombre}
+              <SelectItem
+                key={currency.nombre}
+                value={currency.nombre}
+                className="rounded-lg py-2.5 px-3 text-sm font-medium cursor-pointer transition-colors focus:bg-muted"
+              >
+                <div className="flex items-center justify-between w-full gap-4">
+                  <span>{currency.nombre === "Contado con liquidación" ? "CCL" : currency.nombre}</span>
+                  <span className="text-muted-foreground tabular-nums">${Math.round(currency.venta)}</span>
+                </div>
               </SelectItem>
             ))}
           </SelectContent>
         </Select>
       </div>
 
-      {/* Info de la moneda seleccionada */}
-      <div className="text-center py-2">
-        {selectedCurrency ? (
-          <>
-            <h2 className="text-lg font-semibold">
-              {selectedCurrency.moneda} {selectedCurrency.nombre}
-            </h2>
-            <p className="text-sm text-muted-foreground">
-              1 {selectedCurrency.moneda} = ${Math.round(selectedCurrency.venta)} ARS
-            </p>
-          </>
-        ) : (
-          <p className="text-muted-foreground">Cargando...</p>
+      <div className="space-y-2">
+        <label className="text-xs font-medium text-muted-foreground">Monto a convertir</label>
+        <div className="flex items-center gap-3">
+          <div className="flex-1 relative">
+            <CurrencyInput
+              value={amount}
+              onChange={setAmount}
+              currency={fromCurrency}
+              placeholder="0"
+              autoFocus
+              className="h-12 rounded-xl border-border/60 bg-muted/30 px-4 pr-14 text-base font-medium transition-all hover:border-border focus:border-foreground focus:ring-0"
+            />
+            <span className="absolute right-4 top-1/2 -translate-y-1/2 text-xs font-semibold text-muted-foreground">
+              {fromCurrency}
+            </span>
+          </div>
+          <motion.button
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            onClick={handleSwap}
+            className="flex items-center justify-center w-12 h-12 rounded-xl bg-muted/50 border border-border/60 hover:bg-muted hover:border-border transition-all"
+            title="Intercambiar monedas"
+          >
+            <ArrowUpDown className="w-4 h-4 text-muted-foreground" />
+          </motion.button>
+        </div>
+      </div>
+
+      <AnimatePresence mode="wait">
+        {selectedCurrency && (
+          <motion.div
+            key={`${fromCurrency}-${selectedCurrency.nombre}`}
+            initial={{ opacity: 0, y: 8, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -8, scale: 0.98 }}
+            transition={{ duration: 0.25, ease: [0.4, 0, 0.2, 1] }}
+            className="bg-foreground text-background rounded-2xl p-5 mt-1"
+          >
+            <div className="flex items-baseline justify-between">
+              <div>
+                <p className="text-xs text-background/60 mb-0.5">Resultado</p>
+                <p className="text-3xl font-semibold tracking-tight tabular-nums">
+                  {result ? formatARS.format(parseFloat(result)) : "0"}
+                </p>
+              </div>
+              <div className="text-right">
+                <span className="text-xl font-medium text-background/80">{toCurrency}</span>
+              </div>
+            </div>
+            <div className="mt-4 pt-3 border-t border-background/10">
+              <p className="text-[11px] text-background/50 flex items-center justify-between">
+                <span>Tipo de cambio:</span>
+                <span className="tabular-nums">1 USD = ${formatARS.format(selectedCurrency.venta)} ARS</span>
+              </p>
+            </div>
+          </motion.div>
         )}
-      </div>
-
-      {/* Conversor USD a ARS */}
-      <div className="flex items-center gap-2">
-        <div className="flex items-center flex-1 gap-2">
-          <div className="flex items-center justify-center w-10 h-10 rounded-l-md bg-muted">
-            <AiOutlineDollarCircle className="text-xl text-primary" />
-          </div>
-          <CurrencyInput
-            value={usdValue}
-            onChange={setUsdValue}
-            currency="USD"
-            placeholder="USD"
-            autoFocus
-            className="flex-1 rounded-none"
-          />
-          <div className="flex items-center justify-center w-10 h-10 rounded-r-md bg-muted">
-            {usdValue && (
-              <BsTrash
-                onClick={() => setUsdValue("")}
-                className="cursor-pointer hover:text-destructive transition-colors"
-              />
-            )}
-          </div>
-        </div>
-        <div className="flex-1">
-          {selectedCurrency && (
-            <CurrencyInput
-              value={usdToArsResult}
-              currency="ARS"
-              readOnly
-              className="bg-primary text-primary-foreground"
-            />
-          )}
-        </div>
-      </div>
-
-      {/* Conversor ARS a USD */}
-      <div className="flex items-center gap-2">
-        <div className="flex items-center flex-1 gap-2">
-          <div className="flex items-center justify-center w-10 h-10 rounded-l-md bg-muted">
-            <FaRegMoneyBillAlt className="text-xl text-primary" />
-          </div>
-          <CurrencyInput
-            value={arsValue}
-            onChange={setArsValue}
-            currency="ARS"
-            placeholder="ARS"
-            className="flex-1 rounded-none"
-          />
-          <div className="flex items-center justify-center w-10 h-10 rounded-r-md bg-muted">
-            {arsValue && (
-              <BsTrash
-                onClick={() => setArsValue("")}
-                className="cursor-pointer hover:text-destructive transition-colors"
-              />
-            )}
-          </div>
-        </div>
-        <div className="flex-1">
-          {selectedCurrency && (
-            <CurrencyInput
-              value={arsToUsdResult}
-              currency="USD"
-              readOnly
-              className="bg-primary text-primary-foreground"
-            />
-          )}
-        </div>
-      </div>
-    </div>
+      </AnimatePresence>
+    </motion.div>
   );
 };

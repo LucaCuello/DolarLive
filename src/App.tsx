@@ -1,10 +1,10 @@
+import { motion } from "framer-motion";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useDolarApi } from "./hooks/useDolarApi";
 import { CurrenciesGrid } from "./components/CurrenciesGrid/CurrenciesGrid";
 import { Calculator } from "./components/Calculator/Calculator";
 import { Header } from "./components/Header/Header";
 import { Footer } from "./components/Footer/Footer";
-import { Divider } from "./components/Divider/Divider";
 import { LastUpdated } from "./components/LastUpdated/LastUpdated";
 import { getDefaultTab, saveDefaultTab } from "./utils/utils";
 import "./App.css";
@@ -15,7 +15,8 @@ function formatDate(dateString: string): string {
   const month = date.getMonth() + 1;
   const year = date.getFullYear().toString().slice(2);
   const hours = date.getHours();
-  return `${day}/${month}/${year} a las ${hours}hs`;
+  const minutes = date.getMinutes().toString().padStart(2, "0");
+  return `${day}/${month}/${year} ${hours}:${minutes}`;
 }
 
 function App() {
@@ -26,32 +27,41 @@ function App() {
     : "";
 
   return (
-    <div className="extension-container flex flex-col bg-background p-4">
-      <Header />
-      <Divider />
+    <div className="extension-container flex flex-col bg-background">
+      <div className="px-5 pt-4 pb-2">
+        <Header />
+      </div>
 
-      <Tabs
-        defaultValue={getDefaultTab()}
-        onValueChange={saveDefaultTab}
-        className="w-full flex-1"
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.3, delay: 0.1 }}
+        className="flex-1 px-5"
       >
-        <TabsList className="w-full grid grid-cols-2">
-          <TabsTrigger value="cotizaciones">Cotizaciones</TabsTrigger>
-          <TabsTrigger value="calculadora">Calculadora</TabsTrigger>
-        </TabsList>
+        <Tabs
+          defaultValue={getDefaultTab()}
+          onValueChange={saveDefaultTab}
+          className="w-full"
+        >
+          <TabsList className="w-full grid grid-cols-2">
+            <TabsTrigger value="cotizaciones">Cotizaciones</TabsTrigger>
+            <TabsTrigger value="calculadora">Calculadora</TabsTrigger>
+          </TabsList>
 
-        <TabsContent value="cotizaciones" className="mt-4">
-          <CurrenciesGrid currencies={dolar} loading={loading} />
-        </TabsContent>
+          <TabsContent value="cotizaciones">
+            <CurrenciesGrid currencies={dolar} loading={loading} />
+          </TabsContent>
 
-        <TabsContent value="calculadora" className="mt-4">
-          <Calculator currencies={dolar} />
-        </TabsContent>
-      </Tabs>
+          <TabsContent value="calculadora">
+            <Calculator currencies={dolar} />
+          </TabsContent>
+        </Tabs>
+      </motion.div>
 
-      <Divider />
-      <LastUpdated fullDate={formattedDate} />
-      <Footer />
+      <div className="px-5 mt-auto">
+        <LastUpdated fullDate={formattedDate} />
+        <Footer />
+      </div>
     </div>
   );
 }

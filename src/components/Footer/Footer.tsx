@@ -1,74 +1,64 @@
-import {
-  SiCoffeescript,
-  SiGithub,
-  SiGmail,
-  SiLinkedin,
-  SiTwitter,
-} from "react-icons/si";
-import { Tooltip } from "react-tooltip";
-import { toolTipStyles } from "../../utils/utils";
+import { motion } from "framer-motion";
+import { Github, Linkedin, Twitter, Coffee, Mail } from "lucide-react";
+
+const socialLinks = [
+  {
+    icon: Github,
+    href: "https://github.com/LucaCuello/DolarLive",
+    label: "GitHub",
+  },
+  {
+    icon: Linkedin,
+    href: "https://www.linkedin.com/in/luca-cuello41/",
+    label: "LinkedIn",
+  },
+  {
+    icon: Twitter,
+    href: "https://twitter.com/LucaCuello_",
+    label: "Twitter",
+  },
+  {
+    icon: Coffee,
+    href: "https://cafecito.app/lucacuello",
+    label: "Cafecito",
+  },
+  {
+    icon: Mail,
+    href: "mailto:lucagcuello@gmail.com",
+    label: "Email",
+  },
+];
 
 export const Footer = () => {
   return (
-    <footer className="flex flex-col items-center gap-2 py-2">
-      <div className="text-xs text-muted-foreground">
-        <span>
-          Developed by <span className="font-semibold text-foreground">Luca</span>
-        </span>
+    <motion.footer
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.4, delay: 0.2 }}
+      className="flex flex-col items-center gap-3 pt-4 pb-2"
+    >
+      <div className="flex items-center gap-2">
+        {socialLinks.map((link, index) => (
+          <motion.a
+            key={link.label}
+            href={link.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            initial={{ opacity: 0, y: 4 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3, delay: 0.3 + index * 0.05 }}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
+            className="flex items-center justify-center w-8 h-8 rounded-lg bg-muted/50 text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
+            title={link.label}
+          >
+            <link.icon className="w-3.5 h-3.5" />
+          </motion.a>
+        ))}
       </div>
-      <div className="flex gap-3">
-        <a
-          data-tooltip-id="tooltip"
-          data-tooltip-content="Dejale una estrellita al repo ;)"
-          href="https://github.com/LucaCuello/DolarLive"
-          target="_blank"
-          className="text-muted-foreground hover:text-foreground transition-colors"
-        >
-          <SiGithub className="w-4 h-4" />
-        </a>
-        <a
-          data-tooltip-id="tooltip"
-          data-tooltip-content="Conectemos en LinkedIn :)"
-          href="https://www.linkedin.com/in/luca-cuello41/"
-          target="_blank"
-          className="text-muted-foreground hover:text-foreground transition-colors"
-        >
-          <SiLinkedin className="w-4 h-4" />
-        </a>
-        <a
-          data-tooltip-id="tooltip"
-          data-tooltip-content="Seguime en Twitter!"
-          href="https://twitter.com/LucaCuello_"
-          target="_blank"
-          className="text-muted-foreground hover:text-foreground transition-colors"
-        >
-          <SiTwitter className="w-4 h-4" />
-        </a>
-        <a
-          data-tooltip-id="tooltip"
-          data-tooltip-content="Invitame un cafecito :D"
-          href="https://cafecito.app/lucacuello"
-          target="_blank"
-          className="text-muted-foreground hover:text-foreground transition-colors"
-        >
-          <SiCoffeescript className="w-4 h-4" />
-        </a>
-        <a
-          data-tooltip-id="tooltip"
-          data-tooltip-content="Si tenés alguna sugerencia, este es mi mail :)"
-          href="mailto:lucagcuello@gmail.com"
-          target="_blank"
-          className="text-muted-foreground hover:text-foreground transition-colors"
-        >
-          <SiGmail className="w-4 h-4" />
-        </a>
-      </div>
-      <Tooltip
-        id="tooltip"
-        opacity={1}
-        classNameArrow="tooltip-arrow"
-        style={toolTipStyles}
-      />
-    </footer>
+      <p className="text-[10px] text-muted-foreground">
+        Hecho por <span className="font-medium text-foreground/70">Luca</span>
+      </p>
+    </motion.footer>
   );
 };

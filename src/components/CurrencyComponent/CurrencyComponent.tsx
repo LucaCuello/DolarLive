@@ -1,58 +1,75 @@
-import { MdError } from "react-icons/md";
-import { Tooltip } from "react-tooltip";
+import { motion } from "framer-motion";
 import { CurrencyComponentProps } from "../../interfaces/interfaces";
-import { errorTooltipStyles } from "../../utils/utils";
+
+const formatNumber = new Intl.NumberFormat("es-AR", {
+  minimumFractionDigits: 0,
+  maximumFractionDigits: 0,
+});
 
 export const CurrencyComponent = ({
   type,
   buyValue,
   sellValue,
-}: CurrencyComponentProps) => {
+  index = 0,
+}: CurrencyComponentProps & { index?: number }) => {
+  const isBlue = type === "Blue";
+
   return (
-    <div className="w-[190px] bg-card border border-border rounded-md p-3">
-      <h2 className="text-sm font-semibold text-foreground mb-2">
-        {type === "Euro oficial" ? null : "Dólar"} {type}
-      </h2>
-      <div className="flex justify-between items-center text-sm">
-        <span className="text-muted-foreground">Venta:</span>
-        {sellValue != null ? (
-          <span className="font-medium text-foreground">
-            ${Math.round(sellValue)} ARS
+    <motion.div
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{
+        duration: 0.35,
+        delay: index * 0.05,
+        ease: [0.4, 0, 0.2, 1],
+      }}
+      className={`
+        group relative overflow-hidden rounded-2xl border p-4 transition-all duration-200
+        ${isBlue
+          ? "border-foreground/20 bg-foreground text-background"
+          : "border-border/60 bg-card hover:border-border hover:shadow-sm"
+        }
+      `}
+    >
+      <div className="flex items-start justify-between mb-3">
+        <div>
+          <span className={`text-[10px] font-medium uppercase tracking-wider ${isBlue ? "text-background/60" : "text-muted-foreground"}`}>
+            {type === "Euro oficial" ? "Euro" : "Dólar"}
           </span>
-        ) : (
-          <div
-            className="flex items-center gap-1 text-destructive cursor-help"
-            data-tooltip-id="errorTooltip"
-            data-tooltip-content="Error en el servidor. Intente nuevamente más tarde."
-          >
-            <MdError className="w-4 h-4" />
-            <span>Error</span>
-          </div>
+          <h2 className={`text-base font-semibold tracking-tight -mt-0.5 ${isBlue ? "text-background" : "text-foreground"}`}>
+            {type === "Euro oficial" ? "Oficial" : type}
+          </h2>
+        </div>
+        {isBlue && (
+          <span className="text-[9px] font-medium bg-background/20 text-background px-1.5 py-0.5 rounded-full">
+            Popular
+          </span>
         )}
       </div>
-      <div className="flex justify-between items-center text-sm mt-1">
-        <span className="text-muted-foreground">Compra:</span>
-        {buyValue != null ? (
-          <span className="font-medium text-foreground">
-            ${Math.round(buyValue)} ARS
-          </span>
-        ) : (
-          <div
-            className="flex items-center gap-1 text-destructive cursor-help"
-            data-tooltip-id="errorTooltip"
-            data-tooltip-content="Error en el servidor. Intente nuevamente más tarde."
-          >
-            <MdError className="w-4 h-4" />
-            <span>Error</span>
-          </div>
-        )}
+
+      <div className="space-y-2">
+        <div className="flex items-center justify-between">
+          <span className={`text-xs ${isBlue ? "text-background/60" : "text-muted-foreground"}`}>Venta</span>
+          {sellValue != null ? (
+            <span className={`text-lg font-semibold tabular-nums tracking-tight ${isBlue ? "text-background" : "text-foreground"}`}>
+              ${formatNumber.format(sellValue)}
+            </span>
+          ) : (
+            <span className="text-xs text-muted-foreground">—</span>
+          )}
+        </div>
+        <div className={`h-px ${isBlue ? "bg-background/10" : "bg-border/60"}`} />
+        <div className="flex items-center justify-between">
+          <span className={`text-xs ${isBlue ? "text-background/60" : "text-muted-foreground"}`}>Compra</span>
+          {buyValue != null ? (
+            <span className={`text-sm font-medium tabular-nums ${isBlue ? "text-background/80" : "text-muted-foreground"}`}>
+              ${formatNumber.format(buyValue)}
+            </span>
+          ) : (
+            <span className="text-xs text-muted-foreground">—</span>
+          )}
+        </div>
       </div>
-      <Tooltip
-        id="errorTooltip"
-        opacity={1}
-        classNameArrow="tooltip-arrow"
-        style={errorTooltipStyles}
-      />
-    </div>
+    </motion.div>
   );
 };
