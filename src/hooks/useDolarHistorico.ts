@@ -1,5 +1,6 @@
 import { useState, useEffect, useMemo } from "react";
 import axios from "axios";
+import { getCache, setCache, CACHE_KEYS } from "../utils/cache";
 
 const API_BASE = "https://api.argentinadatos.com/v1/cotizaciones/dolares";
 
@@ -34,6 +35,11 @@ function filterByRange(data: ApiResponse[], days: number): ApiResponse[] {
   return data.filter((item) => new Date(item.fecha) >= cutoffDate);
 }
 
+interface HistoricoCache {
+  blue: ApiResponse[];
+  oficial: ApiResponse[];
+}
+
 export function useDolarHistorico(rango: RangoTiempo) {
   const [blueData, setBlueData] = useState<ApiResponse[]>([]);
   const [oficialData, setOficialData] = useState<ApiResponse[]>([]);
@@ -42,6 +48,16 @@ export function useDolarHistorico(rango: RangoTiempo) {
 
   useEffect(() => {
     const fetchData = async () => {
+      // Intentar usar cache primero
+      const cached = getCache<HistoricoCache>(CACHE_KEYS.HISTORICO);
+      if (cached) {
+        setBlueData(cached.blue);
+        setOficialData(cached.oficial);
+        setLoading(false);
+        return;
+      }
+
+      // Si no hay cache, hacer fetch
       setLoading(true);
       try {
         const [blueRes, oficialRes] = await Promise.all([
@@ -51,6 +67,10 @@ export function useDolarHistorico(rango: RangoTiempo) {
 
         setBlueData(blueRes.data);
         setOficialData(oficialRes.data);
+        setCache(CACHE_KEYS.HISTORICO, {
+          blue: blueRes.data,
+          oficial: oficialRes.data,
+        });
         setError(null);
       } catch (err) {
         console.error("Error al obtener histórico de dólar:", err);

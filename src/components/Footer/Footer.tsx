@@ -68,9 +68,6 @@ export const Footer = () => {
             </Tooltip>
           ))}
         </div>
-        <p className="text-[10px] text-muted-foreground">
-          Hecho por <span className="font-medium text-foreground/70">Luca</span>
-        </p>
       </motion.footer>
     </TooltipProvider>
   );

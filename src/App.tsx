@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useDolarApi } from "./hooks/useDolarApi";
@@ -32,12 +32,21 @@ function App() {
     saveTheme(newTheme);
   };
 
+  // Aplicar clase dark al documentElement para que los portales (tooltips) la hereden
+  useEffect(() => {
+    if (theme === "dark") {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }, [theme]);
+
   const formattedDate = dolar[0]?.fechaActualizacion
     ? formatDate(dolar[0].fechaActualizacion)
     : "";
 
   return (
-    <div className={`extension-container flex flex-col bg-background ${theme === "dark" ? "dark" : ""}`}>
+    <div className="extension-container flex flex-col bg-background">
       <div className="px-6 pt-3 pb-1">
         <Header theme={theme} onToggleTheme={toggleTheme} />
       </div>

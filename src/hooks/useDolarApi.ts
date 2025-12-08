@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { CurrencyData } from "../interfaces/interfaces";
+import { getCache, setCache, CACHE_KEYS } from "../utils/cache";
 
 const API_URL = "https://dolarapi.com/v1/dolares";
 const STATUS_URL = "https://dolarapi.com/v1/estado";
@@ -12,6 +13,15 @@ export function useDolarApi() {
 
   useEffect(() => {
     const fetchData = async () => {
+      // Intentar usar cache primero
+      const cached = getCache<CurrencyData[]>(CACHE_KEYS.DOLARES);
+      if (cached) {
+        setData(cached);
+        setLoading(false);
+        return;
+      }
+
+      // Si no hay cache, hacer fetch
       setLoading(true);
       try {
         const { data: response } = await axios.get(API_URL);
@@ -21,6 +31,7 @@ export function useDolarApi() {
           return 0;
         });
         setData(sorted);
+        setCache(CACHE_KEYS.DOLARES, sorted);
         setError(null);
       } catch (err) {
         console.error("Error al obtener cotizaciones:", err);

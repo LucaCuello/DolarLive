@@ -71,7 +71,7 @@ export function Historicos() {
               </span>
               <span
                 className={`text-[10px] font-medium ${
-                  blueVariacion >= 0 ? "text-green-300" : "text-red-300"
+                  blueVariacion >= 0 ? "text-green-500" : "text-red-500"
                 }`}
               >
                 {formatVariacion(blueVariacion)} ({rangoLabel})

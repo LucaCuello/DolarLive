@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { getCache, setCache, CACHE_KEYS } from "../utils/cache";
 
 const API_URL = "https://api.argentinadatos.com/v1/finanzas/indices/inflacion";
 
@@ -15,6 +16,15 @@ export function useInflacion() {
 
   useEffect(() => {
     const fetchData = async () => {
+      // Intentar usar cache primero
+      const cached = getCache<InflacionData[]>(CACHE_KEYS.INFLACION);
+      if (cached) {
+        setData(cached);
+        setLoading(false);
+        return;
+      }
+
+      // Si no hay cache, hacer fetch
       setLoading(true);
       try {
         const { data: response } = await axios.get<InflacionData[]>(API_URL);
@@ -25,6 +35,7 @@ export function useInflacion() {
           .slice(-12);
 
         setData(sorted);
+        setCache(CACHE_KEYS.INFLACION, sorted);
         setError(null);
       } catch (err) {
         console.error("Error al obtener inflación:", err);

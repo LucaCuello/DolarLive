@@ -23,7 +23,7 @@ export const Header = ({ theme, onToggleTheme }: HeaderProps) => {
           <span className="text-background font-semibold text-sm">$</span>
         </div>
         <div className="flex flex-col">
-          <span className="text-sm font-semibold tracking-tight">DolarLive</span>
+          <span className="text-sm font-semibold tracking-tight text-foreground">DolarLive</span>
           <span className="text-[10px] text-muted-foreground -mt-0.5">Cotizaciones en tiempo real</span>
         </div>
       </div>
