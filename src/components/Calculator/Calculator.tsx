@@ -8,6 +8,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { CurrencyInput } from "@/components/ui/currency-input";
 import { CalculatorProps, CurrencyData } from "../../interfaces/interfaces";
 
@@ -20,6 +26,16 @@ export const Calculator = ({ currencies }: CalculatorProps) => {
   const [selectedCurrency, setSelectedCurrency] = useState<CurrencyData | null>(null);
   const [amount, setAmount] = useState("");
   const [fromCurrency, setFromCurrency] = useState<"USD" | "ARS">("USD");
+  const [isSwapped, setIsSwapped] = useState(false);
+  const [copied, setCopied] = useState(false);
+
+  const handleCopyResult = async () => {
+    if (result) {
+      await navigator.clipboard.writeText(`${formatARS.format(parseFloat(result))} ${toCurrency}`);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1500);
+    }
+  };
 
   useEffect(() => {
     if (currencies.length > 0) {
@@ -38,6 +54,7 @@ export const Calculator = ({ currencies }: CalculatorProps) => {
   const toCurrency = fromCurrency === "USD" ? "ARS" : "USD";
 
   const handleSwap = () => {
+    setIsSwapped(!isSwapped);
     setFromCurrency(toCurrency);
     if (result) {
       setAmount(result);
@@ -116,6 +133,8 @@ export const Calculator = ({ currencies }: CalculatorProps) => {
           <motion.button
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
+            animate={{ rotate: isSwapped ? 180 : 0 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
             onClick={handleSwap}
             className="flex items-center justify-center w-12 h-12 rounded-xl bg-muted/50 border border-border/60 hover:bg-muted hover:border-border transition-all"
             title="Intercambiar monedas"
@@ -136,11 +155,38 @@ export const Calculator = ({ currencies }: CalculatorProps) => {
             className="bg-foreground text-background rounded-2xl p-5 mt-1"
           >
             <div className="flex items-baseline justify-between">
-              <div>
+              <div className="relative">
                 <p className="text-xs text-background/60 mb-0.5">Resultado</p>
-                <p className="text-3xl font-semibold tracking-tight tabular-nums">
-                  {result ? formatARS.format(parseFloat(result)) : "0"}
-                </p>
+                <TooltipProvider delayDuration={300}>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <motion.button
+                        onClick={handleCopyResult}
+                        whileTap={{ scale: 0.95 }}
+                        className="relative"
+                      >
+                        <p className="text-3xl font-semibold tracking-tight tabular-nums">
+                          {result ? formatARS.format(parseFloat(result)) : "0"}
+                        </p>
+                        <AnimatePresence>
+                          {copied && (
+                            <motion.span
+                              initial={{ opacity: 0, y: 5 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              exit={{ opacity: 0 }}
+                              className="absolute -top-5 left-0 text-[10px] px-2 py-0.5 rounded whitespace-nowrap bg-background text-foreground"
+                            >
+                              Copiado
+                            </motion.span>
+                          )}
+                        </AnimatePresence>
+                      </motion.button>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>Click para copiar</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
               </div>
               <div className="text-right">
                 <span className="text-xl font-medium text-background/80">{toCurrency}</span>

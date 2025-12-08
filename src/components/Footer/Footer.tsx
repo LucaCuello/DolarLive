@@ -10,7 +10,7 @@ import {
 const socialLinks = [
   {
     icon: Github,
-    href: "https://github.com/LucaCuello/DolarLive",
+    href: "https://github.com/LucaCuello",
     label: "GitHub",
   },
   {
