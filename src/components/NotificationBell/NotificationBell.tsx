@@ -1,17 +1,17 @@
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Bell, Check } from "lucide-react";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { notifications, Notification } from "@/data/notifications";
+import { Notification, notifications } from "@/data/notifications";
 import {
   getReadNotifications,
-  markNotificationRead,
   markAllNotificationsRead,
+  markNotificationRead,
 } from "@/utils/utils";
+import { AnimatePresence, motion } from "framer-motion";
+import { Bell, Check } from "lucide-react";
+import { useEffect, useState } from "react";
 
 export const NotificationBell = () => {
   const [readIds, setReadIds] = useState<string[]>([]);
@@ -21,7 +21,9 @@ export const NotificationBell = () => {
     setReadIds(getReadNotifications());
   }, []);
 
-  const unreadCount = notifications.filter((n) => !readIds.includes(n.id)).length;
+  const unreadCount = notifications.filter(
+    (n) => !readIds.includes(n.id)
+  ).length;
 
   const handleMarkAsRead = (id: string) => {
     markNotificationRead(id);
@@ -63,7 +65,9 @@ export const NotificationBell = () => {
         className="w-72 p-0 rounded-xl border-border/60"
       >
         <div className="flex items-center justify-between px-3 py-2 border-b border-border/60">
-          <span className="text-xs font-semibold text-foreground">Novedades</span>
+          <span className="text-xs font-semibold text-foreground">
+            Novedades
+          </span>
           {unreadCount > 0 && (
             <button
               onClick={handleMarkAllAsRead}
@@ -119,16 +123,27 @@ const NotificationItem = ({
           {!isRead && (
             <span className="w-1.5 h-1.5 bg-blue-500 rounded-full flex-shrink-0" />
           )}
-          <span className={`text-xs font-medium truncate ${isRead ? "text-muted-foreground" : "text-foreground"}`}>
+          <span
+            className={`text-xs font-medium truncate ${
+              isRead ? "text-muted-foreground" : "text-foreground"
+            }`}
+          >
             {notification.title}
           </span>
         </div>
-        <p className={`text-[10px] mt-0.5 line-clamp-2 ${isRead ? "text-muted-foreground/70" : "text-muted-foreground"}`}>
+        <p
+          className={`text-[10px] mt-0.5 line-clamp-2 ${
+            isRead ? "text-muted-foreground/70" : "text-muted-foreground"
+          }`}
+        >
           {notification.description}
         </p>
       </div>
       {isRead && (
-        <Check size={12} className="text-muted-foreground/50 flex-shrink-0 mt-0.5" />
+        <Check
+          size={12}
+          className="text-muted-foreground/50 flex-shrink-0 mt-0.5"
+        />
       )}
     </motion.div>
   );

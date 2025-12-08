@@ -1,16 +1,16 @@
-import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useDolarApi } from "./hooks/useDolarApi";
-import { CurrenciesGrid } from "./components/CurrenciesGrid/CurrenciesGrid";
-import { Calculator } from "./components/Calculator/Calculator";
-import { Inflacion } from "./components/Inflacion/Inflacion";
-import { Historicos } from "./components/Historicos/Historicos";
-import { Header } from "./components/Header/Header";
-import { Footer } from "./components/Footer/Footer";
-import { LastUpdated } from "./components/LastUpdated/LastUpdated";
-import { getDefaultTab, saveDefaultTab, getTheme, saveTheme, Theme } from "./utils/utils";
+import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 import "./App.css";
+import { Calculator } from "./components/Calculator/Calculator";
+import { CurrenciesGrid } from "./components/CurrenciesGrid/CurrenciesGrid";
+import { Footer } from "./components/Footer/Footer";
+import { Header } from "./components/Header/Header";
+import { Historicos } from "./components/Historicos/Historicos";
+import { Inflacion } from "./components/Inflacion/Inflacion";
+import { LastUpdated } from "./components/LastUpdated/LastUpdated";
+import { useDolarApi } from "./hooks/useDolarApi";
+import { getDefaultTab, getTheme, saveDefaultTab, saveTheme, Theme } from "./utils/utils";
 
 function formatDate(dateString: string): string {
   const date = new Date(dateString);
@@ -23,7 +23,7 @@ function formatDate(dateString: string): string {
 }
 
 function App() {
-  const { data: dolar, loading } = useDolarApi();
+  const { data: dolar, loading, refetch } = useDolarApi();
   const [theme, setTheme] = useState<Theme>(getTheme);
 
   const toggleTheme = () => {
@@ -32,7 +32,6 @@ function App() {
     saveTheme(newTheme);
   };
 
-  // Aplicar clase dark al documentElement para que los portales (tooltips) la hereden
   useEffect(() => {
     if (theme === "dark") {
       document.documentElement.classList.add("dark");
@@ -48,7 +47,7 @@ function App() {
   return (
     <div className="extension-container flex flex-col bg-background">
       <div className="px-6 pt-3 pb-1">
-        <Header theme={theme} onToggleTheme={toggleTheme} />
+        <Header theme={theme} onToggleTheme={toggleTheme} onRefresh={refetch} />
       </div>
 
       <motion.div

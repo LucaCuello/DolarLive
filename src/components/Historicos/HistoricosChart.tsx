@@ -1,4 +1,3 @@
-import { Line, LineChart, XAxis, YAxis } from "recharts";
 import {
   ChartConfig,
   ChartContainer,
@@ -6,6 +5,7 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 import { DolarHistoricoData } from "@/hooks/useDolarHistorico";
+import { Line, LineChart, XAxis, YAxis } from "recharts";
 
 interface HistoricosChartProps {
   data: DolarHistoricoData[];
@@ -25,7 +25,20 @@ const chartConfig = {
 function formatDate(fecha: string): string {
   const date = new Date(fecha);
   const day = date.getDate();
-  const months = ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"];
+  const months = [
+    "Ene",
+    "Feb",
+    "Mar",
+    "Abr",
+    "May",
+    "Jun",
+    "Jul",
+    "Ago",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dic",
+  ];
   return `${day} ${months[date.getMonth()]}`;
 }
 
@@ -39,8 +52,9 @@ export function HistoricosChart({ data }: HistoricosChartProps) {
     dateLabel: formatDate(item.fecha),
   }));
 
-  // Calcular dominio Y con margen
-  const allValues = data.flatMap((d) => [d.blue, d.oficial]).filter((v) => v > 0);
+  const allValues = data
+    .flatMap((d) => [d.blue, d.oficial])
+    .filter((v) => v > 0);
   const minValue = Math.min(...allValues);
   const maxValue = Math.max(...allValues);
   const padding = (maxValue - minValue) * 0.1;
@@ -78,8 +92,12 @@ export function HistoricosChart({ data }: HistoricosChartProps) {
                       name === "blue" ? "bg-foreground" : "bg-muted-foreground"
                     }`}
                   />
-                  <span className="text-muted-foreground capitalize">{name}:</span>
-                  <span className="font-semibold">{formatPrice(Number(value))}</span>
+                  <span className="text-muted-foreground capitalize">
+                    {name}:
+                  </span>
+                  <span className="font-semibold">
+                    {formatPrice(Number(value))}
+                  </span>
                 </div>
               )}
               labelFormatter={(_, payload) => {

@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { Skeleton } from "@/components/ui/skeleton";
+import { RangoTiempo, useDolarHistorico } from "@/hooks/useDolarHistorico";
 import { motion } from "framer-motion";
-import { useDolarHistorico, RangoTiempo } from "@/hooks/useDolarHistorico";
+import { useState } from "react";
 import { HistoricosChart } from "./HistoricosChart";
 import { RangeSelector } from "./RangeSelector";
-import { Skeleton } from "@/components/ui/skeleton";
 
 function formatPrice(value: number): string {
   return `$${value.toLocaleString("es-AR")}`;
@@ -16,8 +16,14 @@ function formatVariacion(value: number): string {
 
 export function Historicos() {
   const [rango, setRango] = useState<RangoTiempo>("1M");
-  const { data, loading, blueActual, oficialActual, blueVariacion, oficialVariacion } =
-    useDolarHistorico(rango);
+  const {
+    data,
+    loading,
+    blueActual,
+    oficialActual,
+    blueVariacion,
+    oficialVariacion,
+  } = useDolarHistorico(rango);
 
   const rangoLabel = {
     "1M": "30d",
@@ -28,7 +34,6 @@ export function Historicos() {
 
   return (
     <div className="space-y-3">
-      {/* Header */}
       <div className="flex items-center justify-between">
         <h2 className="text-[11px] font-medium text-muted-foreground uppercase tracking-wide">
           Histórico Blue vs Oficial
@@ -50,7 +55,6 @@ export function Historicos() {
         </motion.div>
       )}
 
-      {/* Stats */}
       <div className="grid grid-cols-2 gap-2">
         <motion.div
           initial={{ opacity: 0, y: 8 }}
@@ -60,7 +64,9 @@ export function Historicos() {
         >
           <div className="flex items-center gap-1.5 mb-1">
             <div className="w-2 h-2 rounded-full bg-background" />
-            <span className="text-[10px] font-medium text-background/70">Blue</span>
+            <span className="text-[10px] font-medium text-background/70">
+              Blue
+            </span>
           </div>
           {loading ? (
             <Skeleton className="h-5 w-20 bg-background/20" />
@@ -88,7 +94,9 @@ export function Historicos() {
         >
           <div className="flex items-center gap-1.5 mb-1">
             <div className="w-2 h-2 rounded-full bg-muted-foreground" />
-            <span className="text-[10px] font-medium text-muted-foreground">Oficial</span>
+            <span className="text-[10px] font-medium text-muted-foreground">
+              Oficial
+            </span>
           </div>
           {loading ? (
             <Skeleton className="h-5 w-20" />

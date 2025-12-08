@@ -1,11 +1,11 @@
-import { motion } from "framer-motion";
-import { PlazoFijoData } from "@/hooks/usePlazoFijo";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { PlazoFijoData } from "@/hooks/usePlazoFijo";
+import { motion } from "framer-motion";
 
 interface PlazoFijoCardProps {
   data: PlazoFijoData;
@@ -13,7 +13,11 @@ interface PlazoFijoCardProps {
   isTop?: boolean;
 }
 
-export function PlazoFijoCard({ data, index, isTop = false }: PlazoFijoCardProps) {
+export function PlazoFijoCard({
+  data,
+  index,
+  isTop = false,
+}: PlazoFijoCardProps) {
   const tnaFormatted = (data.tnaClientes * 100).toFixed(1);
 
   return (
@@ -23,9 +27,10 @@ export function PlazoFijoCard({ data, index, isTop = false }: PlazoFijoCardProps
       transition={{ duration: 0.3, delay: index * 0.05 }}
       className={`
         rounded-lg border px-2.5 py-2 transition-all
-        ${isTop
-          ? "border-foreground/20 bg-foreground text-background"
-          : "border-border/60 bg-card hover:border-border"
+        ${
+          isTop
+            ? "border-foreground/20 bg-foreground text-background"
+            : "border-border/60 bg-card hover:border-border"
         }
       `}
     >
@@ -43,7 +48,11 @@ export function PlazoFijoCard({ data, index, isTop = false }: PlazoFijoCardProps
         <TooltipProvider delayDuration={200}>
           <Tooltip>
             <TooltipTrigger asChild>
-              <span className={`text-[9px] font-medium truncate cursor-default ${isTop ? "text-background/70" : "text-muted-foreground"}`}>
+              <span
+                className={`text-[9px] font-medium truncate cursor-default ${
+                  isTop ? "text-background/70" : "text-muted-foreground"
+                }`}
+              >
                 {data.entidad}
               </span>
             </TooltipTrigger>
@@ -54,10 +63,18 @@ export function PlazoFijoCard({ data, index, isTop = false }: PlazoFijoCardProps
         </TooltipProvider>
       </div>
       <div className="flex items-baseline gap-0.5">
-        <span className={`text-base font-semibold tabular-nums ${isTop ? "text-background" : "text-foreground"}`}>
+        <span
+          className={`text-base font-semibold tabular-nums ${
+            isTop ? "text-background" : "text-foreground"
+          }`}
+        >
           {tnaFormatted}%
         </span>
-        <span className={`text-[8px] ${isTop ? "text-background/50" : "text-muted-foreground"}`}>
+        <span
+          className={`text-[8px] ${
+            isTop ? "text-background/50" : "text-muted-foreground"
+          }`}
+        >
           TNA
         </span>
       </div>

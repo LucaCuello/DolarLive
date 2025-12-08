@@ -1,12 +1,12 @@
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { CurrencyComponentProps } from "../../interfaces/interfaces";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { AnimatePresence, motion } from "framer-motion";
+import { useState } from "react";
+import { CurrencyComponentProps } from "../../interfaces/interfaces";
 
 const formatNumber = new Intl.NumberFormat("es-AR", {
   minimumFractionDigits: 0,
@@ -42,18 +42,27 @@ export const CurrencyComponent = ({
       }}
       className={`
         group relative overflow-hidden rounded-2xl border p-4 transition-all duration-200 cursor-pointer
-        ${isBlue
-          ? "border-foreground/20 bg-foreground text-background"
-          : "border-border/60 bg-card hover:border-border hover:shadow-sm"
+        ${
+          isBlue
+            ? "border-foreground/20 bg-foreground text-background"
+            : "border-border/60 bg-card hover:border-border hover:shadow-sm"
         }
       `}
     >
       <div className="flex items-start justify-between mb-3">
         <div>
-          <span className={`text-[10px] font-medium uppercase tracking-wider ${isBlue ? "text-background/60" : "text-muted-foreground"}`}>
+          <span
+            className={`text-[10px] font-medium uppercase tracking-wider ${
+              isBlue ? "text-background/60" : "text-muted-foreground"
+            }`}
+          >
             {type === "Euro oficial" ? "Euro" : "Dólar"}
           </span>
-          <h2 className={`text-base font-semibold tracking-tight -mt-0.5 ${isBlue ? "text-background" : "text-foreground"}`}>
+          <h2
+            className={`text-base font-semibold tracking-tight -mt-0.5 ${
+              isBlue ? "text-background" : "text-foreground"
+            }`}
+          >
             {type === "Euro oficial" ? "Oficial" : type}
           </h2>
         </div>
@@ -66,7 +75,13 @@ export const CurrencyComponent = ({
 
       <div className="space-y-2">
         <div className="flex items-center justify-between">
-          <span className={`text-xs ${isBlue ? "text-background/60" : "text-muted-foreground"}`}>Venta</span>
+          <span
+            className={`text-xs ${
+              isBlue ? "text-background/60" : "text-muted-foreground"
+            }`}
+          >
+            Venta
+          </span>
           {sellValue != null ? (
             <TooltipProvider delayDuration={300}>
               <Tooltip>
@@ -76,7 +91,11 @@ export const CurrencyComponent = ({
                     whileTap={{ scale: 0.95 }}
                     className="relative"
                   >
-                    <span className={`text-lg font-semibold tabular-nums tracking-tight ${isBlue ? "text-background" : "text-foreground"}`}>
+                    <span
+                      className={`text-lg font-semibold tabular-nums tracking-tight ${
+                        isBlue ? "text-background" : "text-foreground"
+                      }`}
+                    >
                       ${formatNumber.format(sellValue)}
                     </span>
                     <AnimatePresence>
@@ -86,7 +105,9 @@ export const CurrencyComponent = ({
                           animate={{ opacity: 1, y: 0 }}
                           exit={{ opacity: 0 }}
                           className={`absolute -top-6 right-0 text-[10px] px-2 py-0.5 rounded whitespace-nowrap ${
-                            isBlue ? "bg-background text-foreground" : "bg-foreground text-background"
+                            isBlue
+                              ? "bg-background text-foreground"
+                              : "bg-foreground text-background"
                           }`}
                         >
                           Copiado
@@ -104,11 +125,23 @@ export const CurrencyComponent = ({
             <span className="text-xs text-muted-foreground">—</span>
           )}
         </div>
-        <div className={`h-px ${isBlue ? "bg-background/10" : "bg-border/60"}`} />
+        <div
+          className={`h-px ${isBlue ? "bg-background/10" : "bg-border/60"}`}
+        />
         <div className="flex items-center justify-between">
-          <span className={`text-xs ${isBlue ? "text-background/60" : "text-muted-foreground"}`}>Compra</span>
+          <span
+            className={`text-xs ${
+              isBlue ? "text-background/60" : "text-muted-foreground"
+            }`}
+          >
+            Compra
+          </span>
           {buyValue != null ? (
-            <span className={`text-sm font-medium tabular-nums ${isBlue ? "text-background/80" : "text-muted-foreground"}`}>
+            <span
+              className={`text-sm font-medium tabular-nums ${
+                isBlue ? "text-background/80" : "text-muted-foreground"
+              }`}
+            >
               ${formatNumber.format(buyValue)}
             </span>
           ) : (

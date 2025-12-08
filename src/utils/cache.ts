@@ -38,3 +38,13 @@ export const CACHE_KEYS = {
   INFLACION: "cache_inflacion",
   PLAZO_FIJO: "cache_plazo_fijo",
 } as const;
+
+export function clearAllCache(): void {
+  Object.values(CACHE_KEYS).forEach((key) => {
+    localStorage.removeItem(key);
+  });
+  // También limpiar cache de histórico con diferentes rangos
+  ["1M", "3M", "6M", "1A"].forEach((rango) => {
+    localStorage.removeItem(`${CACHE_KEYS.HISTORICO}_${rango}`);
+  });
+}

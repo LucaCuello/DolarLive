@@ -1,15 +1,17 @@
 import { motion } from "framer-motion";
-import { Sun, Moon } from "lucide-react";
+import { Moon, Sun } from "lucide-react";
 import { useApiStatus } from "../../hooks/useDolarApi";
 import { Theme } from "../../utils/utils";
 import { NotificationBell } from "../NotificationBell/NotificationBell";
+import { RefreshButton } from "../RefreshButton/RefreshButton";
 
 interface HeaderProps {
   theme: Theme;
   onToggleTheme: () => void;
+  onRefresh: () => void;
 }
 
-export const Header = ({ theme, onToggleTheme }: HeaderProps) => {
+export const Header = ({ theme, onToggleTheme, onRefresh }: HeaderProps) => {
   const { isAvailable } = useApiStatus();
 
   return (
@@ -24,8 +26,12 @@ export const Header = ({ theme, onToggleTheme }: HeaderProps) => {
           <span className="text-background font-semibold text-sm">$</span>
         </div>
         <div className="flex flex-col">
-          <span className="text-sm font-semibold tracking-tight text-foreground">DolarLive</span>
-          <span className="text-[10px] text-muted-foreground -mt-0.5">Cotizaciones en tiempo real</span>
+          <span className="text-sm font-semibold tracking-tight text-foreground">
+            DolarLive
+          </span>
+          <span className="text-[10px] text-muted-foreground -mt-0.5">
+            Cotizaciones en tiempo real
+          </span>
         </div>
       </div>
       <div className="flex items-center gap-2">
@@ -33,7 +39,9 @@ export const Header = ({ theme, onToggleTheme }: HeaderProps) => {
           onClick={onToggleTheme}
           whileTap={{ scale: 0.95 }}
           className="p-1.5 rounded-lg hover:bg-muted transition-colors"
-          aria-label={theme === "light" ? "Activar modo oscuro" : "Activar modo claro"}
+          aria-label={
+            theme === "light" ? "Activar modo oscuro" : "Activar modo claro"
+          }
         >
           {theme === "light" ? (
             <Moon size={14} className="text-muted-foreground" />
@@ -42,6 +50,7 @@ export const Header = ({ theme, onToggleTheme }: HeaderProps) => {
           )}
         </motion.button>
         <NotificationBell />
+        <RefreshButton onRefresh={onRefresh} />
         <div className="flex items-center gap-1.5">
           {isAvailable === null ? (
             <span className="w-1.5 h-1.5 bg-muted-foreground/50 rounded-full" />
@@ -50,7 +59,11 @@ export const Header = ({ theme, onToggleTheme }: HeaderProps) => {
               <motion.span
                 className="absolute w-3 h-3 bg-emerald-500/30 rounded-full"
                 animate={{ scale: [1, 2], opacity: [0.6, 0] }}
-                transition={{ duration: 1.5, repeat: Infinity, ease: "easeOut" }}
+                transition={{
+                  duration: 1.5,
+                  repeat: Infinity,
+                  ease: "easeOut",
+                }}
               />
               <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full" />
             </span>

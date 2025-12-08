@@ -50,7 +50,11 @@ export function CurrenciesGrid({ currencies, loading }: CurrenciesGridProps) {
       {currencies.map((currency, index) => (
         <CurrencyComponent
           key={currency.nombre}
-          type={currency.nombre === "Contado con liquidación" ? "CCL" : currency.nombre}
+          type={
+            currency.nombre === "Contado con liquidación"
+              ? "CCL"
+              : currency.nombre
+          }
           buyValue={currency.compra}
           sellValue={currency.venta}
           index={index}

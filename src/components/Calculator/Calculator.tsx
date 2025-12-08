@@ -1,6 +1,4 @@
-import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { ArrowUpDown, X } from "lucide-react";
+import { CurrencyInput } from "@/components/ui/currency-input";
 import {
   Select,
   SelectContent,
@@ -14,7 +12,9 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { CurrencyInput } from "@/components/ui/currency-input";
+import { AnimatePresence, motion } from "framer-motion";
+import { ArrowUpDown, X } from "lucide-react";
+import { useEffect, useState } from "react";
 import { CalculatorProps, CurrencyData } from "../../interfaces/interfaces";
 
 const formatARS = new Intl.NumberFormat("es-AR", {
@@ -23,7 +23,9 @@ const formatARS = new Intl.NumberFormat("es-AR", {
 });
 
 export const Calculator = ({ currencies }: CalculatorProps) => {
-  const [selectedCurrency, setSelectedCurrency] = useState<CurrencyData | null>(null);
+  const [selectedCurrency, setSelectedCurrency] = useState<CurrencyData | null>(
+    null
+  );
   const [amount, setAmount] = useState("");
   const [fromCurrency, setFromCurrency] = useState<"USD" | "ARS">("USD");
   const [isSwapped, setIsSwapped] = useState(false);
@@ -32,7 +34,9 @@ export const Calculator = ({ currencies }: CalculatorProps) => {
 
   const handleCopyVenta = async () => {
     if (resultVenta) {
-      await navigator.clipboard.writeText(`${formatARS.format(parseFloat(resultVenta))} ${toCurrency}`);
+      await navigator.clipboard.writeText(
+        `${formatARS.format(parseFloat(resultVenta))} ${toCurrency}`
+      );
       setCopiedVenta(true);
       setTimeout(() => setCopiedVenta(false), 1500);
     }
@@ -40,7 +44,9 @@ export const Calculator = ({ currencies }: CalculatorProps) => {
 
   const handleCopyCompra = async () => {
     if (resultCompra) {
-      await navigator.clipboard.writeText(`${formatARS.format(parseFloat(resultCompra))} ${toCurrency}`);
+      await navigator.clipboard.writeText(
+        `${formatARS.format(parseFloat(resultCompra))} ${toCurrency}`
+      );
       setCopiedCompra(true);
       setTimeout(() => setCopiedCompra(false), 1500);
     }
@@ -48,7 +54,8 @@ export const Calculator = ({ currencies }: CalculatorProps) => {
 
   useEffect(() => {
     if (currencies.length > 0) {
-      const initialCurrency = currencies.find((c) => c.nombre === "Blue") || currencies[0];
+      const initialCurrency =
+        currencies.find((c) => c.nombre === "Blue") || currencies[0];
       setSelectedCurrency(initialCurrency);
     }
   }, [currencies]);
@@ -85,7 +92,9 @@ export const Calculator = ({ currencies }: CalculatorProps) => {
       className="flex flex-col gap-4 w-full"
     >
       <div className="space-y-2">
-        <label className="text-xs font-medium text-muted-foreground">Tipo de cambio</label>
+        <label className="text-xs font-medium text-muted-foreground">
+          Tipo de cambio
+        </label>
         <Select
           value={selectedCurrency?.nombre || ""}
           onValueChange={(value) => {
@@ -104,8 +113,14 @@ export const Calculator = ({ currencies }: CalculatorProps) => {
                 className="rounded-lg py-2.5 px-3 text-sm font-medium cursor-pointer transition-colors focus:bg-muted"
               >
                 <div className="flex items-center justify-between w-full gap-4">
-                  <span>{currency.nombre === "Contado con liquidación" ? "CCL" : currency.nombre}</span>
-                  <span className="text-muted-foreground tabular-nums">${Math.round(currency.venta)}</span>
+                  <span>
+                    {currency.nombre === "Contado con liquidación"
+                      ? "CCL"
+                      : currency.nombre}
+                  </span>
+                  <span className="text-muted-foreground tabular-nums">
+                    ${Math.round(currency.venta)}
+                  </span>
                 </div>
               </SelectItem>
             ))}
@@ -114,7 +129,9 @@ export const Calculator = ({ currencies }: CalculatorProps) => {
       </div>
 
       <div className="space-y-2">
-        <label className="text-xs font-medium text-muted-foreground">Monto a convertir</label>
+        <label className="text-xs font-medium text-muted-foreground">
+          Monto a convertir
+        </label>
         <div className="flex items-center gap-3">
           <div className="flex-1 relative">
             <CurrencyInput
@@ -171,7 +188,6 @@ export const Calculator = ({ currencies }: CalculatorProps) => {
             className="bg-foreground text-background rounded-2xl p-4 mt-1"
           >
             <div className="grid grid-cols-2 gap-4">
-              {/* Venta */}
               <div className="relative">
                 <p className="text-[10px] text-background/50 mb-0.5">Venta</p>
                 <TooltipProvider delayDuration={300}>
@@ -183,8 +199,12 @@ export const Calculator = ({ currencies }: CalculatorProps) => {
                         className="relative"
                       >
                         <p className="text-2xl font-semibold tracking-tight tabular-nums">
-                          {resultVenta ? formatARS.format(parseFloat(resultVenta)) : "0"}
-                          <span className="text-sm font-medium text-background/60 ml-1">{toCurrency}</span>
+                          {resultVenta
+                            ? formatARS.format(parseFloat(resultVenta))
+                            : "0"}
+                          <span className="text-sm font-medium text-background/60 ml-1">
+                            {toCurrency}
+                          </span>
                         </p>
                         <AnimatePresence>
                           {copiedVenta && (
@@ -210,7 +230,6 @@ export const Calculator = ({ currencies }: CalculatorProps) => {
                 </p>
               </div>
 
-              {/* Compra */}
               <div className="relative">
                 <p className="text-[10px] text-background/50 mb-0.5">Compra</p>
                 <TooltipProvider delayDuration={300}>
@@ -224,9 +243,15 @@ export const Calculator = ({ currencies }: CalculatorProps) => {
                       >
                         <p className="text-2xl font-semibold tracking-tight tabular-nums">
                           {selectedCurrency.compra
-                            ? (resultCompra ? formatARS.format(parseFloat(resultCompra)) : "0")
+                            ? resultCompra
+                              ? formatARS.format(parseFloat(resultCompra))
+                              : "0"
                             : "—"}
-                          {selectedCurrency.compra && <span className="text-sm font-medium text-background/60 ml-1">{toCurrency}</span>}
+                          {selectedCurrency.compra && (
+                            <span className="text-sm font-medium text-background/60 ml-1">
+                              {toCurrency}
+                            </span>
+                          )}
                         </p>
                         <AnimatePresence>
                           {copiedCompra && (
@@ -243,7 +268,11 @@ export const Calculator = ({ currencies }: CalculatorProps) => {
                       </motion.button>
                     </TooltipTrigger>
                     <TooltipContent>
-                      <p>{selectedCurrency.compra ? "Click para copiar" : "No disponible"}</p>
+                      <p>
+                        {selectedCurrency.compra
+                          ? "Click para copiar"
+                          : "No disponible"}
+                      </p>
                     </TooltipContent>
                   </Tooltip>
                 </TooltipProvider>

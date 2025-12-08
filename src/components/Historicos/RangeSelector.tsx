@@ -21,9 +21,10 @@ export function RangeSelector({ value, onChange }: RangeSelectorProps) {
           onClick={() => onChange(rango.value)}
           className={`
             px-2 py-0.5 text-[10px] font-medium rounded-md transition-all
-            ${value === rango.value
-              ? "bg-foreground text-background"
-              : "text-muted-foreground hover:text-foreground"
+            ${
+              value === rango.value
+                ? "bg-foreground text-background"
+                : "text-muted-foreground hover:text-foreground"
             }
           `}
         >

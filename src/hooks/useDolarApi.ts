@@ -11,40 +11,44 @@ export function useDolarApi() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      // Intentar usar cache primero
+  const fetchData = async (forceRefresh = false) => {
+    // Intentar usar cache primero (si no es refresh forzado)
+    if (!forceRefresh) {
       const cached = getCache<CurrencyData[]>(CACHE_KEYS.DOLARES);
       if (cached) {
         setData(cached);
         setLoading(false);
         return;
       }
+    }
 
-      // Si no hay cache, hacer fetch
-      setLoading(true);
-      try {
-        const { data: response } = await axios.get(API_URL);
-        const sorted = response.sort((a: CurrencyData, b: CurrencyData) => {
-          if (a.nombre === "Blue") return -1;
-          if (b.nombre === "Blue") return 1;
-          return 0;
-        });
-        setData(sorted);
-        setCache(CACHE_KEYS.DOLARES, sorted);
-        setError(null);
-      } catch (err) {
-        console.error("Error al obtener cotizaciones:", err);
-        setError("Error al cargar las cotizaciones");
-      } finally {
-        setLoading(false);
-      }
-    };
+    // Hacer fetch
+    setLoading(true);
+    try {
+      const { data: response } = await axios.get(API_URL);
+      const sorted = response.sort((a: CurrencyData, b: CurrencyData) => {
+        if (a.nombre === "Blue") return -1;
+        if (b.nombre === "Blue") return 1;
+        return 0;
+      });
+      setData(sorted);
+      setCache(CACHE_KEYS.DOLARES, sorted);
+      setError(null);
+    } catch (err) {
+      console.error("Error al obtener cotizaciones:", err);
+      setError("Error al cargar las cotizaciones");
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  useEffect(() => {
     fetchData();
   }, []);
 
-  return { data, loading, error };
+  const refetch = () => fetchData(true);
+
+  return { data, loading, error, refetch };
 }
 
 interface ApiStatus {

@@ -1,4 +1,3 @@
-import { Area, AreaChart, XAxis, YAxis } from "recharts";
 import {
   ChartConfig,
   ChartContainer,
@@ -6,6 +5,7 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 import { InflacionData } from "@/hooks/useInflacion";
+import { Area, AreaChart, XAxis, YAxis } from "recharts";
 
 interface InflacionChartProps {
   data: InflacionData[];
@@ -18,10 +18,22 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
-// Formatear fecha de "2024-01" a "Ene 24"
 function formatMonth(fecha: string): string {
   const [year, month] = fecha.split("-");
-  const months = ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"];
+  const months = [
+    "Ene",
+    "Feb",
+    "Mar",
+    "Abr",
+    "May",
+    "Jun",
+    "Jul",
+    "Ago",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dic",
+  ];
   return `${months[parseInt(month) - 1]} ${year.slice(2)}`;
 }
 
@@ -39,8 +51,16 @@ export function InflacionChart({ data }: InflacionChartProps) {
       >
         <defs>
           <linearGradient id="fillInflacion" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="hsl(var(--foreground))" stopOpacity={0.3} />
-            <stop offset="100%" stopColor="hsl(var(--foreground))" stopOpacity={0.02} />
+            <stop
+              offset="0%"
+              stopColor="hsl(var(--foreground))"
+              stopOpacity={0.3}
+            />
+            <stop
+              offset="100%"
+              stopColor="hsl(var(--foreground))"
+              stopOpacity={0.02}
+            />
           </linearGradient>
         </defs>
         <XAxis
@@ -64,7 +84,9 @@ export function InflacionChart({ data }: InflacionChartProps) {
           content={
             <ChartTooltipContent
               formatter={(value) => (
-                <span className="font-semibold">{Number(value).toFixed(1)}%</span>
+                <span className="font-semibold">
+                  {Number(value).toFixed(1)}%
+                </span>
               )}
               labelFormatter={(_, payload) => {
                 if (payload && payload[0]) {

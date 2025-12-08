@@ -1,26 +1,31 @@
-import { motion } from "framer-motion";
+import { Skeleton } from "@/components/ui/skeleton";
 import { useInflacion } from "@/hooks/useInflacion";
 import { usePlazoFijo } from "@/hooks/usePlazoFijo";
+import { motion } from "framer-motion";
 import { InflacionChart } from "./InflacionChart";
 import { PlazoFijoCard } from "./PlazoFijoCard";
-import { Skeleton } from "@/components/ui/skeleton";
 
 export function Inflacion() {
-  const { data: inflacionData, loading: inflacionLoading, ultimoMes, interanual } = useInflacion();
+  const {
+    data: inflacionData,
+    loading: inflacionLoading,
+    ultimoMes,
+    interanual,
+  } = useInflacion();
   const { data: plazoFijoData, loading: plazoFijoLoading } = usePlazoFijo();
 
   return (
     <div className="space-y-3">
-      {/* Sección Inflación */}
       <section>
-        {/* Header con stats inline */}
         <div className="flex items-center justify-between mb-2">
           <h2 className="text-[11px] font-medium text-muted-foreground uppercase tracking-wide">
             Inflación Mensual
           </h2>
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-1.5">
-              <span className="text-[10px] text-muted-foreground">Último mes</span>
+              <span className="text-[10px] text-muted-foreground">
+                Último mes
+              </span>
               {inflacionLoading ? (
                 <Skeleton className="h-4 w-10" />
               ) : (
@@ -30,7 +35,9 @@ export function Inflacion() {
               )}
             </div>
             <div className="flex items-center gap-1.5">
-              <span className="text-[10px] text-muted-foreground">Interanual</span>
+              <span className="text-[10px] text-muted-foreground">
+                Interanual
+              </span>
               {inflacionLoading ? (
                 <Skeleton className="h-4 w-12" />
               ) : (
@@ -55,7 +62,6 @@ export function Inflacion() {
         )}
       </section>
 
-      {/* Sección Plazo Fijo */}
       <section>
         <h2 className="text-[11px] font-medium text-muted-foreground uppercase tracking-wide mb-2">
           Mejores Tasas Plazo Fijo (TNA 30 días)
