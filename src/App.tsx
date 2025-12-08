@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useDolarApi } from "./hooks/useDolarApi";
@@ -8,7 +9,7 @@ import { Historicos } from "./components/Historicos/Historicos";
 import { Header } from "./components/Header/Header";
 import { Footer } from "./components/Footer/Footer";
 import { LastUpdated } from "./components/LastUpdated/LastUpdated";
-import { getDefaultTab, saveDefaultTab } from "./utils/utils";
+import { getDefaultTab, saveDefaultTab, getTheme, saveTheme, Theme } from "./utils/utils";
 import "./App.css";
 
 function formatDate(dateString: string): string {
@@ -23,15 +24,22 @@ function formatDate(dateString: string): string {
 
 function App() {
   const { data: dolar, loading } = useDolarApi();
+  const [theme, setTheme] = useState<Theme>(getTheme);
+
+  const toggleTheme = () => {
+    const newTheme = theme === "light" ? "dark" : "light";
+    setTheme(newTheme);
+    saveTheme(newTheme);
+  };
 
   const formattedDate = dolar[0]?.fechaActualizacion
     ? formatDate(dolar[0].fechaActualizacion)
     : "";
 
   return (
-    <div className="extension-container flex flex-col bg-background">
+    <div className={`extension-container flex flex-col bg-background ${theme === "dark" ? "dark" : ""}`}>
       <div className="px-6 pt-3 pb-1">
-        <Header />
+        <Header theme={theme} onToggleTheme={toggleTheme} />
       </div>
 
       <motion.div

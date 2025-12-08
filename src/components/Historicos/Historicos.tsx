@@ -84,7 +84,7 @@ export function Historicos() {
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3, delay: 0.15 }}
-          className="rounded-lg border border-border/60 bg-card px-3 py-2"
+          className="rounded-lg border border-border/60 bg-card text-card-foreground px-3 py-2"
         >
           <div className="flex items-center gap-1.5 mb-1">
             <div className="w-2 h-2 rounded-full bg-muted-foreground" />

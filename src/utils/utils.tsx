@@ -1,4 +1,15 @@
 const TAB_STORAGE_KEY = "defaultTab";
+const THEME_STORAGE_KEY = "theme";
+
+export type Theme = "light" | "dark";
+
+export const getTheme = (): Theme => {
+  return (localStorage.getItem(THEME_STORAGE_KEY) as Theme) || "light";
+};
+
+export const saveTheme = (theme: Theme): void => {
+  localStorage.setItem(THEME_STORAGE_KEY, theme);
+};
 
 export const getDefaultTab = (): string => {
   return localStorage.getItem(TAB_STORAGE_KEY) || "cotizaciones";
