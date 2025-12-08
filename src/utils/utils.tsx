@@ -1,5 +1,6 @@
 const TAB_STORAGE_KEY = "defaultTab";
 const THEME_STORAGE_KEY = "theme";
+const READ_NOTIFICATIONS_KEY = "read_notifications";
 
 export type Theme = "light" | "dark";
 
@@ -17,6 +18,23 @@ export const getDefaultTab = (): string => {
 
 export const saveDefaultTab = (tab: string): void => {
   localStorage.setItem(TAB_STORAGE_KEY, tab);
+};
+
+export const getReadNotifications = (): string[] => {
+  const stored = localStorage.getItem(READ_NOTIFICATIONS_KEY);
+  return stored ? JSON.parse(stored) : [];
+};
+
+export const markNotificationRead = (id: string): void => {
+  const readIds = getReadNotifications();
+  if (!readIds.includes(id)) {
+    readIds.push(id);
+    localStorage.setItem(READ_NOTIFICATIONS_KEY, JSON.stringify(readIds));
+  }
+};
+
+export const markAllNotificationsRead = (ids: string[]): void => {
+  localStorage.setItem(READ_NOTIFICATIONS_KEY, JSON.stringify(ids));
 };
 
 export const toolTipStyles = {

@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Sun, Moon } from "lucide-react";
 import { useApiStatus } from "../../hooks/useDolarApi";
 import { Theme } from "../../utils/utils";
+import { NotificationBell } from "../NotificationBell/NotificationBell";
 
 interface HeaderProps {
   theme: Theme;
@@ -27,7 +28,7 @@ export const Header = ({ theme, onToggleTheme }: HeaderProps) => {
           <span className="text-[10px] text-muted-foreground -mt-0.5">Cotizaciones en tiempo real</span>
         </div>
       </div>
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-2">
         <motion.button
           onClick={onToggleTheme}
           whileTap={{ scale: 0.95 }}
@@ -40,6 +41,7 @@ export const Header = ({ theme, onToggleTheme }: HeaderProps) => {
             <Sun size={14} className="text-muted-foreground" />
           )}
         </motion.button>
+        <NotificationBell />
         <div className="flex items-center gap-1.5">
           {isAvailable === null ? (
             <span className="w-1.5 h-1.5 bg-muted-foreground/50 rounded-full" />
