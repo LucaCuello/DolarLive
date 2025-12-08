@@ -68,6 +68,17 @@ export const Footer = () => {
             </Tooltip>
           ))}
         </div>
+        <motion.a
+          href="https://cafecito.app/lucacuello"
+          target="_blank"
+          rel="noopener noreferrer"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.3, delay: 0.5 }}
+          className="text-[10px] text-muted-foreground hover:text-foreground transition-colors"
+        >
+          ☕ Invitame un cafecito
+        </motion.a>
       </motion.footer>
     </TooltipProvider>
   );
