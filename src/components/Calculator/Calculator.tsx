@@ -27,13 +27,22 @@ export const Calculator = ({ currencies }: CalculatorProps) => {
   const [amount, setAmount] = useState("");
   const [fromCurrency, setFromCurrency] = useState<"USD" | "ARS">("USD");
   const [isSwapped, setIsSwapped] = useState(false);
-  const [copied, setCopied] = useState(false);
+  const [copiedVenta, setCopiedVenta] = useState(false);
+  const [copiedCompra, setCopiedCompra] = useState(false);
 
-  const handleCopyResult = async () => {
-    if (result) {
-      await navigator.clipboard.writeText(`${formatARS.format(parseFloat(result))} ${toCurrency}`);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 1500);
+  const handleCopyVenta = async () => {
+    if (resultVenta) {
+      await navigator.clipboard.writeText(`${formatARS.format(parseFloat(resultVenta))} ${toCurrency}`);
+      setCopiedVenta(true);
+      setTimeout(() => setCopiedVenta(false), 1500);
+    }
+  };
+
+  const handleCopyCompra = async () => {
+    if (resultCompra) {
+      await navigator.clipboard.writeText(`${formatARS.format(parseFloat(resultCompra))} ${toCurrency}`);
+      setCopiedCompra(true);
+      setTimeout(() => setCopiedCompra(false), 1500);
     }
   };
 
@@ -44,11 +53,18 @@ export const Calculator = ({ currencies }: CalculatorProps) => {
     }
   }, [currencies]);
 
-  const result =
+  const resultVenta =
     selectedCurrency && amount
       ? fromCurrency === "USD"
         ? (selectedCurrency.venta * parseFloat(amount)).toFixed(2)
         : (parseFloat(amount) / selectedCurrency.venta).toFixed(2)
+      : "";
+
+  const resultCompra =
+    selectedCurrency && amount && selectedCurrency.compra
+      ? fromCurrency === "USD"
+        ? (selectedCurrency.compra * parseFloat(amount)).toFixed(2)
+        : (parseFloat(amount) / selectedCurrency.compra).toFixed(2)
       : "";
 
   const toCurrency = fromCurrency === "USD" ? "ARS" : "USD";
@@ -152,29 +168,31 @@ export const Calculator = ({ currencies }: CalculatorProps) => {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -8, scale: 0.98 }}
             transition={{ duration: 0.25, ease: [0.4, 0, 0.2, 1] }}
-            className="bg-foreground text-background rounded-2xl p-5 mt-1"
+            className="bg-foreground text-background rounded-2xl p-4 mt-1"
           >
-            <div className="flex items-baseline justify-between">
+            <div className="grid grid-cols-2 gap-4">
+              {/* Venta */}
               <div className="relative">
-                <p className="text-xs text-background/60 mb-0.5">Resultado</p>
+                <p className="text-[10px] text-background/50 mb-0.5">Venta</p>
                 <TooltipProvider delayDuration={300}>
                   <Tooltip>
                     <TooltipTrigger asChild>
                       <motion.button
-                        onClick={handleCopyResult}
+                        onClick={handleCopyVenta}
                         whileTap={{ scale: 0.95 }}
                         className="relative"
                       >
-                        <p className="text-3xl font-semibold tracking-tight tabular-nums">
-                          {result ? formatARS.format(parseFloat(result)) : "0"}
+                        <p className="text-2xl font-semibold tracking-tight tabular-nums">
+                          {resultVenta ? formatARS.format(parseFloat(resultVenta)) : "0"}
+                          <span className="text-sm font-medium text-background/60 ml-1">{toCurrency}</span>
                         </p>
                         <AnimatePresence>
-                          {copied && (
+                          {copiedVenta && (
                             <motion.span
                               initial={{ opacity: 0, y: 5 }}
                               animate={{ opacity: 1, y: 0 }}
                               exit={{ opacity: 0 }}
-                              className="absolute -top-5 left-0 text-[10px] px-2 py-0.5 rounded whitespace-nowrap bg-background text-foreground"
+                              className="absolute -top-4 left-0 text-[10px] px-2 py-0.5 rounded whitespace-nowrap bg-background text-foreground"
                             >
                               Copiado
                             </motion.span>
@@ -187,16 +205,54 @@ export const Calculator = ({ currencies }: CalculatorProps) => {
                     </TooltipContent>
                   </Tooltip>
                 </TooltipProvider>
+                <p className="text-[10px] text-background/40 tabular-nums mt-1">
+                  1 USD = ${formatARS.format(selectedCurrency.venta)}
+                </p>
               </div>
-              <div className="text-right">
-                <span className="text-xl font-medium text-background/80">{toCurrency}</span>
+
+              {/* Compra */}
+              <div className="relative">
+                <p className="text-[10px] text-background/50 mb-0.5">Compra</p>
+                <TooltipProvider delayDuration={300}>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <motion.button
+                        onClick={handleCopyCompra}
+                        whileTap={{ scale: 0.95 }}
+                        className="relative"
+                        disabled={!selectedCurrency.compra}
+                      >
+                        <p className="text-2xl font-semibold tracking-tight tabular-nums">
+                          {selectedCurrency.compra
+                            ? (resultCompra ? formatARS.format(parseFloat(resultCompra)) : "0")
+                            : "—"}
+                          {selectedCurrency.compra && <span className="text-sm font-medium text-background/60 ml-1">{toCurrency}</span>}
+                        </p>
+                        <AnimatePresence>
+                          {copiedCompra && (
+                            <motion.span
+                              initial={{ opacity: 0, y: 5 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              exit={{ opacity: 0 }}
+                              className="absolute -top-4 left-0 text-[10px] px-2 py-0.5 rounded whitespace-nowrap bg-background text-foreground"
+                            >
+                              Copiado
+                            </motion.span>
+                          )}
+                        </AnimatePresence>
+                      </motion.button>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>{selectedCurrency.compra ? "Click para copiar" : "No disponible"}</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+                {selectedCurrency.compra && (
+                  <p className="text-[10px] text-background/40 tabular-nums mt-1">
+                    1 USD = ${formatARS.format(selectedCurrency.compra)}
+                  </p>
+                )}
               </div>
-            </div>
-            <div className="mt-4 pt-3 border-t border-background/10">
-              <p className="text-[11px] text-background/50 flex items-center justify-between">
-                <span>Tipo de cambio:</span>
-                <span className="tabular-nums">1 USD = ${formatARS.format(selectedCurrency.venta)} ARS</span>
-              </p>
             </div>
           </motion.div>
         )}
