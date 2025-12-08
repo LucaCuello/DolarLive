@@ -44,7 +44,14 @@ export const Header = ({ theme, onToggleTheme }: HeaderProps) => {
           {isAvailable === null ? (
             <span className="w-1.5 h-1.5 bg-muted-foreground/50 rounded-full" />
           ) : isAvailable ? (
-            <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse" />
+            <span className="relative flex items-center justify-center">
+              <motion.span
+                className="absolute w-3 h-3 bg-emerald-500/30 rounded-full"
+                animate={{ scale: [1, 2], opacity: [0.6, 0] }}
+                transition={{ duration: 1.5, repeat: Infinity, ease: "easeOut" }}
+              />
+              <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full" />
+            </span>
           ) : (
             <span className="w-1.5 h-1.5 bg-red-500 rounded-full" />
           )}
