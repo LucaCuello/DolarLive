@@ -79,8 +79,8 @@ export const Calculator = ({ currencies }: CalculatorProps) => {
   const handleSwap = () => {
     setIsSwapped(!isSwapped);
     setFromCurrency(toCurrency);
-    if (result) {
-      setAmount(result);
+    if (resultVenta) {
+      setAmount(resultVenta);
     }
   };
 
